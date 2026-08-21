@@ -1672,18 +1672,17 @@
     }
 
     function updateGlobalStats() {
-        const total = Object.keys(characters).length;
-        let alive = 0, dead = 0;
-        Object.values(characters).forEach(char => {
-            if (char.status === 'Жив') alive++;
-            else if (char.status === 'Мертв') dead++;
-        });
-        document.getElementById('survivors').textContent = alive;
-        document.getElementById('deaths').textContent = dead;
-        const progress = total > 0 ? (alive / total) * 100 : 0;
-        document.getElementById('survivorProgress').style.width = Math.min(progress, 100) + '%;
-    }
-
+    const total = Object.keys(characters).length;
+    let alive = 0, dead = 0;
+    Object.values(characters).forEach(char => {
+        if (char.status === 'Жив') alive++;
+        else if (char.status === 'Мертв') dead++;
+    });
+    document.getElementById('survivors').textContent = alive;
+    document.getElementById('deaths').textContent = dead;
+    const progress = total > 0 ? (alive / total) * 100 : 0;
+    document.getElementById('survivorProgress').style.width = Math.min(progress, 100) + '%';
+}
     // =========================================================
     // ПРОФИЛЬ
     // =========================================================
