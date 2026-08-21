@@ -505,6 +505,7 @@
             font-size: 14px; 
             text-align: center; 
             overflow: hidden; 
+            position: relative;
         }
         .passport-photo img {
             width: 100%;
@@ -1189,18 +1190,17 @@
             <div class="passport">
                 <div class="passport-name" id="profileName">—</div>
                 <div class="passport-header">
-<!-- АВАТАРКА С ЗАГРУЗКОЙ (BASE64) -->
-<div class="passport-photo" id="profilePhoto">
-    <img id="avatarPreview" src="" alt="Аватар" style="width:100%; height:100%; object-fit:cover; display:none;">
-    <div class="placeholder" id="avatarPlaceholder">
-        <i class="fas fa-user-circle"></i>
-        <span>Фото</span>
-    </div>
-    <div style="position:absolute; bottom:5px; right:5px; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px; font-size:12px; cursor:pointer;" onclick="document.getElementById('avatarUpload').click();">
-        📷
-    </div>
-    <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatarBase64(event)">
-</div>
+                    <div class="passport-photo" id="profilePhoto">
+                        <img id="avatarPreview" src="" alt="Аватар" style="width:100%; height:100%; object-fit:cover; display:none;">
+                        <div class="placeholder" id="avatarPlaceholder">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Фото</span>
+                        </div>
+                        <div style="position:absolute; bottom:5px; right:5px; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px; font-size:12px; cursor:pointer;" onclick="document.getElementById('avatarUpload').click();">
+                            📷
+                        </div>
+                        <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatarPostImages(event)">
+                    </div>
                     <div class="passport-info">
                         <div class="passport-field"><span class="label">Талант</span><span class="value" id="profileTalent">—</span></div>
                         <div class="passport-field"><span class="label">Возраст</span><span class="value" id="profileAge">—</span></div>
@@ -1488,7 +1488,8 @@
                 status: "Жив", 
                 coins: 0, 
                 password: "12345",
-                diary: "Первый день в академии..."
+                diary: "Первый день в академии...",
+                avatar: ""
             }
         };
         chatMessages = [];
@@ -1601,40 +1602,40 @@
     // ПРОФИЛЬ
     // =========================================================
     function showProfile() {
-    if (!currentCharacter) return;
-    const character = characters[currentCharacter];
-    if (!character) return;
-    
-    document.getElementById('loginBlock').style.display = 'none';
-    document.getElementById('profileBlock').style.display = 'block';
-    
-    document.getElementById('profileName').textContent = currentCharacter;
-    document.getElementById('profileAge').textContent = character.age;
-    document.getElementById('profileTalent').textContent = character.talent;
-    document.getElementById('profileCoins').textContent = character.coins;
-    document.getElementById('profileFiles').textContent = character.files;
-    
-    const statusEl = document.getElementById('profileStatus');
-    statusEl.textContent = character.status;
-    statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
-    
-    // ===== НОВЫЙ БЛОК: ЗАГРУЗКА АВАТАРКИ ИЗ JSONBin =====
-    const avatar = characters[currentCharacter].avatar || '';
-    if (avatar) {
-        document.getElementById('avatarPreview').src = avatar;
-        document.getElementById('avatarPreview').style.display = 'block';
-        document.getElementById('avatarPlaceholder').style.display = 'none';
-    } else {
-        document.getElementById('avatarPreview').style.display = 'none';
-        document.getElementById('avatarPlaceholder').style.display = 'block';
+        if (!currentCharacter) return;
+        const character = characters[currentCharacter];
+        if (!character) return;
+        
+        document.getElementById('loginBlock').style.display = 'none';
+        document.getElementById('profileBlock').style.display = 'block';
+        
+        document.getElementById('profileName').textContent = currentCharacter;
+        document.getElementById('profileAge').textContent = character.age;
+        document.getElementById('profileTalent').textContent = character.talent;
+        document.getElementById('profileCoins').textContent = character.coins;
+        document.getElementById('profileFiles').textContent = character.files;
+        
+        const statusEl = document.getElementById('profileStatus');
+        statusEl.textContent = character.status;
+        statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
+        
+        // ===== ЗАГРУЗКА АВАТАРКИ ИЗ JSONBin =====
+        const avatar = characters[currentCharacter].avatar || '';
+        if (avatar) {
+            document.getElementById('avatarPreview').src = avatar;
+            document.getElementById('avatarPreview').style.display = 'block';
+            document.getElementById('avatarPlaceholder').style.display = 'none';
+        } else {
+            document.getElementById('avatarPreview').style.display = 'none';
+            document.getElementById('avatarPlaceholder').style.display = 'block';
+        }
+        
+        document.getElementById('diaryInput').value = character.diary || '';
+        document.getElementById('diaryStatus').textContent = 'Заметки сохранены в твоём профиле';
+        
+        updateChatCharacterSelect();
+        saveAuth(currentCharacter);
     }
-    
-    document.getElementById('diaryInput').value = character.diary || '';
-    document.getElementById('diaryStatus').textContent = 'Заметки сохранены в твоём профиле';
-    
-    updateChatCharacterSelect();
-    saveAuth(currentCharacter);
-}
 
     function login() {
         const name = document.getElementById('characterSelect').value;
@@ -1705,6 +1706,56 @@
         const randomIndex = Math.floor(Math.random() * gossipData.length);
         document.getElementById('gossipText').textContent = gossipData[randomIndex];
         document.getElementById('gossipAuthor').textContent = '— Монокума';
+    }
+
+    // =========================================================
+    // АВАТАРКА (ЗАГРУЗКА ЧЕРЕЗ POSTIMAGES)
+    // =========================================================
+    async function uploadAvatarPostImages(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('❌ Картинка слишком большая! Максимум 5 МБ.');
+            return;
+        }
+
+        // Показываем превью
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('avatarPreview').src = e.target.result;
+            document.getElementById('avatarPreview').style.display = 'block';
+            document.getElementById('avatarPlaceholder').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+
+        // Отправляем на PostImages
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const response = await fetch('https://postimages.org/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            if (data.status === 'success' && data.url) {
+                const imageUrl = data.url;
+                alert('✅ Аватарка загружена!');
+
+                // Сохраняем ссылку в JSONBin
+                characters[currentCharacter].avatar = imageUrl;
+                await saveToJSONBin();
+
+                // Обновляем на сайте
+                document.getElementById('avatarPreview').src = imageUrl;
+            } else {
+                alert('❌ Ошибка загрузки: ' + (data.error || 'неизвестная ошибка'));
+            }
+        } catch (error) {
+            alert('❌ Ошибка: ' + error.message);
+        }
     }
 
     // =========================================================
@@ -1959,32 +2010,6 @@
     // ======================================== */
     /* ЗАГРУЗКА
     /* ======================================== */
-    // =========================================================
-// ЗАГРУЗКА АВАТАРКИ (BASE64) + СОХРАНЕНИЕ В JSONBin
-// =========================================================
-
-async function uploadAvatarBase64(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    if (file.size > 5 * 1024 * 1024) {
-        alert('❌ Картинка слишком большая! Максимум 5 МБ.');
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = async function(e) {
-        const base64String = e.target.result;
-        characters[currentCharacter].avatar = base64String;
-        await saveToJSONBin();
-
-        document.getElementById('avatarPreview').src = base64String;
-        document.getElementById('avatarPreview').style.display = 'block';
-        document.getElementById('avatarPlaceholder').style.display = 'none';
-        alert('✅ Аватарка сохранена!');
-    };
-    reader.readAsDataURL(file);
-}
     document.addEventListener('DOMContentLoaded', function() {
         loadCharacters();
         
