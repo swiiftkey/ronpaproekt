@@ -286,7 +286,7 @@
         }
 
         /* ======================================== */
-        /* НОВОСТИ (ТОЛЬКО ДЛЯ ОТОБРАЖЕНИЯ, БЕЗ УПРАВЛЕНИЯ) */
+        /* НОВОСТИ (ТОЛЬКО ДЛЯ ОТОБРАЖЕНИЯ) */
         /* ======================================== */
         .news-feed {
             background: rgba(26, 16, 56, 0.6);
@@ -858,7 +858,7 @@
         }
 
         /* ======================================== */
-        /* ЧАТ УЧЕНИКОВ */
+        /* ЧАТ */
         /* ======================================== */
         .chat-container {
             background: rgba(18, 11, 42, 0.7);
@@ -1393,115 +1393,109 @@
 
 <script>
     // =========================================================
-    // ДОЖДЬ ИЗ ПИКСЕЛЕЙ
+    // ПОДКЛЮЧЕНИЕ К JSONBin
     // =========================================================
-    const canvas = document.getElementById('pixelRainCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let pixels = [];
-
-    function resizeCanvas() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const PIXEL_COUNT = 120;
-    for (let i = 0; i < PIXEL_COUNT; i++) {
-        pixels.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            size: Math.random() * 3 + 1,
-            speed: Math.random() * 0.6 + 0.2,
-            opacity: Math.random() * 0.5 + 0.2,
-            wobble: Math.random() * 0.5
-        });
-    }
-
-    function drawPixelRain() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, width, height);
-        
-        pixels.forEach(p => {
-            p.y += p.speed;
-            p.x += Math.sin(p.y * 0.02) * p.wobble * 0.1;
-            if (p.y > height) { p.y = -5; p.x = Math.random() * width; }
-            if (p.x > width) p.x = 0;
-            if (p.x < 0) p.x = width;
-            ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-            ctx.fillRect(p.x, p.y, p.size, p.size);
-        });
-        requestAnimationFrame(drawPixelRain);
-    }
-    drawPixelRain();
-
-    // =========================================================
-    // БАЗОВЫЕ ФУНКЦИИ
-    // =========================================================
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('gameTime').textContent = 
-            String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-    }
-    updateTime();
-    setInterval(updateTime, 10000);
-
-    function openTab(tabName) {
-        document.getElementById('mainMenu').style.display = 'none';
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        const target = document.getElementById('tab-' + tabName);
-        if (target) target.classList.add('active');
-        
-        if (tabName === 'chat') {
-            loadMessages();
-        }
-    }
-    function closeTab() {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('mainMenu').style.display = 'block';
-    }
-
-    function goHome() {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('mainMenu').style.display = 'block';
-    }
-
-    function playClick() {
-        try {
-            const audio = new Audio();
-            audio.src = 'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACBhYqFhYWFiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYWFhYWFhYWFhYWFhYU=';
-            audio.volume = 0.3;
-            audio.play().catch(() => {});
-        } catch(e) {}
-    }
-
-    // =========================================================
-    // ГЛЮКИ
-    // =========================================================
-    const glitchPhrases = [
-        '[СИСТЕМА: ОШИБКА]', '[НЕТ СИГНАЛА]', '[ЗАГРУЗКА...]',
-        '[ДАННЫЕ ПОВРЕЖДЕНЫ]', '[ВНИМАНИЕ: СБОЙ]', '[ПЕРЕЗАГРУЗКА...]',
-        '[НЕДОСТУПНО]', '[КРИТИЧЕСКАЯ ОШИБКА]', '[ПАМЯТЬ ПЕРЕПОЛНЕНА]',
-        '[СИСТЕМА: СТАБИЛЬНА]'
-    ];
-
-    function updateGlitchTexts() {
-        document.getElementById('glitchTopLeft').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
-        document.getElementById('glitchBottomRight').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
-    }
-    setInterval(updateGlitchTexts, 8000);
-    setTimeout(updateGlitchTexts, 2000);
-
-    // =========================================================
-    // GOOGLE ТАБЛИЦА (ДАННЫЕ ПЕРСОНАЖЕЙ)
-    // =========================================================
-    const GOOGLE_SHEET_URL = 'https://spreadsheets.google.com/feeds/list/2PACX-1vQW4JYfpAyr2ELBRkRlDMKFRYRSUd91fjQp4OsQqfV0w3GHAuCh7UtJ1GDAx7yNFdMrdNl6V3q7ujpp/1/public/values?alt=json';
-    const ADMIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzvCMxQlbl75pIAPgXtEPyD2umfwYMfYdyR14kkPZKkws9DzaVfsJCcMn9TWRWqtxgJ/exec';
+    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/6a88520bda38895dfeffc439';
+    const JSONBIN_KEY = '$2a$10$tsqlxcFg9kXHu4maHVFwYOZx5mNQHYzpmCR89bDJrPRsEdd3UpSue';
 
     let characters = {};
+    let chatMessages = [];
     let currentCharacter = null;
+
+    // =========================================================
+    // ЗАГРУЗКА ДАННЫХ ИЗ JSONBin
+    // =========================================================
+    async function loadCharacters() {
+        try {
+            const response = await fetch(JSONBIN_URL, {
+                headers: { 'X-Master-Key': JSONBIN_KEY }
+            });
+            const data = await response.json();
+            
+            if (!data.record) {
+                console.warn('Данные не найдены, создаём пустую базу');
+                characters = {};
+                chatMessages = [];
+                return;
+            }
+            
+            characters = data.record.characters || {};
+            chatMessages = data.record.chat || [];
+            
+            console.log('✅ Данные загружены из JSONBin', characters);
+            
+            updateCharacterSelect();
+            updateGlobalStats();
+            renderAdminPanel();
+            updateChatCharacterSelect();
+            renderChatMessages();
+            
+            if (!loadAuth()) {
+                document.getElementById('loginBlock').style.display = 'block';
+                document.getElementById('profileBlock').style.display = 'none';
+            }
+        } catch (error) {
+            console.error('❌ Ошибка загрузки из JSONBin:', error);
+            useFallbackData();
+        }
+    }
+
+    // =========================================================
+    // СОХРАНЕНИЕ ДАННЫХ В JSONBin
+    // =========================================================
+    async function saveToJSONBin() {
+        try {
+            const data = {
+                characters: characters,
+                chat: chatMessages
+            };
+            
+            const response = await fetch(JSONBIN_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_KEY
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error('Ошибка сохранения: ' + response.status);
+            }
+            
+            console.log('✅ Данные сохранены в JSONBin');
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка сохранения в JSONBin:', error);
+            return false;
+        }
+    }
+
+    // =========================================================
+    // ЗАПАСНОЙ ВАРИАНТ
+    // =========================================================
+    function useFallbackData() {
+        characters = {
+            "Кио Нагахара": { 
+                age: 17, 
+                talent: "Абсолютный Гипнотизер", 
+                status: "Жив", 
+                coins: 0, 
+                password: "12345",
+                diary: "Первый день в академии..."
+            }
+        };
+        chatMessages = [];
+        updateCharacterSelect();
+        updateGlobalStats();
+        renderAdminPanel();
+        updateChatCharacterSelect();
+        renderChatMessages();
+        if (!loadAuth()) {
+            document.getElementById('loginBlock').style.display = 'block';
+            document.getElementById('profileBlock').style.display = 'none';
+        }
+    }
 
     // =========================================================
     // АВТОРИЗАЦИЯ (localStorage)
@@ -1540,73 +1534,8 @@
     }
 
     // =========================================================
-    // ЗАГРУЗКА ДАННЫХ
+    // ОБНОВЛЕНИЕ СПИСКОВ
     // =========================================================
-    async function loadCharacters() {
-        try {
-            const response = await fetch(GOOGLE_SHEET_URL);
-            const data = await response.json();
-            characters = {};
-            data.feed.entry.forEach(entry => {
-                const name = entry.gsx$персонаж?.$t || 'Без имени';
-                characters[name] = {
-                    age: parseInt(entry.gsx$возраст?.$t) || 0,
-                    talent: entry.gsx$талант?.$t || 'Неизвестно',
-                    status: entry.gsx$статус?.$t || 'Жив',
-                    coins: parseInt(entry.gsx$монеты?.$t) || 0,
-                    files: entry.gsx$файлы?.$t || 'Закрыто',
-                    password: entry.gsx$пароль?.$t || '0000',
-                    diary: entry.gsx$дневник?.$t || ''
-                };
-            });
-            updateCharacterSelect();
-            updateGlobalStats();
-            renderAdminPanel();
-            updateChatCharacterSelect();
-            
-            if (!loadAuth()) {
-                document.getElementById('loginBlock').style.display = 'block';
-                document.getElementById('profileBlock').style.display = 'none';
-            }
-            
-            console.log('Данные загружены', characters);
-        } catch (error) {
-            console.error('Ошибка загрузки:', error);
-            useFallbackData();
-        }
-    }
-
-    function useFallbackData() {
-        characters = {
-            "Кио Нагахара": { 
-                age: 17, 
-                talent: "Абсолютный Гипнотизер", 
-                status: "Жив", 
-                coins: 0, 
-                files: "Закрыто", 
-                password: "12345",
-                diary: "Первый день в академии..."
-            },
-            "Тестовый Персонаж": {
-                age: 18,
-                talent: "Абсолютный Тестировщик",
-                status: "Жив",
-                coins: 100,
-                files: "Закрыто",
-                password: "test123",
-                diary: ""
-            }
-        };
-        updateCharacterSelect();
-        updateGlobalStats();
-        renderAdminPanel();
-        updateChatCharacterSelect();
-        if (!loadAuth()) {
-            document.getElementById('loginBlock').style.display = 'block';
-            document.getElementById('profileBlock').style.display = 'none';
-        }
-    }
-
     function updateCharacterSelect() {
         const select = document.getElementById('characterSelect');
         select.innerHTML = '';
@@ -1747,8 +1676,8 @@
         }
         const text = document.getElementById('diaryInput').value;
         characters[currentCharacter].diary = text;
-        document.getElementById('diaryStatus').textContent = 'Заметки сохранены';
-        console.log('Дневник', currentCharacter, text);
+        saveToJSONBin();
+        document.getElementById('diaryStatus').textContent = '✅ Заметки сохранены!';
     }
 
     function loadDiary() {
@@ -1758,7 +1687,7 @@
         }
         const text = characters[currentCharacter].diary || '';
         document.getElementById('diaryInput').value = text;
-        document.getElementById('diaryStatus').textContent = 'Заметки загружены';
+        document.getElementById('diaryStatus').textContent = '🔄 Заметки загружены';
     }
 
     // =========================================================
@@ -1780,62 +1709,33 @@
     // =========================================================
     // ЧАТ
     // =========================================================
-    async function loadMessages() {
-        const messagesContainer = document.getElementById('chatMessages');
-        const statusEl = document.getElementById('chatStatus');
-        
-        try {
-            statusEl.textContent = 'Загрузка сообщений...';
-            const response = await fetch(ADMIN_SCRIPT_URL + '?action=getChat');
-            const data = await response.json();
-            
-            if (data.status === 'error') {
-                messagesContainer.innerHTML = `
-                    <div style="text-align: center; color: #ff6b8a; padding: 20px;">
-                        Ошибка загрузки: ${data.error}
-                    </div>
-                `;
-                statusEl.textContent = '❌ Ошибка подключения к чату';
-                return;
-            }
-            
-            if (!Array.isArray(data) || data.length === 0) {
-                messagesContainer.innerHTML = `
-                    <div style="text-align: center; color: #6b5596; padding: 20px;">
-                        В чате пока пусто. Напиши первое сообщение!
-                    </div>
-                `;
-                statusEl.textContent = '💬 Сообщений нет';
-                return;
-            }
-            
-            let html = '';
-            const messages = data.slice(-50);
-            messages.forEach(msg => {
-                const time = msg.time ? formatTime(msg.time) : '--:--';
-                const character = msg.character || 'Аноним';
-                const text = msg.message || '';
-                html += `
-                    <div class="chat-message">
-                        <span class="chat-name">${character}</span>
-                        <span class="chat-time">${time}</span>
-                        <span class="chat-text">${text}</span>
-                    </div>
-                `;
-            });
-            messagesContainer.innerHTML = html;
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            statusEl.textContent = `✅ Загружено сообщений: ${data.length}`;
-            
-        } catch (error) {
-            console.error('Ошибка загрузки чата:', error);
-            messagesContainer.innerHTML = `
-                <div style="text-align: center; color: #ff6b8a; padding: 20px;">
-                    ❌ Не удалось загрузить чат: ${error.message}
+    function renderChatMessages() {
+        const container = document.getElementById('chatMessages');
+        if (!chatMessages || chatMessages.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; color: #6b5596; padding: 20px;">
+                    В чате пока пусто. Напиши первое сообщение!
                 </div>
             `;
-            statusEl.textContent = '❌ Ошибка подключения';
+            return;
         }
+        
+        let html = '';
+        const messages = chatMessages.slice(-50);
+        messages.forEach(msg => {
+            const time = msg.time ? formatTime(msg.time) : '--:--';
+            const character = msg.character || 'Аноним';
+            const text = msg.message || '';
+            html += `
+                <div class="chat-message">
+                    <span class="chat-name">${character}</span>
+                    <span class="chat-time">${time}</span>
+                    <span class="chat-text">${text}</span>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        container.scrollTop = container.scrollHeight;
     }
 
     function formatTime(timeStr) {
@@ -1848,6 +1748,21 @@
             return `${day}.${month} ${hours}:${minutes}`;
         } catch(e) {
             return timeStr || '--:--';
+        }
+    }
+
+    async function loadMessages() {
+        try {
+            const response = await fetch(JSONBIN_URL, {
+                headers: { 'X-Master-Key': JSONBIN_KEY }
+            });
+            const data = await response.json();
+            chatMessages = data.record.chat || [];
+            renderChatMessages();
+            document.getElementById('chatStatus').textContent = `✅ Загружено сообщений: ${chatMessages.length}`;
+        } catch (error) {
+            console.error('Ошибка загрузки чата:', error);
+            document.getElementById('chatStatus').textContent = '❌ Ошибка подключения';
         }
     }
 
@@ -1876,23 +1791,18 @@
         
         try {
             statusEl.textContent = 'Отправка...';
-            const response = await fetch(ADMIN_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'addChatMessage',
-                    character: character,
-                    message: message
-                })
+            
+            chatMessages.push({
+                time: new Date().toISOString(),
+                character: character,
+                message: message
             });
+            
+            await saveToJSONBin();
             
             statusEl.textContent = '✅ Сообщение отправлено!';
             messageInput.value = '';
-            setTimeout(loadMessages, 1000);
-            
+            renderChatMessages();
         } catch (error) {
             console.error('Ошибка отправки:', error);
             statusEl.textContent = '❌ Ошибка отправки: ' + error.message;
@@ -1963,8 +1873,21 @@
             
             const applyBtn = document.createElement('button');
             applyBtn.textContent = '✅';
-            applyBtn.onclick = function() {
-                updatePlayer(name);
+            applyBtn.onclick = async function() {
+                const coins = parseInt(document.getElementById(`admin-coins-${name}`).value) || 0;
+                const status = document.getElementById(`admin-status-${name}`).value;
+                characters[name].coins = coins;
+                characters[name].status = status;
+                await saveToJSONBin();
+                updateGlobalStats();
+                if (currentCharacter === name) {
+                    document.getElementById('profileCoins').textContent = coins;
+                    const statusEl = document.getElementById('profileStatus');
+                    statusEl.textContent = status;
+                    statusEl.style.color = status === 'Жив' ? '#00ff88' : '#ff6b8a';
+                }
+                renderAdminPanel();
+                alert(`✅ Данные для "${name}" обновлены!`);
             };
             
             div.appendChild(label);
@@ -1975,81 +1898,68 @@
         });
     }
 
-    async function updatePlayer(name) {
-        const coins = parseInt(document.getElementById(`admin-coins-${name}`).value) || 0;
-        const status = document.getElementById(`admin-status-${name}`).value;
-        const data = { action: 'updatePlayer', name, coins, status };
+    // =========================================================
+    // БАЗОВЫЕ ФУНКЦИИ
+    // =========================================================
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('gameTime').textContent = 
+            String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+    }
+    updateTime();
+    setInterval(updateTime, 10000);
+
+    function openTab(tabName) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        const target = document.getElementById('tab-' + tabName);
+        if (target) target.classList.add('active');
         
-        try {
-            const response = await fetch(ADMIN_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            
-            characters[name].coins = coins;
-            characters[name].status = status;
-            updateGlobalStats();
-            
-            if (currentCharacter === name) {
-                document.getElementById('profileCoins').textContent = coins;
-                const statusEl = document.getElementById('profileStatus');
-                statusEl.textContent = status;
-                statusEl.style.color = status === 'Жив' ? '#00ff88' : '#ff6b8a';
-            }
-            
-            renderAdminPanel();
-            alert(`✅ Данные для "${name}" обновлены!`);
-        } catch (e) {
-            alert('❌ Ошибка при обновлении: ' + e.message);
+        if (tabName === 'chat') {
+            loadMessages();
         }
     }
+    function closeTab() {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('mainMenu').style.display = 'block';
+    }
 
-    // =========================================================
-    // НОВОСТИ (ТОЛЬКО ДЛЯ ЧТЕНИЯ)
-    // =========================================================
-    async function loadNewsFromTable() {
+    function goHome() {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function playClick() {
         try {
-            const response = await fetch(ADMIN_SCRIPT_URL + '?action=getNews');
-            const news = await response.json();
-            if (!Array.isArray(news)) return;
-            const list = document.getElementById('newsList');
-            list.innerHTML = '';
-            if (news.length === 0) {
-                list.innerHTML = '<li class="empty-news">Событий пока нет...</li>';
-                return;
-            }
-            news.slice(-10).reverse().forEach(item => {
-                const li = document.createElement('li');
-                const time = item.time ? formatTime(item.time) : '';
-                li.innerHTML = `
-                    <span class="time">${time}</span>
-                    ${item.isHighlight ? `<span class="highlight">${item.text || ''}</span>` : (item.text || '')}
-                `;
-                list.appendChild(li);
-            });
-        } catch (e) {
-            console.error('Ошибка загрузки новостей:', e);
-        }
+            const audio = new Audio();
+            audio.src = 'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACBhYqFhYWFiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYWFhYWFhYWFhYWFhYU=';
+            audio.volume = 0.3;
+            audio.play().catch(() => {});
+        } catch(e) {}
     }
 
-    function openFloor(floor) {
-        const floors = {
-            1: '1 этаж: Вестибюль, Столовая, Классные комнаты',
-            2: '2 этаж: Библиотека, Комнаты учеников, Лаборатория',
-            3: '3 этаж: Спортзал, Актовый зал, Директорская'
-        };
-        document.getElementById('floorMessage').textContent = floors[floor] || 'Этаж в разработке';
-    }
+    // ======================================== */
+    /* ГЛЮКИ
+    /* ======================================== */
+    const glitchPhrases = [
+        '[СИСТЕМА: ОШИБКА]', '[НЕТ СИГНАЛА]', '[ЗАГРУЗКА...]',
+        '[ДАННЫЕ ПОВРЕЖДЕНЫ]', '[ВНИМАНИЕ: СБОЙ]', '[ПЕРЕЗАГРУЗКА...]',
+        '[НЕДОСТУПНО]', '[КРИТИЧЕСКАЯ ОШИБКА]', '[ПАМЯТЬ ПЕРЕПОЛНЕНА]',
+        '[СИСТЕМА: СТАБИЛЬНА]'
+    ];
 
-    // =========================================================
-    // ЗАГРУЗКА
-    // =========================================================
+    function updateGlitchTexts() {
+        document.getElementById('glitchTopLeft').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+        document.getElementById('glitchBottomRight').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+    }
+    setInterval(updateGlitchTexts, 8000);
+    setTimeout(updateGlitchTexts, 2000);
+
+    // ======================================== */
+    /* ЗАГРУЗКА
+    /* ======================================== */
     document.addEventListener('DOMContentLoaded', function() {
         loadCharacters();
-        setTimeout(loadNewsFromTable, 2000);
-        setInterval(loadNewsFromTable, 30000);
         
         const chatInput = document.getElementById('chatMessageInput');
         if (chatInput) {
