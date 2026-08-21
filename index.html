@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Академия Возрождения Надежды</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ======================================== */
+        /* ШРИФТ */
+        /* ======================================== */
+        @font-face {
+            font-family: '8bitWonder';
+            src: url('fonts/8bitwonderrusbylyajka_nominal.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ======================================== */
+        /* БАЗА: ТВОЙ ФОН */
+        /* ======================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: '8bitWonder', monospace;
+            font-size: 20px;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ======================================== */
+        /* ДОЖДЬ ИЗ ПИКСЕЛЕЙ */
+        /* ======================================== */
+        #pixelRainCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ======================================== */
+        /* ГЛЮКИ */
+        /* ======================================== */
+        .glitch-text {
+            position: fixed;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
+            font-family: '8bitWonder', monospace;
+            pointer-events: none;
+            z-index: 9998;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            animation: glitchPulse 4s ease-in-out infinite;
+        }
+        .glitch-text.top-left { top: 15px; left: 15px; }
+        .glitch-text.bottom-right { bottom: 15px; right: 15px; }
+
+        @keyframes glitchPulse {
+            0%, 90%, 100% { opacity: 0.25; }
+            92% { opacity: 0.8; transform: translate(-1px, 1px); }
+            94% { opacity: 0.2; transform: translate(1px, -1px); }
+            96% { opacity: 0.7; transform: translate(-2px, 0px); }
+            98% { opacity: 0.2; transform: translate(0px, 2px); }
+        }
+
+        /* ======================================== */
+        /* ЭФФЕКТ СЛОМАННОГО МОНИТОРА */
+        /* ======================================== */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.03) 0px,
+                rgba(255, 255, 255, 0.03) 2px,
+                rgba(0, 0, 0, 0.05) 2px,
+                rgba(0, 0, 0, 0.05) 4px
+            );
+            animation: monitorFlicker 0.8s ease forwards;
+        }
+
+        @keyframes monitorFlicker {
+            0% { opacity: 0; }
+            10% { opacity: 1; background: #fff; }
+            20% { opacity: 0; background: transparent; }
+            30% { opacity: 1; background: repeating-linear-gradient(90deg, #000 0px, #000 10px, #fff 10px, #fff 20px); }
+            40% { opacity: 0; }
+            50% { opacity: 1; background: repeating-linear-gradient(0deg, #fff 0px, #fff 5px, transparent 5px, transparent 10px); }
+            60% { opacity: 0.5; }
+            70% { opacity: 1; background: repeating-linear-gradient(45deg, #000 0px, #000 15px, #fff 15px, #fff 30px); }
+            80% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* ======================================== */
+        /* ШУМ */
+        /* ======================================== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.35"/%3E%3C/svg%3E');
+            background-size: 256px 256px;
+            mix-blend-mode: overlay;
+        }
+
+        /* ======================================== */
+        /* КОНТЕЙНЕР */
+        /* ======================================== */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(18, 11, 42, 0.65);
+            backdrop-filter: blur(3px);
+            border: 3px dotted #ffffff;
+            border-radius: 0px;
+            padding: 40px;
+            box-shadow: 12px 12px 0px #0a0618, 16px 16px 0px rgba(255, 255, 255, 0.04);
+            min-height: 500px;
+            position: relative;
+            z-index: 1;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: 30px;
+            height: 30px;
+            border-top: 4px solid #ffffff;
+            border-left: 4px solid #ffffff;
+            opacity: 0.9;
+        }
+        .container::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 30px;
+            height: 30px;
+            border-bottom: 4px solid #ffffff;
+            border-right: 4px solid #ffffff;
+            opacity: 0.9;
+        }
+
+        /* ======================================== */
+        /* ШАПКА */
+        /* ======================================== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            position: relative;
+        }
+        .title { flex: 1; text-align: center; }
+        .academy-sub { 
+            font-size: 18px; 
+            letter-spacing: 6px; 
+            color: #ffffff; 
+            text-transform: uppercase; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .academy-main {
+            font-size: 38px;
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.4), 0 0 80px rgba(255, 255, 255, 0.15);
+            letter-spacing: 2px;
+            line-height: 1.4;
+            display: inline-block;
+            animation: titleGlitch 10s infinite;
+        }
+        .academy-main span { 
+            color: #a885ff; 
+            text-shadow: 0 0 50px rgba(168, 133, 255, 0.5);
+        }
+
+        @keyframes titleGlitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -1px); }
+            96% { transform: translate(-1px, -2px); }
+            98% { transform: translate(1px, 1px); }
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #fff 0px, #fff 5px, transparent 5px, transparent 10px);
+            opacity: 0.12;
+        }
+
+        .academy-time {
+            background: rgba(12, 7, 32, 0.8);
+            padding: 10px 25px;
+            border: 2px solid #ffffff;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 4px 4px 0px #0a0618;
+        }
+        .academy-time .time-label { 
+            font-size: 14px; 
+            color: #ffffff; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .academy-time .time-value { 
+            font-size: 22px; 
+            font-weight: 400; 
+            color: #ffffff; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        /* ======================================== */
+        /* СТАТИСТИКА */
+        /* ======================================== */
+        .stats-section {
+            display: flex; gap: 30px; flex-wrap: wrap; margin-bottom: 25px;
+            padding: 15px 20px;
+            background: rgba(26, 16, 56, 0.6);
+            border: 2px solid #4d2e8a;
+        }
+        .stat-item { flex: 1; min-width: 150px; }
+        .stat-item .label { 
+            font-size: 14px; 
+            color: #aaa; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .stat-item .value { 
+            font-size: 28px; 
+            font-weight: bold; 
+            color: #ffffff; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+        .progress-bar { 
+            width: 100%; 
+            height: 12px; 
+            background: #0a0618; 
+            border: 1px solid #4d2e8a; 
+            margin-top: 6px; 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, #ffffff, #a885ff); 
+            transition: width 0.5s ease; 
+            width: 100%; 
+        }
+
+        /* ======================================== */
+        /* НОВОСТИ (ТОЛЬКО ДЛЯ ОТОБРАЖЕНИЯ, БЕЗ УПРАВЛЕНИЯ) */
+        /* ======================================== */
+        .news-feed {
+            background: rgba(26, 16, 56, 0.6);
+            border: 2px solid #4d2e8a;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+        }
+        .news-feed h3 { 
+            font-size: 16px; 
+            color: #ffffff; 
+            margin-bottom: 12px; 
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .news-feed ul { list-style: none; padding: 0; }
+        .news-feed li { 
+            font-size: 15px; 
+            color: #d4c8ff; 
+            padding: 6px 0; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .news-feed li:last-child { border-bottom: none; }
+        .news-feed li .time { 
+            color: #888; 
+            font-size: 12px; 
+            margin-right: 10px; 
+        }
+        .news-feed li .highlight { 
+            color: #ffffff; 
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .news-feed .empty-news { 
+            color: #888; 
+            font-size: 14px; 
+            text-align: center; 
+            padding: 10px 0; 
+        }
+
+        /* ======================================== */
+        /* КАРТОЧКИ */
+        /* ======================================== */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 22px;
+            margin-top: 10px;
+        }
+
+        .catalog-item {
+            background: rgba(26, 16, 56, 0.8);
+            padding: 30px 20px;
+            text-align: center;
+            border: 2px dotted #ffffff;
+            color: #ffffff;
+            display: block;
+            transition: 0.1s ease;
+            box-shadow: 6px 6px 0px #0a0618;
+            cursor: pointer;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        .catalog-item:nth-child(1) { transform: rotate(-1.2deg); --rotation: -1.2deg; }
+        .catalog-item:nth-child(2) { transform: rotate(1.8deg); --rotation: 1.8deg; }
+        .catalog-item:nth-child(3) { transform: rotate(-2.1deg); --rotation: -2.1deg; }
+        .catalog-item:nth-child(4) { transform: rotate(0.9deg); --rotation: 0.9deg; }
+        .catalog-item:nth-child(5) { transform: rotate(-1.5deg); --rotation: -1.5deg; }
+        .catalog-item:nth-child(6) { transform: rotate(2.3deg); --rotation: 2.3deg; }
+        .catalog-item:nth-child(7) { transform: rotate(-1.0deg); --rotation: -1.0deg; }
+        .catalog-item:nth-child(8) { transform: rotate(0.5deg); --rotation: 0.5deg; }
+
+        .catalog-item:hover {
+            animation: glitchLight 0.08s infinite;
+            border-color: #a885ff;
+            background: rgba(38, 26, 74, 0.9);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 
+                        0 0 60px rgba(168, 133, 255, 0.3),
+                        0 0 90px rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+            50% { transform: translateY(-6px) rotate(var(--rotation, 0deg)); }
+        }
+
+        @keyframes glitchLight {
+            0% { transform: translate(0) rotate(var(--rotation, 0deg)); }
+            25% { transform: translate(-1px, 1px) rotate(var(--rotation, 0deg)); }
+            50% { transform: translate(1px, -1px) rotate(var(--rotation, 0deg)); }
+            75% { transform: translate(-1px, -1px) rotate(var(--rotation, 0deg)); }
+            100% { transform: translate(0) rotate(var(--rotation, 0deg)); }
+        }
+
+        .catalog-item i {
+            font-size: 46px;
+            margin-bottom: 15px;
+            display: block;
+            color: #ffffff;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+        }
+
+        .catalog-item h3 { 
+            font-size: 16px; 
+            font-weight: 400; 
+            letter-spacing: 1px; 
+            color: #ffffff;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .catalog-item p { 
+            font-size: 16px; 
+            color: #b09fd4; 
+            margin-top: 8px; 
+        }
+
+        .catalog-item.locked { 
+            opacity: 0.5; 
+            cursor: not-allowed; 
+            border-color: #444; 
+            animation: none; 
+        }
+        .catalog-item.locked:hover { 
+            animation: none; 
+            transform: none; 
+            border-color: #444; 
+            box-shadow: 6px 6px 0px #0a0618; 
+            background: rgba(26, 16, 56, 0.8); 
+        }
+        .catalog-item .lock-badge { 
+            position: absolute; 
+            top: 12px; 
+            right: 16px; 
+            font-size: 18px; 
+            color: #ffffff; 
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+
+        /* ======================================== */
+        /* ВКЛАДКИ */
+        /* ======================================== */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeInWithDark 0.6s ease; }
+        @keyframes fadeInWithDark { 
+            0% { opacity: 0; transform: translateY(20px); filter: brightness(0); } 
+            40% { opacity: 0.3; filter: brightness(0.2); } 
+            100% { opacity: 1; transform: translateY(0); filter: brightness(1); } 
+        }
+        .tab-content h2 { 
+            font-size: 24px; 
+            font-weight: 400; 
+            color: #ffffff; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
+            margin-bottom: 20px; 
+        }
+        .tab-content p { 
+            font-size: 20px; 
+            color: #d4c8ff; 
+            line-height: 1.6; 
+        }
+
+        .back-btn {
+            font-size: 14px;
+            background: rgba(26, 16, 56, 0.8);
+            border: 2px dotted #ffffff;
+            color: #ffffff;
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            margin-top: 30px;
+            display: inline-block;
+            box-shadow: 4px 4px 0px #0a0618;
+            font-family: '8bitWonder', monospace;
+        }
+        .back-btn:hover {
+            background: rgba(38, 26, 74, 0.9);
+            border-color: #a885ff;
+            box-shadow: 6px 6px 0px #ffffff;
+            transform: translate(-2px, -2px);
+            color: #ffffff;
+        }
+
+        /* ======================================== */
+        /* ПРОФИЛЬ */
+        /* ======================================== */
+        .passport {
+            background: rgba(18, 11, 42, 0.85);
+            border: 3px dotted #ffffff;
+            padding: 30px;
+            box-shadow: 10px 10px 0px #0a0618;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .passport-name { 
+            font-size: 32px; 
+            color: #ffffff; 
+            text-align: center; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
+            letter-spacing: 2px; 
+            border-bottom: 2px solid #ffffff; 
+            padding-bottom: 15px; 
+            margin-bottom: 25px; 
+        }
+        .passport-header { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
+        .passport-photo { 
+            flex-shrink: 0; 
+            width: 180px; 
+            height: 200px; 
+            background: #0a0618; 
+            border: 3px dotted #ffffff; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #4a2b7a; 
+            font-size: 14px; 
+            text-align: center; 
+            overflow: hidden; 
+        }
+        .passport-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .passport-photo .placeholder { 
+            color: #4a2b7a; 
+            font-size: 14px; 
+            text-align: center; 
+        }
+        .passport-photo .placeholder i { 
+            font-size: 48px; 
+            display: block; 
+            margin-bottom: 10px; 
+            color: #ffffff; 
+        }
+        .passport-info { flex: 1; min-width: 200px; }
+        .passport-field { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 10px 0; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+        }
+        .passport-field .label { 
+            color: #aaa; 
+            font-size: 14px; 
+            letter-spacing: 1px; 
+        }
+        .passport-field .value { 
+            color: #ffffff; 
+            font-size: 18px; 
+            text-align: right; 
+        }
+        .passport-section { 
+            margin-top: 25px; 
+            padding-top: 20px; 
+            border-top: 2px solid #ffffff; 
+        }
+        .passport-section h4 { 
+            font-size: 16px; 
+            color: #ffffff; 
+            margin-bottom: 12px; 
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        .passport-coins { 
+            font-size: 42px; 
+            color: #ffffff; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4); 
+            text-align: center; 
+        }
+        .floor-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .floor-btn { 
+            padding: 10px 24px; 
+            background: rgba(26, 16, 56, 0.8); 
+            border: 2px dotted #ffffff; 
+            color: #ffffff; 
+            font-family: '8bitWonder', monospace; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: 0.3s ease; 
+            box-shadow: 4px 4px 0px #0a0618; 
+        }
+        .floor-btn:hover { 
+            background: rgba(38, 26, 74, 0.9); 
+            border-color: #a885ff; 
+            transform: translate(-2px, -2px); 
+            box-shadow: 6px 6px 0px #ffffff; 
+            color: #ffffff;
+        }
+        .files-status { 
+            text-align: center; 
+            color: #d4c8ff; 
+            font-size: 18px; 
+            padding: 5px 0; 
+        }
+
+        /* ======================================== */
+        /* ДНЕВНИК */
+        /* ======================================== */
+        .diary-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #ffffff;
+        }
+        .diary-section h4 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        .diary-section textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px;
+            background: rgba(10, 6, 24, 0.8);
+            color: #d4c8ff;
+            border: 2px dotted #ffffff;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            resize: vertical;
+            transition: 0.3s ease;
+        }
+        .diary-section textarea:focus {
+            border-color: #a885ff;
+            outline: none;
+            box-shadow: 0 0 20px rgba(168, 133, 255, 0.2);
+        }
+        .diary-section .diary-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .diary-section .diary-actions button {
+            padding: 8px 20px;
+            background: rgba(26, 16, 56, 0.8);
+            border: 2px dotted #ffffff;
+            color: #ffffff;
+            font-family: '8bitWonder', monospace;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 3px 3px 0px #0a0618;
+        }
+        .diary-section .diary-actions button:hover {
+            background: rgba(38, 26, 74, 0.9);
+            border-color: #a885ff;
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px #ffffff;
+        }
+        .diary-section .diary-status {
+            font-size: 12px;
+            color: #6b5596;
+            margin-top: 8px;
+        }
+
+        /* ======================================== */
+        /* ЛОГИН */
+        /* ======================================== */
+        .login-form { display: flex; flex-direction: column; gap: 15px; max-width: 350px; margin: 20px auto; }
+        .login-form select, .login-form input {
+            padding: 12px;
+            background: rgba(26, 16, 56, 0.8);
+            color: #ffffff;
+            border: 2px dotted #ffffff;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+        }
+        .login-btn {
+            padding: 12px;
+            background: #ffffff;
+            color: #0a0618;
+            border: none;
+            font-family: '8bitWonder', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 4px 4px 0px #0a0618;
+        }
+        .login-btn:hover { 
+            background: #ddd; 
+            transform: translate(-2px, -2px); 
+            box-shadow: 6px 6px 0px #0a0618; 
+        }
+
+        /* ======================================== */
+        /* АДМИНКА */
+        /* ======================================== */
+        .admin-trigger {
+            display: block;
+            text-align: center;
+            color: #444;
+            font-size: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 2px;
+        }
+        .admin-trigger:hover { color: #ffffff; }
+
+        .admin-panel {
+            display: none;
+            background: rgba(18, 11, 42, 0.95);
+            border: 3px dotted #ffffff;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 10px 10px 0px #0a0618;
+        }
+        .admin-panel h3 { 
+            color: #ffffff; 
+            text-align: center; 
+            font-size: 20px; 
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
+            margin-bottom: 20px; 
+        }
+        .admin-panel .admin-field { 
+            display: flex; 
+            gap: 15px; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            padding: 8px 0; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .admin-panel .admin-field label { 
+            min-width: 140px; 
+            color: #ffffff; 
+            font-size: 16px; 
+        }
+        .admin-panel .admin-field input, 
+        .admin-panel .admin-field select { 
+            flex: 1; 
+            min-width: 100px; 
+            padding: 8px 12px; 
+            background: #1a1038; 
+            color: #ffffff; 
+            border: 1px solid #4d2e8a; 
+            font-family: '8bitWonder', monospace; 
+            font-size: 14px; 
+        }
+        .admin-panel .admin-field button { 
+            padding: 8px 20px; 
+            background: #ffffff; 
+            border: none; 
+            color: #0a0618; 
+            font-family: '8bitWonder', monospace; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            box-shadow: 4px 4px 0px #0a0618; 
+        }
+        .admin-panel .admin-field button:hover { 
+            background: #ddd; 
+            transform: translate(-2px, -2px); 
+            box-shadow: 6px 6px 0px #0a0618; 
+        }
+        .admin-panel .admin-close { 
+            display: block; 
+            margin: 20px auto 0; 
+            padding: 10px 30px; 
+            background: #1a1038; 
+            border: 2px dotted #ffffff; 
+            color: #ffffff; 
+            font-family: '8bitWonder', monospace; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        .admin-panel .admin-close:hover { 
+            border-color: #a885ff; 
+            background: rgba(38, 26, 74, 0.9);
+        }
+
+        /* ======================================== */
+        /* ПОДВАЛ */
+        /* ======================================== */
+        .footer {
+            font-size: 16px;
+            margin-top: 40px;
+            text-align: center;
+            color: #888;
+            border-top: 2px solid #2f1f4a;
+            padding-top: 20px;
+            letter-spacing: 1px;
+        }
+        .footer span { 
+            color: #ffffff; 
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ======================================== */
+        /* СПЛЕТНИ */
+        /* ======================================== */
+        .gossip-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: rgba(18, 11, 42, 0.7);
+            border: 2px dotted #ffffff;
+            padding: 30px;
+            box-shadow: 8px 8px 0px #0a0618;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 300px;
+        }
+
+        .gossip-monokuma {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gossip-monokuma img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
+        }
+
+        .gossip-text-block {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .gossip-text-block .gossip-line {
+            font-size: 22px;
+            color: #d4c8ff;
+            line-height: 1.6;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .gossip-text-block .gossip-author {
+            font-size: 14px;
+            color: #6b5596;
+            margin-top: 10px;
+            text-align: right;
+            letter-spacing: 2px;
+        }
+
+        .gossip-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .gossip-btn {
+            padding: 12px 30px;
+            background: #ffffff;
+            color: #0a0618;
+            border: none;
+            font-family: '8bitWonder', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #0a0618;
+            transition: 0.3s;
+        }
+        .gossip-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #0a0618;
+            background: #ddd;
+        }
+
+        /* ======================================== */
+        /* ЧАТ УЧЕНИКОВ */
+        /* ======================================== */
+        .chat-container {
+            background: rgba(18, 11, 42, 0.7);
+            border: 2px dotted #ffffff;
+            padding: 25px;
+            box-shadow: 8px 8px 0px #0a0618;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(10, 6, 24, 0.5);
+            border: 1px dotted rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(10, 6, 24, 0.3);
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #4d2e8a;
+            border-radius: 3px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            padding: 6px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            animation: fadeIn 0.3s ease;
+        }
+        .chat-message .chat-name {
+            font-size: 14px;
+            color: #a885ff;
+            font-weight: bold;
+            min-width: 120px;
+            flex-shrink: 0;
+            text-shadow: 0 0 20px rgba(168, 133, 255, 0.2);
+        }
+        .chat-message .chat-time {
+            font-size: 11px;
+            color: #6b5596;
+            flex-shrink: 0;
+        }
+        .chat-message .chat-text {
+            font-size: 16px;
+            color: #d4c8ff;
+            word-break: break-word;
+            flex: 1;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .chat-input-area select,
+        .chat-input-area input {
+            padding: 10px 14px;
+            background: rgba(26, 16, 56, 0.8);
+            color: #ffffff;
+            border: 2px dotted #ffffff;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            flex: 1;
+            min-width: 120px;
+        }
+        .chat-input-area input {
+            flex: 3;
+        }
+        .chat-input-area select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .chat-input-area button {
+            padding: 10px 25px;
+            background: #ffffff;
+            color: #0a0618;
+            border: none;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #0a0618;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        .chat-input-area button:hover:not(:disabled) {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #0a0618;
+            background: #ddd;
+        }
+        .chat-input-area button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .chat-status {
+            font-size: 12px;
+            color: #6b5596;
+            margin-top: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .chat-status .refresh-btn {
+            color: #a885ff;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .chat-status .refresh-btn:hover {
+            color: #ffffff;
+        }
+
+        /* ======================================== */
+        /* АДАПТАЦИЯ */
+        /* ======================================== */
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .header { flex-direction: column; text-align: center; }
+            .academy-main { font-size: 26px; }
+            .catalog-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+            .passport { padding: 15px; }
+            .passport-name { font-size: 22px; }
+            .passport-header { flex-direction: column; align-items: center; }
+            .passport-photo { width: 150px; height: 170px; }
+            .passport-info { width: 100%; }
+            .admin-panel .admin-field { flex-direction: column; align-items: stretch; }
+            .admin-panel .admin-field label { min-width: auto; }
+            .glitch-text { font-size: 9px; }
+            .catalog-item:nth-child(1) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(2) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(3) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(4) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(5) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(6) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(7) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(8) { transform: rotate(0deg); --rotation: 0deg; }
+            .diary-section textarea { min-height: 80px; font-size: 12px; }
+            
+            .gossip-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+            .gossip-monokuma {
+                width: 120px;
+                height: 120px;
+            }
+            .gossip-text-block .gossip-line {
+                font-size: 18px;
+                min-height: 60px;
+            }
+            .gossip-buttons {
+                justify-content: center;
+            }
+
+            .chat-input-area {
+                flex-direction: column;
+            }
+            .chat-input-area select,
+            .chat-input-area input,
+            .chat-input-area button {
+                width: 100%;
+                min-width: unset;
+            }
+            .chat-message {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+            .chat-message .chat-name {
+                min-width: 80px;
+                font-size: 13px;
+            }
+            .chat-message .chat-text {
+                font-size: 14px;
+                width: 100%;
+                margin-left: 0;
+                padding-left: 0;
+            }
+            .chat-message .chat-time {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================== -->
+    <!-- ДОЖДЬ ИЗ ПИКСЕЛЕЙ -->
+    <!-- ======================================== -->
+    <canvas id="pixelRainCanvas"></canvas>
+
+    <!-- ======================================== -->
+    <!-- ДЕКОРАТИВНЫЙ МУСОР -->
+    <!-- ======================================== -->
+    <div style="position:fixed; bottom: 50px; left: 20px; color: rgba(255,255,255,0.06); font-size: 60px; transform: rotate(-15deg); pointer-events: none; z-index: 0;">◼</div>
+    <div style="position:fixed; top: 100px; right: 30px; color: rgba(255,255,255,0.05); font-size: 40px; transform: rotate(45deg); pointer-events: none; z-index: 0;">◼</div>
+    <div style="position:fixed; bottom: 200px; left: 85%; color: rgba(255,255,255,0.04); font-size: 30px; pointer-events: none; z-index: 0;">◼</div>
+    <div style="position:fixed; top: 40%; left: 8%; color: rgba(255,255,255,0.05); font-size: 20px; pointer-events: none; z-index: 0;">✦</div>
+    <div style="position:fixed; bottom: 30%; right: 3%; color: rgba(255,255,255,0.05); font-size: 35px; pointer-events: none; z-index: 0;">✦</div>
+
+    <!-- ГЛЮКИ -->
+    <div class="glitch-text top-left" id="glitchTopLeft">[СИСТЕМА: ОШИБКА]</div>
+    <div class="glitch-text bottom-right" id="glitchBottomRight">[НЕТ СИГНАЛА]</div>
+
+<div class="container">
+    
+    <!-- ===== ШАПКА ===== -->
+    <div class="header">
+        <div class="title">
+            <div class="academy-sub">АКАДЕМИЯ</div>
+            <div class="academy-main">Возрождение <span>Надежды</span></div>
+        </div>
+        <div class="academy-time">
+            <div class="time-label"><i class="fas fa-clock"></i> Время в академии</div>
+            <div class="time-value" id="gameTime">--:--</div>
+        </div>
+    </div>
+
+    <!-- ===== СТАТИСТИКА ===== -->
+    <div class="stats-section">
+        <div class="stat-item">
+            <div class="label"><i class="fas fa-users"></i> Выживших</div>
+            <div class="value" id="survivors">0</div>
+            <div class="progress-bar"><div class="progress-fill" id="survivorProgress" style="width: 100%"></div></div>
+        </div>
+        <div class="stat-item">
+            <div class="label"><i class="fas fa-skull"></i> Погибло</div>
+            <div class="value" id="deaths">0</div>
+        </div>
+        <div class="stat-item">
+            <div class="label"><i class="fas fa-gavel"></i> Раскрыто дел</div>
+            <div class="value" id="casesSolved">0</div>
+        </div>
+    </div>
+
+    <!-- ===== НОВОСТИ ===== -->
+    <div class="news-feed">
+        <h3><i class="fas fa-newspaper"></i> Лента событий</h3>
+        <ul id="newsList">
+            <li class="empty-news">Событий пока нет...</li>
+        </ul>
+    </div>
+
+    <!-- ===== ГЛАВНОЕ МЕНЮ ===== -->
+    <div id="mainMenu">
+        <div class="catalog-grid">
+            <div class="catalog-item" onclick="openTab('characters'); playClick();">
+                <i class="fas fa-users"></i><h3>Карточки</h3><p>Все ученики</p>
+            </div>
+            <div class="catalog-item" onclick="openTab('map'); playClick();">
+                <i class="fas fa-map"></i><h3>Карта этажа</h3><p>Исследуй локации</p>
+            </div>
+            <div class="catalog-item" onclick="openTab('shop'); playClick();">
+                <i class="fas fa-store"></i><h3>Моношоп</h3><p>Обменяй монеты</p>
+            </div>
+            <div class="catalog-item" onclick="openTab('profile'); playClick();">
+                <i class="fas fa-id-card"></i><h3>Мой профиль</h3><p>Личное дело</p>
+            </div>
+            <div class="catalog-item" onclick="openTab('gossip'); playClick();">
+                <i class="fas fa-comment-dots"></i><h3>Сплетни</h3><p>Секреты Монокумы</p>
+            </div>
+            <div class="catalog-item" onclick="openTab('chat'); playClick();">
+                <i class="fas fa-comments"></i><h3>Чат</h3><p>Обсуждай с учениками</p>
+            </div>
+            <div class="catalog-item locked" onclick="return false;">
+                <i class="fas fa-file-alt"></i><h3>Файлы Монокумы</h3><p>Доступно позже</p>
+                <span class="lock-badge"><i class="fas fa-lock"></i></span>
+            </div>
+            <div class="catalog-item" onclick="openTab('rules'); playClick();">
+                <i class="fas fa-gavel"></i><h3>Правила</h3><p>Наказание ждёт</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ВКЛАДКИ ===== -->
+    <div id="tab-characters" class="tab-content">
+        <h2>Карточки персонажей</h2>
+        <p>Здесь будут все ученики с их талантами, статусами и спрайтами.</p>
+        <p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Скоро тут появится список)</p>
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <div id="tab-map" class="tab-content">
+        <h2>Карта этажа</h2>
+        <p>Интерактивная карта академии. Кликай по комнатам, чтобы расследовать!</p>
+        <p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Карта в разработке)</p>
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <div id="tab-shop" class="tab-content">
+        <h2>Моношоп</h2>
+        <p>Обменивай монеты на припасы, оружие и улики.</p>
+        <p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p>
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- ПРОФИЛЬ -->
+    <!-- ======================================== -->
+    <div id="tab-profile" class="tab-content">
+        <div id="loginBlock" style="display: none;">
+            <h2 style="text-align:center;">Вход в Академию</h2>
+            <p style="color:#8a7aaa; text-align:center;">Введи пароль от своего персонажа</p>
+            <div class="login-form">
+                <select id="characterSelect"><option value="">Загрузка...</option></select>
+                <input type="password" id="passwordInput" placeholder="Введите пароль">
+                <button class="login-btn" onclick="login()">Войти</button>
+            </div>
+            <p style="color:#ff6b8a; text-align:center; font-size:14px;" id="loginMessage"></p>
+        </div>
+
+        <div id="profileBlock" style="display: none;">
+            <div class="passport">
+                <div class="passport-name" id="profileName">—</div>
+                <div class="passport-header">
+                    <div class="passport-photo" id="profilePhoto">
+                        <div class="placeholder">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Фото</span>
+                        </div>
+                    </div>
+                    <div class="passport-info">
+                        <div class="passport-field"><span class="label">Талант</span><span class="value" id="profileTalent">—</span></div>
+                        <div class="passport-field"><span class="label">Возраст</span><span class="value" id="profileAge">—</span></div>
+                        <div class="passport-field"><span class="label">Статус</span><span class="value" id="profileStatus">—</span></div>
+                    </div>
+                </div>
+                <div class="passport-section">
+                    <h4>Моно-монеты</h4>
+                    <div class="passport-coins" id="profileCoins">0</div>
+                </div>
+                <div class="passport-section">
+                    <h4>Карта этажей</h4>
+                    <div class="floor-buttons">
+                        <button class="floor-btn" onclick="openFloor(1)">1 этаж</button>
+                        <button class="floor-btn" onclick="openFloor(2)">2 этаж</button>
+                        <button class="floor-btn" onclick="openFloor(3)">3 этаж</button>
+                    </div>
+                    <p id="floorMessage" style="color: #6b5596; margin-top: 12px; text-align:center; font-size:15px;"></p>
+                </div>
+                <div class="passport-section">
+                    <h4>Файлы Монокумы</h4>
+                    <div class="files-status" id="profileFiles">Закрыто</div>
+                </div>
+
+                <!-- ДНЕВНИК -->
+                <div class="diary-section">
+                    <h4>Личный дневник</h4>
+                    <textarea id="diaryInput" placeholder="Запиши свои мысли, улики или подозрения..."></textarea>
+                    <div class="diary-actions">
+                        <button onclick="saveDiary()">Сохранить</button>
+                        <button onclick="loadDiary()">Загрузить</button>
+                    </div>
+                    <div class="diary-status" id="diaryStatus">Заметки сохраняются в твоём профиле</div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top: 30px;">
+                <button class="back-btn" onclick="goHome()"><i class="fas fa-home"></i> На главную</button>
+                <button class="back-btn" onclick="logout()" style="margin-left: 10px;"><i class="fas fa-arrow-left"></i> Выйти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- СПЛЕТНИ МОНОКУМЫ -->
+    <!-- ======================================== -->
+    <div id="tab-gossip" class="tab-content">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="font-size: 36px; color: #ffffff; text-shadow: 0 0 30px rgba(255, 255, 255, 0.4); letter-spacing: 4px;">
+                Сплетни Монокумы
+            </h2>
+        </div>
+
+        <div class="gossip-container">
+            <div class="gossip-monokuma">
+                <img src="images/monokum.png" alt="Монокума">
+            </div>
+            <div class="gossip-text-block">
+                <div class="gossip-line" id="gossipText">
+                    Пу-пу-пу... Похоже, кто-то хочет посплетничать?
+                </div>
+                <div class="gossip-author" id="gossipAuthor">— Монокума</div>
+                <div class="gossip-buttons">
+                    <button class="gossip-btn" onclick="showRandomGossip()">Новая сплетня</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- ЧАТ УЧЕНИКОВ -->
+    <!-- ======================================== -->
+    <div id="tab-chat" class="tab-content">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="font-size: 36px; color: #ffffff; text-shadow: 0 0 30px rgba(255, 255, 255, 0.4); letter-spacing: 4px;">
+                💬 Чат учеников
+            </h2>
+            <p style="color: #ff6b8a; font-size: 16px; letter-spacing: 2px;">Обсуждай, подозревай, расследуй</p>
+            <p id="chatUserInfo" style="color: #6b5596; font-size: 14px; margin-top: 5px;"></p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div style="text-align: center; color: #6b5596; padding: 20px;">
+                    Загрузка сообщений...
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <select id="chatCharacterSelect" disabled>
+                    <option value="Аноним">Аноним</option>
+                </select>
+                <input type="text" id="chatMessageInput" placeholder="Напиши сообщение..." maxlength="500" disabled>
+                <button onclick="sendMessage()" id="chatSendBtn" disabled>Отправить</button>
+            </div>
+
+            <div class="chat-status">
+                <span id="chatStatus">Подключение к чату...</span>
+                <span class="refresh-btn" onclick="loadMessages()">🔄 Обновить</span>
+            </div>
+        </div>
+
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- ПРАВИЛА -->
+    <!-- ======================================== -->
+    <div id="tab-rules" class="tab-content">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="font-size: 36px; color: #ffffff; text-shadow: 0 0 30px rgba(255, 255, 255, 0.4); letter-spacing: 4px;">
+                Внимание правила
+            </h2>
+            <p style="color: #ff6b8a; font-size: 16px; letter-spacing: 2px;">Нарушение карается смертью</p>
+        </div>
+
+        <div style="background: rgba(18, 11, 42, 0.7); border: 2px dotted #ffffff; padding: 30px; box-shadow: 8px 8px 0px #0a0618;">
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">1.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Студенты могут находиться только на территории <span style="color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);">Академии</span>. Покидать ее недопустимо.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">2.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Отбой начинается в <span style="color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);">10 вечера</span>, а заканчивается в <span style="color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);">7 утра</span>. Вход в некоторые помещения будет запрещен.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">3.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Сон в любом месте, кроме общежития, будет расцениваться как сон в классе во время занятий. Наказание будет соответствующим.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">4.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Любое место, которое вы найдете, доступно для исследования и использования.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">5.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Применение силы против директора школы запрещается, равно как и уничтожение камер наблюдения.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">6.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Любой, кто убьет своего одноклассника, станет <span style="color: #ff6b8a; text-shadow: 0 0 20px rgba(255, 107, 138, 0.4);">«Запятнанным»</span>, а после сможет выпуститься, если его не обнаружат.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">7.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    Объявление о нахождении трупа будет включено, как только <span style="color: #ffffff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);">3 человека</span> обнаружат его, не считая убийц.
+                </p>
+            </div>
+            <div style="display: flex; gap: 20px; margin-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 15px;">
+                <span style="font-size: 28px; color: #ffffff; font-weight: bold; min-width: 40px;">8.</span>
+                <p style="color: #d4c8ff; font-size: 18px; margin: 0;">
+                    В случае, если труп не будет обнаружен в течении <span style="color: #ff6b8a; text-shadow: 0 0 20px rgba(255, 107, 138, 0.4);">48 часов</span>, объявление будет активировано автоматически.
+                </p>
+            </div>
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #ff6b8a;">
+                <p style="color: #ff6b8a; font-size: 16px; text-align: center; letter-spacing: 2px;">
+                    Правила могут быть добавлены в случае необходимости.
+                </p>
+            </div>
+        </div>
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <div class="footer">
+        <span>✦</span> <span id="randomQuote"></span> <span>✦</span>
+        <div class="admin-trigger" onclick="toggleAdmin()">Админ-панель</div>
+        
+        <!-- ======================================== -->
+        <!-- АДМИН-ПАНЕЛЬ -->
+        <!-- ======================================== -->
+        <div class="admin-panel" id="adminPanel">
+            <h3>Админ-панель</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 0 auto 15px;">
+                <input type="password" id="adminPasswordInput" placeholder="Пароль" style="padding: 10px; background: #1a1038; color: #ffffff; border: 2px dotted #ffffff; font-family: '8bitWonder', monospace;">
+                <button onclick="checkAdminPassword()" style="padding: 10px; background: #ffffff; color: #0a0618; border: none; font-family: '8bitWonder', monospace; cursor: pointer; box-shadow: 4px 4px 0px #0a0618;">Войти</button>
+                <p id="adminError" style="color: #ff6b8a; text-align: center; font-size: 14px;"></p>
+            </div>
+            <div id="adminControls" style="display: none; margin-top: 20px;"></div>
+            <button class="admin-close" onclick="closeAdmin()">Закрыть панель</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // =========================================================
+    // ДОЖДЬ ИЗ ПИКСЕЛЕЙ
+    // =========================================================
+    const canvas = document.getElementById('pixelRainCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let pixels = [];
+
+    function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const PIXEL_COUNT = 120;
+    for (let i = 0; i < PIXEL_COUNT; i++) {
+        pixels.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            size: Math.random() * 3 + 1,
+            speed: Math.random() * 0.6 + 0.2,
+            opacity: Math.random() * 0.5 + 0.2,
+            wobble: Math.random() * 0.5
+        });
+    }
+
+    function drawPixelRain() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, width, height);
+        
+        pixels.forEach(p => {
+            p.y += p.speed;
+            p.x += Math.sin(p.y * 0.02) * p.wobble * 0.1;
+            if (p.y > height) { p.y = -5; p.x = Math.random() * width; }
+            if (p.x > width) p.x = 0;
+            if (p.x < 0) p.x = width;
+            ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+        });
+        requestAnimationFrame(drawPixelRain);
+    }
+    drawPixelRain();
+
+    // =========================================================
+    // БАЗОВЫЕ ФУНКЦИИ
+    // =========================================================
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('gameTime').textContent = 
+            String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+    }
+    updateTime();
+    setInterval(updateTime, 10000);
+
+    function openTab(tabName) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        const target = document.getElementById('tab-' + tabName);
+        if (target) target.classList.add('active');
+        
+        if (tabName === 'chat') {
+            loadMessages();
+        }
+    }
+    function closeTab() {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function goHome() {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function playClick() {
+        try {
+            const audio = new Audio();
+            audio.src = 'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACBhYqFhYWFiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYWFhYWFhYWFhYWFhYU=';
+            audio.volume = 0.3;
+            audio.play().catch(() => {});
+        } catch(e) {}
+    }
+
+    // =========================================================
+    // ГЛЮКИ
+    // =========================================================
+    const glitchPhrases = [
+        '[СИСТЕМА: ОШИБКА]', '[НЕТ СИГНАЛА]', '[ЗАГРУЗКА...]',
+        '[ДАННЫЕ ПОВРЕЖДЕНЫ]', '[ВНИМАНИЕ: СБОЙ]', '[ПЕРЕЗАГРУЗКА...]',
+        '[НЕДОСТУПНО]', '[КРИТИЧЕСКАЯ ОШИБКА]', '[ПАМЯТЬ ПЕРЕПОЛНЕНА]',
+        '[СИСТЕМА: СТАБИЛЬНА]'
+    ];
+
+    function updateGlitchTexts() {
+        document.getElementById('glitchTopLeft').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+        document.getElementById('glitchBottomRight').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+    }
+    setInterval(updateGlitchTexts, 8000);
+    setTimeout(updateGlitchTexts, 2000);
+
+    // =========================================================
+    // GOOGLE ТАБЛИЦА (ДАННЫЕ ПЕРСОНАЖЕЙ)
+    // =========================================================
+    const GOOGLE_SHEET_URL = 'https://spreadsheets.google.com/feeds/list/2PACX-1vQW4JYfpAyr2ELBRkRlDMKFRYRSUd91fjQp4OsQqfV0w3GHAuCh7UtJ1GDAx7yNFdMrdNl6V3q7ujpp/1/public/values?alt=json';
+    const ADMIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzvCMxQlbl75pIAPgXtEPyD2umfwYMfYdyR14kkPZKkws9DzaVfsJCcMn9TWRWqtxgJ/exec';
+
+    let characters = {};
+    let currentCharacter = null;
+
+    // =========================================================
+    // АВТОРИЗАЦИЯ (localStorage)
+    // =========================================================
+    function loadAuth() {
+        const saved = localStorage.getItem('danganronpa_user');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                if (data.character && characters[data.character]) {
+                    currentCharacter = data.character;
+                    showProfile();
+                    return true;
+                }
+            } catch(e) {
+                localStorage.removeItem('danganronpa_user');
+            }
+        }
+        return false;
+    }
+
+    function saveAuth(name) {
+        localStorage.setItem('danganronpa_user', JSON.stringify({ character: name }));
+    }
+
+    function clearAuth() {
+        localStorage.removeItem('danganronpa_user');
+        currentCharacter = null;
+        document.getElementById('loginBlock').style.display = 'block';
+        document.getElementById('profileBlock').style.display = 'none';
+        document.getElementById('chatCharacterSelect').value = 'Аноним';
+        document.getElementById('chatCharacterSelect').disabled = true;
+        document.getElementById('chatMessageInput').disabled = true;
+        document.getElementById('chatSendBtn').disabled = true;
+        document.getElementById('chatUserInfo').textContent = '❌ Вы не авторизованы. Войдите в профиль.';
+    }
+
+    // =========================================================
+    // ЗАГРУЗКА ДАННЫХ
+    // =========================================================
+    async function loadCharacters() {
+        try {
+            const response = await fetch(GOOGLE_SHEET_URL);
+            const data = await response.json();
+            characters = {};
+            data.feed.entry.forEach(entry => {
+                const name = entry.gsx$персонаж?.$t || 'Без имени';
+                characters[name] = {
+                    age: parseInt(entry.gsx$возраст?.$t) || 0,
+                    talent: entry.gsx$талант?.$t || 'Неизвестно',
+                    status: entry.gsx$статус?.$t || 'Жив',
+                    coins: parseInt(entry.gsx$монеты?.$t) || 0,
+                    files: entry.gsx$файлы?.$t || 'Закрыто',
+                    password: entry.gsx$пароль?.$t || '0000',
+                    diary: entry.gsx$дневник?.$t || ''
+                };
+            });
+            updateCharacterSelect();
+            updateGlobalStats();
+            renderAdminPanel();
+            updateChatCharacterSelect();
+            
+            if (!loadAuth()) {
+                document.getElementById('loginBlock').style.display = 'block';
+                document.getElementById('profileBlock').style.display = 'none';
+            }
+            
+            console.log('Данные загружены', characters);
+        } catch (error) {
+            console.error('Ошибка загрузки:', error);
+            useFallbackData();
+        }
+    }
+
+    function useFallbackData() {
+        characters = {
+            "Кио Нагахара": { 
+                age: 17, 
+                talent: "Абсолютный Гипнотизер", 
+                status: "Жив", 
+                coins: 0, 
+                files: "Закрыто", 
+                password: "12345",
+                diary: "Первый день в академии..."
+            },
+            "Тестовый Персонаж": {
+                age: 18,
+                talent: "Абсолютный Тестировщик",
+                status: "Жив",
+                coins: 100,
+                files: "Закрыто",
+                password: "test123",
+                diary: ""
+            }
+        };
+        updateCharacterSelect();
+        updateGlobalStats();
+        renderAdminPanel();
+        updateChatCharacterSelect();
+        if (!loadAuth()) {
+            document.getElementById('loginBlock').style.display = 'block';
+            document.getElementById('profileBlock').style.display = 'none';
+        }
+    }
+
+    function updateCharacterSelect() {
+        const select = document.getElementById('characterSelect');
+        select.innerHTML = '';
+        Object.keys(characters).forEach(name => {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            select.appendChild(option);
+        });
+    }
+
+    function updateChatCharacterSelect() {
+        const select = document.getElementById('chatCharacterSelect');
+        select.innerHTML = '';
+        
+        if (currentCharacter && characters[currentCharacter]) {
+            const option = document.createElement('option');
+            option.value = currentCharacter;
+            option.textContent = currentCharacter + ' (вы)';
+            select.appendChild(option);
+            
+            const anonOption = document.createElement('option');
+            anonOption.value = 'Аноним';
+            anonOption.textContent = 'Аноним';
+            select.appendChild(anonOption);
+            
+            select.disabled = false;
+            document.getElementById('chatMessageInput').disabled = false;
+            document.getElementById('chatSendBtn').disabled = false;
+            document.getElementById('chatUserInfo').textContent = `✅ Вы вошли как ${currentCharacter}`;
+        } else {
+            const anonOption = document.createElement('option');
+            anonOption.value = 'Аноним';
+            anonOption.textContent = 'Аноним (только чтение)';
+            select.appendChild(anonOption);
+            select.disabled = true;
+            document.getElementById('chatMessageInput').disabled = true;
+            document.getElementById('chatSendBtn').disabled = true;
+            document.getElementById('chatUserInfo').textContent = '❌ Войдите в профиль, чтобы писать в чат';
+        }
+    }
+
+    function updateGlobalStats() {
+        const total = Object.keys(characters).length;
+        let alive = 0, dead = 0;
+        Object.values(characters).forEach(char => {
+            if (char.status === 'Жив') alive++;
+            else if (char.status === 'Мертв') dead++;
+        });
+        document.getElementById('survivors').textContent = alive;
+        document.getElementById('deaths').textContent = dead;
+        const progress = total > 0 ? (alive / total) * 100 : 0;
+        document.getElementById('survivorProgress').style.width = Math.min(progress, 100) + '%';
+    }
+
+    // =========================================================
+    // ПРОФИЛЬ
+    // =========================================================
+    function showProfile() {
+        if (!currentCharacter) return;
+        const character = characters[currentCharacter];
+        if (!character) return;
+        
+        document.getElementById('loginBlock').style.display = 'none';
+        document.getElementById('profileBlock').style.display = 'block';
+        
+        document.getElementById('profileName').textContent = currentCharacter;
+        document.getElementById('profileAge').textContent = character.age;
+        document.getElementById('profileTalent').textContent = character.talent;
+        document.getElementById('profileCoins').textContent = character.coins;
+        document.getElementById('profileFiles').textContent = character.files;
+        
+        const statusEl = document.getElementById('profileStatus');
+        statusEl.textContent = character.status;
+        statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
+        
+        const photoContainer = document.getElementById('profilePhoto');
+        const avatarPath = `images/avatars/${encodeURIComponent(currentCharacter)}.png`;
+        const img = new Image();
+        img.onload = function() {
+            photoContainer.innerHTML = `<img src="${avatarPath}" alt="${currentCharacter}">`;
+        };
+        img.onerror = function() {
+            photoContainer.innerHTML = `
+                <div class="placeholder">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Фото</span>
+                </div>
+            `;
+        };
+        img.src = avatarPath;
+        
+        document.getElementById('diaryInput').value = character.diary || '';
+        document.getElementById('diaryStatus').textContent = 'Заметки сохранены в твоём профиле';
+        
+        updateChatCharacterSelect();
+        saveAuth(currentCharacter);
+    }
+
+    function login() {
+        const name = document.getElementById('characterSelect').value;
+        const password = document.getElementById('passwordInput').value;
+        const message = document.getElementById('loginMessage');
+        if (!name) { message.textContent = 'Выберите персонажа'; return; }
+        const character = characters[name];
+        if (!character) { message.textContent = 'Персонаж не найден'; return; }
+        if (character.password !== password) { message.textContent = 'Неверный пароль'; return; }
+        
+        message.textContent = 'Добро пожаловать!';
+        message.style.color = '#00ff88';
+        currentCharacter = name;
+        showProfile();
+        console.log(`✅ Авторизован как ${name}`);
+    }
+
+    function logout() {
+        clearAuth();
+        document.getElementById('loginMessage').textContent = '';
+        document.getElementById('passwordInput').value = '';
+        const photoContainer = document.getElementById('profilePhoto');
+        photoContainer.innerHTML = `
+            <div class="placeholder">
+                <i class="fas fa-user-circle"></i>
+                <span>Фото</span>
+            </div>
+        `;
+        updateChatCharacterSelect();
+        console.log('👋 Выход из профиля');
+    }
+
+    // =========================================================
+    // ДНЕВНИК
+    // =========================================================
+    function saveDiary() {
+        if (!currentCharacter) {
+            document.getElementById('diaryStatus').textContent = 'Войди в профиль, чтобы сохранить заметки';
+            return;
+        }
+        const text = document.getElementById('diaryInput').value;
+        characters[currentCharacter].diary = text;
+        document.getElementById('diaryStatus').textContent = 'Заметки сохранены';
+        console.log('Дневник', currentCharacter, text);
+    }
+
+    function loadDiary() {
+        if (!currentCharacter) {
+            document.getElementById('diaryStatus').textContent = 'Войди в профиль, чтобы загрузить заметки';
+            return;
+        }
+        const text = characters[currentCharacter].diary || '';
+        document.getElementById('diaryInput').value = text;
+        document.getElementById('diaryStatus').textContent = 'Заметки загружены';
+    }
+
+    // =========================================================
+    // СПЛЕТНИ
+    // =========================================================
+    const gossipData = [
+        "Пу-пу-пу... Похоже, кто-то хочет посплетничать?",
+        "Если вы соберете 10000 монет, то я вам расскажу, как выбраться из этой Академии! Ну, или же нет...",
+        "Вас не смешит такой талант как \"Пупенмейстер\"? Нет, не смешит? Эх, ну ладно...",
+        "Дайте выбор Кио Нагахаре - с кем он останется в лесу, с медведем или... Второго варианта не дано.",
+    ];
+
+    function showRandomGossip() {
+        const randomIndex = Math.floor(Math.random() * gossipData.length);
+        document.getElementById('gossipText').textContent = gossipData[randomIndex];
+        document.getElementById('gossipAuthor').textContent = '— Монокума';
+    }
+
+    // =========================================================
+    // ЧАТ
+    // =========================================================
+    async function loadMessages() {
+        const messagesContainer = document.getElementById('chatMessages');
+        const statusEl = document.getElementById('chatStatus');
+        
+        try {
+            statusEl.textContent = 'Загрузка сообщений...';
+            const response = await fetch(ADMIN_SCRIPT_URL + '?action=getChat');
+            const data = await response.json();
+            
+            if (data.status === 'error') {
+                messagesContainer.innerHTML = `
+                    <div style="text-align: center; color: #ff6b8a; padding: 20px;">
+                        Ошибка загрузки: ${data.error}
+                    </div>
+                `;
+                statusEl.textContent = '❌ Ошибка подключения к чату';
+                return;
+            }
+            
+            if (!Array.isArray(data) || data.length === 0) {
+                messagesContainer.innerHTML = `
+                    <div style="text-align: center; color: #6b5596; padding: 20px;">
+                        В чате пока пусто. Напиши первое сообщение!
+                    </div>
+                `;
+                statusEl.textContent = '💬 Сообщений нет';
+                return;
+            }
+            
+            let html = '';
+            const messages = data.slice(-50);
+            messages.forEach(msg => {
+                const time = msg.time ? formatTime(msg.time) : '--:--';
+                const character = msg.character || 'Аноним';
+                const text = msg.message || '';
+                html += `
+                    <div class="chat-message">
+                        <span class="chat-name">${character}</span>
+                        <span class="chat-time">${time}</span>
+                        <span class="chat-text">${text}</span>
+                    </div>
+                `;
+            });
+            messagesContainer.innerHTML = html;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            statusEl.textContent = `✅ Загружено сообщений: ${data.length}`;
+            
+        } catch (error) {
+            console.error('Ошибка загрузки чата:', error);
+            messagesContainer.innerHTML = `
+                <div style="text-align: center; color: #ff6b8a; padding: 20px;">
+                    ❌ Не удалось загрузить чат: ${error.message}
+                </div>
+            `;
+            statusEl.textContent = '❌ Ошибка подключения';
+        }
+    }
+
+    function formatTime(timeStr) {
+        try {
+            const date = new Date(timeStr);
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            return `${day}.${month} ${hours}:${minutes}`;
+        } catch(e) {
+            return timeStr || '--:--';
+        }
+    }
+
+    async function sendMessage() {
+        if (!currentCharacter) {
+            document.getElementById('chatStatus').textContent = '❌ Войди в профиль, чтобы писать в чат';
+            return;
+        }
+        
+        const characterSelect = document.getElementById('chatCharacterSelect');
+        const messageInput = document.getElementById('chatMessageInput');
+        const statusEl = document.getElementById('chatStatus');
+        
+        const character = characterSelect.value;
+        const message = messageInput.value.trim();
+        
+        if (!message) {
+            statusEl.textContent = '✏️ Напиши сообщение!';
+            return;
+        }
+        
+        if (character !== 'Аноним' && character !== currentCharacter) {
+            statusEl.textContent = '❌ Ты можешь писать только от своего лица или как Аноним';
+            return;
+        }
+        
+        try {
+            statusEl.textContent = 'Отправка...';
+            const response = await fetch(ADMIN_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'addChatMessage',
+                    character: character,
+                    message: message
+                })
+            });
+            
+            statusEl.textContent = '✅ Сообщение отправлено!';
+            messageInput.value = '';
+            setTimeout(loadMessages, 1000);
+            
+        } catch (error) {
+            console.error('Ошибка отправки:', error);
+            statusEl.textContent = '❌ Ошибка отправки: ' + error.message;
+        }
+    }
+
+    // =========================================================
+    // АДМИНКА
+    // =========================================================
+    const ADMIN_PASSWORD = 'sexwithgrandpa2001_COOL';
+
+    function toggleAdmin() {
+        const panel = document.getElementById('adminPanel');
+        if (panel.style.display === 'none' || panel.style.display === '') {
+            panel.style.display = 'block';
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+
+    function closeAdmin() {
+        document.getElementById('adminPanel').style.display = 'none';
+        document.getElementById('adminControls').style.display = 'none';
+        document.getElementById('adminError').textContent = '';
+    }
+
+    function checkAdminPassword() {
+        const input = document.getElementById('adminPasswordInput').value;
+        const error = document.getElementById('adminError');
+        if (input === ADMIN_PASSWORD) {
+            error.textContent = 'Доступ разрешён';
+            error.style.color = '#00ff88';
+            document.getElementById('adminControls').style.display = 'block';
+            renderAdminPanel();
+        } else {
+            error.textContent = 'Неверный пароль';
+            error.style.color = '#ff6b8a';
+        }
+    }
+
+    function renderAdminPanel() {
+        const container = document.getElementById('adminControls');
+        container.innerHTML = '<h4 style="color: #ffffff; text-align: center; font-family: \'8bitWonder\', monospace;">Управление игроками</h4>';
+        Object.keys(characters).forEach(name => {
+            const char = characters[name];
+            const div = document.createElement('div');
+            div.className = 'admin-field';
+            
+            const label = document.createElement('label');
+            label.textContent = name;
+            
+            const coinsInput = document.createElement('input');
+            coinsInput.type = 'number';
+            coinsInput.value = char.coins;
+            coinsInput.id = `admin-coins-${name}`;
+            
+            const statusSelect = document.createElement('select');
+            statusSelect.id = `admin-status-${name}`;
+            const optionAlive = document.createElement('option');
+            optionAlive.value = 'Жив';
+            optionAlive.textContent = 'Жив';
+            const optionDead = document.createElement('option');
+            optionDead.value = 'Мертв';
+            optionDead.textContent = 'Мертв';
+            statusSelect.appendChild(optionAlive);
+            statusSelect.appendChild(optionDead);
+            statusSelect.value = char.status;
+            
+            const applyBtn = document.createElement('button');
+            applyBtn.textContent = '✅';
+            applyBtn.onclick = function() {
+                updatePlayer(name);
+            };
+            
+            div.appendChild(label);
+            div.appendChild(coinsInput);
+            div.appendChild(statusSelect);
+            div.appendChild(applyBtn);
+            container.appendChild(div);
+        });
+    }
+
+    async function updatePlayer(name) {
+        const coins = parseInt(document.getElementById(`admin-coins-${name}`).value) || 0;
+        const status = document.getElementById(`admin-status-${name}`).value;
+        const data = { action: 'updatePlayer', name, coins, status };
+        
+        try {
+            const response = await fetch(ADMIN_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            
+            characters[name].coins = coins;
+            characters[name].status = status;
+            updateGlobalStats();
+            
+            if (currentCharacter === name) {
+                document.getElementById('profileCoins').textContent = coins;
+                const statusEl = document.getElementById('profileStatus');
+                statusEl.textContent = status;
+                statusEl.style.color = status === 'Жив' ? '#00ff88' : '#ff6b8a';
+            }
+            
+            renderAdminPanel();
+            alert(`✅ Данные для "${name}" обновлены!`);
+        } catch (e) {
+            alert('❌ Ошибка при обновлении: ' + e.message);
+        }
+    }
+
+    // =========================================================
+    // НОВОСТИ (ТОЛЬКО ДЛЯ ЧТЕНИЯ)
+    // =========================================================
+    async function loadNewsFromTable() {
+        try {
+            const response = await fetch(ADMIN_SCRIPT_URL + '?action=getNews');
+            const news = await response.json();
+            if (!Array.isArray(news)) return;
+            const list = document.getElementById('newsList');
+            list.innerHTML = '';
+            if (news.length === 0) {
+                list.innerHTML = '<li class="empty-news">Событий пока нет...</li>';
+                return;
+            }
+            news.slice(-10).reverse().forEach(item => {
+                const li = document.createElement('li');
+                const time = item.time ? formatTime(item.time) : '';
+                li.innerHTML = `
+                    <span class="time">${time}</span>
+                    ${item.isHighlight ? `<span class="highlight">${item.text || ''}</span>` : (item.text || '')}
+                `;
+                list.appendChild(li);
+            });
+        } catch (e) {
+            console.error('Ошибка загрузки новостей:', e);
+        }
+    }
+
+    function openFloor(floor) {
+        const floors = {
+            1: '1 этаж: Вестибюль, Столовая, Классные комнаты',
+            2: '2 этаж: Библиотека, Комнаты учеников, Лаборатория',
+            3: '3 этаж: Спортзал, Актовый зал, Директорская'
+        };
+        document.getElementById('floorMessage').textContent = floors[floor] || 'Этаж в разработке';
+    }
+
+    // =========================================================
+    // ЗАГРУЗКА
+    // =========================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        loadCharacters();
+        setTimeout(loadNewsFromTable, 2000);
+        setInterval(loadNewsFromTable, 30000);
+        
+        const chatInput = document.getElementById('chatMessageInput');
+        if (chatInput) {
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !this.disabled) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
