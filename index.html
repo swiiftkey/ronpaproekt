@@ -1199,7 +1199,7 @@
                         <div style="position:absolute; bottom:5px; right:5px; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px; font-size:12px; cursor:pointer;" onclick="document.getElementById('avatarUpload').click();">
                             📷
                         </div>
-                        <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatarPostImages(event)">
+                        <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatarBase64(event)">
                     </div>
                     <div class="passport-info">
                         <div class="passport-field"><span class="label">Талант</span><span class="value" id="profileTalent">—</span></div>
@@ -1709,26 +1709,35 @@
     }
 
     // =========================================================
-    // АВАТАРКА (ЗАГРУЗКА ЧЕРЕЗ POSTIMAGES)
-    // =========================================================
-    async function uploadAvatarPostImages(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+// ЗАГРУЗКА АВАТАРКИ (BASE64) + СОХРАНЕНИЕ В JSONBin
+// =========================================================
 
-        if (file.size > 5 * 1024 * 1024) {
-            alert('❌ Картинка слишком большая! Максимум 5 МБ.');
-            return;
-        }
+async function uploadAvatarBase64(event) {
+    const file = event.target.files[0];
+    if (!file) return;
 
-        // Показываем превью
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('avatarPreview').src = e.target.result;
-            document.getElementById('avatarPreview').style.display = 'block';
-            document.getElementById('avatarPlaceholder').style.display = 'none';
-        };
-        reader.readAsDataURL(file);
+    if (file.size > 5 * 1024 * 1024) {
+        alert('❌ Картинка слишком большая! Максимум 5 МБ.');
+        return;
+    }
 
+    // Показываем превью и сохраняем в Base64
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const base64String = e.target.result;
+        
+        // Сохраняем в JSONBin
+        characters[currentCharacter].avatar = base64String;
+        await saveToJSONBin();
+
+        // Обновляем на сайте
+        document.getElementById('avatarPreview').src = base64String;
+        document.getElementById('avatarPreview').style.display = 'block';
+        document.getElementById('avatarPlaceholder').style.display = 'none';
+        alert('✅ Аватарка сохранена!');
+    };
+    reader.readAsDataURL(file);
+}
         // Отправляем на PostImages
         const formData = new FormData();
         formData.append('image', file);
