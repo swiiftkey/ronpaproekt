@@ -286,7 +286,7 @@
         }
 
         /* ======================================== */
-        /* НОВОСТИ (ТОЛЬКО ДЛЯ ОТОБРАЖЕНИЯ) */
+        /* НОВОСТИ */
         /* ======================================== */
         .news-feed {
             background: rgba(26, 16, 56, 0.6);
@@ -1276,10 +1276,10 @@
 
 <script>
     // =========================================================
-    // ПОДКЛЮЧЕНИЕ К SUPABASE
+    // ПОДКЛЮЧЕНИЕ К JSONBin (С КЭШИРОВАНИЕМ)
     // =========================================================
-    const SUPABASE_URL = 'https://rufhnzznaighnhbaghrd.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_XeOcw9y_eOFLjAws8mQiQg_2eD8PKco';
+    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/6a88520bda38895dfeffc439';
+    const JSONBIN_KEY = '$2a$10$tsqlxcFg9kXHu4maHVFwYOZx5mNQHYzpmCR89bDJrPRsEdd3UpSue';
 
     let characters = {};
     let chatMessages = [];
@@ -1316,104 +1316,93 @@
     }
 
     // =========================================================
-    // ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ЗАПРОСОВ К SUPABASE
-    // =========================================================
-    async function supabaseRequest(path, options) {
-        const url = SUPABASE_URL + '/rest/v1/' + path;
-        const headers = {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_KEY,
-            'Content-Type': 'application/json'
-        };
-        if (options && options.method === 'POST') {
-            headers['Prefer'] = 'return=representation';
-        }
-        const response = await fetch(url, { ...options, headers });
-        if (!response.ok) {
-            throw new Error('Ошибка: ' + response.status + ' ' + response.statusText);
-        }
-        return response.json();
-    }
-
-    // =========================================================
-    // ЗАГРУЗКА ДАННЫХ ИЗ SUPABASE
+    // ЗАГРУЗКА ДАННЫХ ИЗ JSONBin (С КЭШИРОВАНИЕМ)
     // =========================================================
     async function loadCharacters() {
         try {
-            const charactersData = await supabaseRequest('characters?select=*');
-            characters = {};
-            charactersData.forEach(row => {
-                characters[row.name] = {
-                    age: row.age,
-                    talent: row.talent,
-                    status: row.status,
-                    coins: row.coins,
-                    password: row.password,
-                    diary: row.diary || '',
-                    avatar: row.avatar || '',
-                    admin: row.admin || false
-                };
+            // Пытаемся загрузить из кэша (localStorage)
+            const cached = localStorage.getItem('danganronpa_data');
+            if (cached) {
+                try {
+                    const data = JSON.parse(cached);
+                    characters = data.characters || {};
+                    chatMessages = data.chat || [];
+                    console.log('✅ Данные загружены из кэша', characters);
+                    applyLoadedData();
+                } catch(e) {
+                    console.warn('Кэш повреждён, загружаем из сети');
+                }
+            }
+
+            // Загружаем свежие данные из JSONBin
+            const response = await fetch(JSONBIN_URL, {
+                headers: { 'X-Master-Key': JSONBIN_KEY }
             });
-
-            const chatData = await supabaseRequest('chat?select=*&order=id.desc&limit=50');
-            chatMessages = chatData.reverse();
-
-            console.log('✅ Данные загружены из Supabase', characters);
+            const data = await response.json();
             
-            updateCharacterSelect();
-            updateGlobalStats();
-            renderAdminPanel();
-            updateChatCharacterSelect();
-            renderChatMessages();
-            
-            if (!loadAuth()) {
-                document.getElementById('loginBlock').style.display = 'block';
-                document.getElementById('profileBlock').style.display = 'none';
+            if (data.record) {
+                characters = data.record.characters || {};
+                chatMessages = data.record.chat || [];
+                // Сохраняем в кэш
+                localStorage.setItem('danganronpa_data', JSON.stringify({
+                    characters: characters,
+                    chat: chatMessages
+                }));
+                console.log('✅ Данные загружены из JSONBin', characters);
+                applyLoadedData();
             }
         } catch (error) {
             console.error('❌ Ошибка загрузки:', error);
-            useFallbackData();
+            // Если нет кэша и нет сети — используем запасной вариант
+            if (!localStorage.getItem('danganronpa_data')) {
+                useFallbackData();
+            }
+        }
+    }
+
+    // Применяем загруженные данные к интерфейсу
+    function applyLoadedData() {
+        updateCharacterSelect();
+        updateGlobalStats();
+        renderAdminPanel();
+        updateChatCharacterSelect();
+        renderChatMessages();
+        
+        if (!loadAuth()) {
+            document.getElementById('loginBlock').style.display = 'block';
+            document.getElementById('profileBlock').style.display = 'none';
         }
     }
 
     // =========================================================
-    // СОХРАНЕНИЕ ДАННЫХ В SUPABASE
+    // СОХРАНЕНИЕ ДАННЫХ В JSONBin
     // =========================================================
-    async function saveToSupabase() {
+    async function saveToJSONBin() {
         try {
-            for (const [name, data] of Object.entries(characters)) {
-                await supabaseRequest('characters?name=eq.' + encodeURIComponent(name), {
-                    method: 'PATCH',
-                    body: JSON.stringify({
-                        age: data.age,
-                        talent: data.talent,
-                        status: data.status,
-                        coins: data.coins,
-                        password: data.password,
-                        diary: data.diary,
-                        avatar: data.avatar,
-                        admin: data.admin
-                    })
-                });
-            }
-
-            await supabaseRequest('chat?order=id.desc&limit=1000', { method: 'DELETE' });
+            const data = {
+                characters: characters,
+                chat: chatMessages
+            };
             
-            const messages = chatMessages.slice(-100);
-            for (const msg of messages) {
-                await supabaseRequest('chat', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        character: msg.character,
-                        message: msg.message
-                    })
-                });
+            const response = await fetch(JSONBIN_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_KEY
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error('Ошибка сохранения: ' + response.status);
             }
-
-            console.log('✅ Данные сохранены в Supabase');
+            
+            // Обновляем кэш
+            localStorage.setItem('danganronpa_data', JSON.stringify(data));
+            console.log('✅ Данные сохранены в JSONBin и кэш');
             return true;
         } catch (error) {
-            console.error('❌ Ошибка сохранения:', error);
+            console.error('❌ Ошибка сохранения в JSONBin:', error);
             alert('❌ Ошибка сохранения: ' + error.message);
             return false;
         }
@@ -1436,15 +1425,7 @@
             }
         };
         chatMessages = [];
-        updateCharacterSelect();
-        updateGlobalStats();
-        renderAdminPanel();
-        updateChatCharacterSelect();
-        renderChatMessages();
-        if (!loadAuth()) {
-            document.getElementById('loginBlock').style.display = 'block';
-            document.getElementById('profileBlock').style.display = 'none';
-        }
+        applyLoadedData();
     }
 
     // =========================================================
@@ -1616,7 +1597,7 @@
         }
         const text = document.getElementById('diaryInput').value;
         characters[currentCharacter].diary = text;
-        saveToSupabase();
+        saveToJSONBin();
         document.getElementById('diaryStatus').textContent = '✅ Заметки сохранены!';
     }
 
@@ -1684,7 +1665,7 @@
     }
 
     // =========================================================
-    // ЗАГРУЗКА АВАТАРКИ (BASE64 + СЖАТИЕ) С СОХРАНЕНИЕМ В SUPABASE
+    // ЗАГРУЗКА АВАТАРКИ (BASE64 + СЖАТИЕ)
     // =========================================================
     async function uploadAvatarBase64(event) {
         const file = event.target.files[0];
@@ -1703,7 +1684,7 @@
         try {
             const compressedBase64 = await compressImage(file, 0.5);
             characters[currentCharacter].avatar = compressedBase64;
-            await saveToSupabase();
+            await saveToJSONBin();
             document.getElementById('avatarPreview').src = compressedBase64;
             alert('✅ Аватарка сохранена!');
         } catch (error) {
@@ -1749,9 +1730,31 @@
 
     async function loadMessages() {
         try {
-            const chatData = await supabaseRequest('chat?select=*&order=id.desc&limit=50');
-            chatMessages = chatData.reverse();
-            renderChatMessages();
+            // Пытаемся загрузить из кэша
+            const cached = localStorage.getItem('danganronpa_data');
+            if (cached) {
+                try {
+                    const data = JSON.parse(cached);
+                    if (data.chat) {
+                        chatMessages = data.chat;
+                        renderChatMessages();
+                    }
+                } catch(e) {}
+            }
+            
+            // Загружаем свежие данные из JSONBin
+            const response = await fetch(JSONBIN_URL, {
+                headers: { 'X-Master-Key': JSONBIN_KEY }
+            });
+            const data = await response.json();
+            if (data.record && data.record.chat) {
+                chatMessages = data.record.chat;
+                // Обновляем кэш
+                const cachedData = JSON.parse(localStorage.getItem('danganronpa_data') || '{}');
+                cachedData.chat = chatMessages;
+                localStorage.setItem('danganronpa_data', JSON.stringify(cachedData));
+                renderChatMessages();
+            }
             document.getElementById('chatStatus').textContent = '✅ Загружено сообщений: ' + chatMessages.length;
         } catch (error) {
             console.error('Ошибка загрузки чата:', error);
@@ -1777,7 +1780,7 @@
         try {
             statusEl.textContent = 'Отправка...';
             chatMessages.push({ time: new Date().toISOString(), character: character, message: message });
-            await saveToSupabase();
+            await saveToJSONBin();
             statusEl.textContent = '✅ Сообщение отправлено!';
             messageInput.value = '';
             renderChatMessages();
@@ -1852,7 +1855,7 @@
                 const status = document.getElementById('admin-status-' + name).value;
                 characters[name].coins = coins;
                 characters[name].status = status;
-                await saveToSupabase();
+                await saveToJSONBin();
                 updateGlobalStats();
                 if (currentCharacter === name) {
                     document.getElementById('profileCoins').textContent = coins;
@@ -1872,7 +1875,7 @@
     }
 
     // =========================================================
-    // ФУНКЦИЯ ОТКРЫТИЯ ЭТАЖА
+    // ОТКРЫТИЕ ЭТАЖА
     // =========================================================
     function openFloor(floor) {
         const floors = {
