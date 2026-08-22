@@ -1058,20 +1058,21 @@
             }
         }
 
+        /* ===== ПОЧТИ НЕЗАМЕТНАЯ МЕТКА "АДМИН" (БЕЛАЯ, ПОЛУПРОЗРАЧНАЯ) ===== */
         .admin-badge {
             display: inline-block;
-            background: #ff6b8a;
-            color: #0a0618;
+            color: rgba(255, 255, 255, 0.4);
             font-size: 12px;
-            font-weight: bold;
-            padding: 2px 10px;
-            border-radius: 10px;
-            margin-left: 10px;
+            font-weight: normal;
+            padding: 0px 6px;
+            margin-left: 6px;
             text-shadow: none;
             letter-spacing: 1px;
             font-family: '8bitWonder', monospace;
-            border: 2px solid #fff;
-            box-shadow: 0 0 20px rgba(255, 107, 138, 0.4);
+            opacity: 0.6;
+            background: none;
+            border: none;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -1190,7 +1191,15 @@
                     </div>
                 </div>
                 <div class="passport-section"><h4>Моно-монеты</h4><div class="passport-coins" id="profileCoins">0</div></div>
-                <div class="passport-section"><h4>Карта этажей</h4><div class="floor-buttons"><button class="floor-btn" onclick="openFloor(1)">1 этаж</button><button class="floor-btn" onclick="openFloor(2)">2 этаж</button><button class="floor-btn" onclick="openFloor(3)">3 этаж</button></div><p id="floorMessage" style="color:#6b5596; margin-top:12px; text-align:center; font-size:15px;"></p></div>
+                <div class="passport-section">
+                    <h4>Карта этажей</h4>
+                    <div class="floor-buttons">
+                        <button class="floor-btn" onclick="openFloor(1)">1 этаж</button>
+                        <button class="floor-btn" onclick="openFloor(2)">2 этаж</button>
+                        <button class="floor-btn" onclick="openFloor(3)">3 этаж</button>
+                    </div>
+                    <p id="floorMessage" style="color: #6b5596; margin-top: 12px; text-align:center; font-size:15px;"></p>
+                </div>
                 <div class="passport-section"><h4>Файлы Монокумы</h4><div class="files-status" id="profileFiles">Закрыто</div></div>
                 <div class="diary-section"><h4>Личный дневник</h4><textarea id="diaryInput" placeholder="Запиши свои мысли, улики или подозрения..."></textarea><div class="diary-actions"><button onclick="saveDiary()">Сохранить</button><button onclick="loadDiary()">Загрузить</button></div><div class="diary-status" id="diaryStatus">Заметки сохраняются в твоём профиле</div></div>
             </div>
@@ -1286,7 +1295,7 @@
     let currentCharacter = null;
 
     // =========================================================
-    // БАЗОВЫЕ ФУНКЦИИ (ДОЛЖНЫ БЫТЬ ОБЪЯВЛЕНЫ ПЕРВЫМИ)
+    // БАЗОВЫЕ ФУНКЦИИ
     // =========================================================
     function openTab(tabName) {
         document.getElementById('mainMenu').style.display = 'none';
@@ -1537,6 +1546,7 @@
         statusEl.textContent = character.status;
         statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
         
+        // Метка "АДМИН" в профиле (почти незаметная)
         const nameEl = document.getElementById('profileName');
         const oldBadge = nameEl.querySelector('.admin-badge');
         if (oldBadge) oldBadge.remove();
@@ -1693,7 +1703,7 @@
     }
 
     // =========================================================
-    // ЧАТ
+    // ЧАТ (ИСТОРИЯ СООБЩЕНИЙ)
     // =========================================================
     function renderChatMessages() {
         const container = document.getElementById('chatMessages');
@@ -1702,12 +1712,13 @@
             return;
         }
         let html = '';
-        const messages = chatMessages.slice(-50);
-        messages.forEach(msg => {
+        // Показываем ВСЕ сообщения, а не только последние 50
+        chatMessages.forEach(msg => {
             const time = msg.time ? formatTime(msg.time) : '--:--';
             const character = msg.character || 'Аноним';
             const text = msg.message || '';
             const isAdmin = characters[character] && characters[character].admin === true;
+            // Метка АДМИН почти незаметная
             const adminBadgeHtml = isAdmin ? ' <span class="admin-badge">АДМИН</span>' : '';
             html += '<div class="chat-message"><span class="chat-name">' + character + adminBadgeHtml + '</span><span class="chat-time">' + time + '</span><span class="chat-text">' + text + '</span></div>';
         });
@@ -1875,15 +1886,11 @@
     }
 
     // =========================================================
-    // ОТКРЫТИЕ ЭТАЖА
+    // ОТКРЫТИЕ ЭТАЖА (БЕЗ ОПИСАНИЙ)
     // =========================================================
     function openFloor(floor) {
-        const floors = {
-            1: '1 этаж: Вестибюль, Столовая, Классные комнаты',
-            2: '2 этаж: Библиотека, Комнаты учеников, Лаборатория',
-            3: '3 этаж: Спортзал, Актовый зал, Директорская'
-        };
-        document.getElementById('floorMessage').textContent = floors[floor] || 'Этаж в разработке';
+        // Убираем все описания этажей. Оставляем только пустое сообщение или короткую фразу.
+        document.getElementById('floorMessage').textContent = '📍 Этаж ' + floor + ' (ожидает описания)';
     }
 
     // =========================================================
