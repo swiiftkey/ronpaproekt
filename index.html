@@ -1286,6 +1286,36 @@
     let currentCharacter = null;
 
     // =========================================================
+    // БАЗОВЫЕ ФУНКЦИИ (ДОЛЖНЫ БЫТЬ ОБЪЯВЛЕНЫ ПЕРВЫМИ)
+    // =========================================================
+    function openTab(tabName) {
+        document.getElementById('mainMenu').style.display = 'none';
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        const target = document.getElementById('tab-' + tabName);
+        if (target) target.classList.add('active');
+        if (tabName === 'chat') loadMessages();
+    }
+
+    function closeTab() {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function goHome() {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function playClick() {
+        try {
+            const audio = new Audio();
+            audio.src = 'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACBhYqFhYWFiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYWFhYWFhYWFhYWFhYU=';
+            audio.volume = 0.3;
+            audio.play().catch(() => {});
+        } catch(e) {}
+    }
+
+    // =========================================================
     // ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ ЗАПРОСОВ К SUPABASE
     // =========================================================
     async function supabaseRequest(path, options) {
@@ -1295,7 +1325,6 @@
             'Authorization': 'Bearer ' + SUPABASE_KEY,
             'Content-Type': 'application/json'
         };
-        // Для POST-запросов (вставка) нужно добавить Prefer: return=representation
         if (options && options.method === 'POST') {
             headers['Prefer'] = 'return=representation';
         }
@@ -1311,7 +1340,6 @@
     // =========================================================
     async function loadCharacters() {
         try {
-            // Загружаем персонажей
             const charactersData = await supabaseRequest('characters?select=*');
             characters = {};
             charactersData.forEach(row => {
@@ -1327,7 +1355,6 @@
                 };
             });
 
-            // Загружаем чат (последние 50 сообщений)
             const chatData = await supabaseRequest('chat?select=*&order=id.desc&limit=50');
             chatMessages = chatData.reverse();
 
@@ -1354,7 +1381,6 @@
     // =========================================================
     async function saveToSupabase() {
         try {
-            // Обновляем персонажей (по одному)
             for (const [name, data] of Object.entries(characters)) {
                 await supabaseRequest('characters?name=eq.' + encodeURIComponent(name), {
                     method: 'PATCH',
@@ -1371,11 +1397,8 @@
                 });
             }
 
-            // Обновляем чат: удаляем все старые сообщения и вставляем новые
-            // Сначала удаляем все сообщения (ограничение 1000 для безопасности)
             await supabaseRequest('chat?order=id.desc&limit=1000', { method: 'DELETE' });
             
-            // Вставляем только последние 100 сообщений
             const messages = chatMessages.slice(-100);
             for (const msg of messages) {
                 await supabaseRequest('chat', {
@@ -1533,7 +1556,6 @@
         statusEl.textContent = character.status;
         statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
         
-        // Админ-метка в профиле
         const nameEl = document.getElementById('profileName');
         const oldBadge = nameEl.querySelector('.admin-badge');
         if (oldBadge) oldBadge.remove();
@@ -1544,7 +1566,6 @@
             nameEl.appendChild(adminBadge);
         }
         
-        // Аватарка
         const avatar = characters[currentCharacter].avatar || '';
         if (avatar) {
             document.getElementById('avatarPreview').src = avatar;
@@ -1705,7 +1726,6 @@
             const time = msg.time ? formatTime(msg.time) : '--:--';
             const character = msg.character || 'Аноним';
             const text = msg.message || '';
-            // Админ-метка в чате
             const isAdmin = characters[character] && characters[character].admin === true;
             const adminBadgeHtml = isAdmin ? ' <span class="admin-badge">АДМИН</span>' : '';
             html += '<div class="chat-message"><span class="chat-name">' + character + adminBadgeHtml + '</span><span class="chat-time">' + time + '</span><span class="chat-text">' + text + '</span></div>';
@@ -1852,7 +1872,19 @@
     }
 
     // =========================================================
-    // БАЗОВЫЕ ФУНКЦИИ
+    // ФУНКЦИЯ ОТКРЫТИЯ ЭТАЖА
+    // =========================================================
+    function openFloor(floor) {
+        const floors = {
+            1: '1 этаж: Вестибюль, Столовая, Классные комнаты',
+            2: '2 этаж: Библиотека, Комнаты учеников, Лаборатория',
+            3: '3 этаж: Спортзал, Актовый зал, Директорская'
+        };
+        document.getElementById('floorMessage').textContent = floors[floor] || 'Этаж в разработке';
+    }
+
+    // =========================================================
+    // ВРЕМЯ
     // =========================================================
     function updateTime() {
         const now = new Date();
@@ -1861,36 +1893,9 @@
     updateTime();
     setInterval(updateTime, 10000);
 
-    function openTab(tabName) {
-        document.getElementById('mainMenu').style.display = 'none';
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        const target = document.getElementById('tab-' + tabName);
-        if (target) target.classList.add('active');
-        if (tabName === 'chat') loadMessages();
-    }
-
-    function closeTab() {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('mainMenu').style.display = 'block';
-    }
-
-    function goHome() {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('mainMenu').style.display = 'block';
-    }
-
-    function playClick() {
-        try {
-            const audio = new Audio();
-            audio.src = 'data:audio/wav;base64,UklGRlwAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVoAAACBhYqFhYWFiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYmJiYmJiYmJiYmJiYmJhYWFhYWFhYWFhYWFhYWFhYU=';
-            audio.volume = 0.3;
-            audio.play().catch(() => {});
-        } catch(e) {}
-    }
-
-    // ======================================== */
-    /* ГЛЮКИ
-    /* ======================================== */
+    // =========================================================
+    // ГЛЮКИ
+    // =========================================================
     const glitchPhrases = [
         '[СИСТЕМА: ОШИБКА]', '[НЕТ СИГНАЛА]', '[ЗАГРУЗКА...]',
         '[ДАННЫЕ ПОВРЕЖДЕНЫ]', '[ВНИМАНИЕ: СБОЙ]', '[ПЕРЕЗАГРУЗКА...]',
@@ -1905,9 +1910,9 @@
     setInterval(updateGlitchTexts, 8000);
     setTimeout(updateGlitchTexts, 2000);
 
-    // ======================================== */
-    /* ЗАГРУЗКА
-    /* ======================================== */
+    // =========================================================
+    // ЗАГРУЗКА
+    // =========================================================
     document.addEventListener('DOMContentLoaded', function() {
         loadCharacters();
         const chatInput = document.getElementById('chatMessageInput');
