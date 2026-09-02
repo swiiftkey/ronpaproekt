@@ -226,7 +226,7 @@
             opacity: 0.12;
         }
 
-        /* ===== ВРЕМЯ В АКАДЕМИИ (ТЕПЕРЬ НЕ РЕАЛЬНОЕ) ===== */
+        /* ===== ВРЕМЯ В АКАДЕМИИ ===== */
         .academy-time {
             background: rgba(12, 7, 32, 0.8);
             padding: 10px 25px;
@@ -675,7 +675,7 @@
         }
 
         /* ======================================== */
-        /* АДМИНКА (С УПРАВЛЕНИЕМ ВРЕМЕНЕМ) */
+        /* АДМИНКА */
         /* ======================================== */
         .admin-trigger {
             display: block;
@@ -705,7 +705,7 @@
             margin-bottom: 20px; 
         }
 
-        /* Секция управления временем */
+        /* Секция управления временем (внутри админки) */
         .admin-time-section {
             background: rgba(26, 16, 56, 0.6);
             border: 1px solid #4d2e8a;
@@ -1539,31 +1539,36 @@
         <div class="admin-trigger" onclick="toggleAdmin()">Админ-панель</div>
         
         <!-- ======================================== -->
-        <!-- АДМИН-ПАНЕЛЬ (ОБНОВЛЁННАЯ) -->
+        <!-- АДМИН-ПАНЕЛЬ -->
         <!-- ======================================== -->
         <div class="admin-panel" id="adminPanel">
             <h3>Админ-панель</h3>
             
-<!-- ===== УПРАВЛЕНИЕ ВРЕМЕНЕМ ===== -->
-<div class="admin-time-section">
-    <label for="timeSelect">🕒 Время суток:</label>
-    <select id="timeSelect">
-        <option value="утро">🌅 Утро</option>
-        <option value="день">☀️ День</option>
-        <option value="вечер">🌆 Вечер</option>
-        <option value="ночь">🌙 Ночь</option>
-    </select>
-    <button onclick="saveGameTime()">Сохранить</button>
-    <span class="current-time" id="currentTimeDisplay">Текущее: —</span>
-</div>
-
-            <!-- ===== УПРАВЛЕНИЕ ИГРОКАМИ ===== -->
             <div style="display:flex; flex-direction:column; gap:10px; max-width:300px; margin:0 auto 15px;">
                 <input type="password" id="adminPasswordInput" placeholder="Пароль" style="padding:10px; background:#1a1038; color:#ffffff; border:2px dotted #ffffff; font-family:'8bitWonder',monospace;">
                 <button onclick="checkAdminPassword()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Войти</button>
                 <p id="adminError" style="color:#ff6b8a; text-align:center; font-size:14px;"></p>
             </div>
-            <div id="adminControls" style="display:none; margin-top:20px;"></div>
+            
+            <!-- ===== АДМИН-КОНТРОЛ (ПОЯВЛЯЕТСЯ ПОСЛЕ ПАРОЛЯ) ===== -->
+            <div id="adminControls" style="display:none; margin-top:20px;">
+                <!-- ===== УПРАВЛЕНИЕ ВРЕМЕНЕМ ===== -->
+                <div class="admin-time-section">
+                    <label for="timeSelect">🕒 Время суток:</label>
+                    <select id="timeSelect">
+                        <option value="утро">🌅 Утро</option>
+                        <option value="день">☀️ День</option>
+                        <option value="вечер">🌆 Вечер</option>
+                        <option value="ночь">🌙 Ночь</option>
+                    </select>
+                    <button onclick="saveGameTime()">Сохранить</button>
+                    <span class="current-time" id="currentTimeDisplay">Текущее: —</span>
+                </div>
+                
+                <!-- ===== УПРАВЛЕНИЕ ИГРОКАМИ ===== -->
+                <div id="adminPlayersList"></div>
+            </div>
+            
             <button class="admin-close" onclick="closeAdmin()">Закрыть панель</button>
         </div>
     </div>
@@ -1579,7 +1584,7 @@
     let characters = {};
     let chatMessages = [];
     let currentCharacter = null;
-    let gameTime = 'день'; // Значение по умолчанию
+    let gameTime = 'день';
 
     // =========================================================
     // БАЗОВЫЕ ФУНКЦИИ
@@ -1626,7 +1631,6 @@
         display.textContent = timeMap[gameTime] || '☀️ День';
         if (currentDisplay) {
             currentDisplay.textContent = 'Текущее: ' + (timeMap[gameTime] || '☀️ День');
-            // Обновляем выпадающий список
             const select = document.getElementById('timeSelect');
             if (select) select.value = gameTime;
         }
@@ -1680,7 +1684,6 @@
         updateGameTimeDisplay();
         updateCharacterSelect();
         updateGlobalStats();
-        renderAdminPanel();
         updateChatCharacterSelect();
         renderChatMessages();
         
@@ -2159,6 +2162,8 @@
             error.textContent = 'Доступ разрешён';
             error.style.color = '#00ff88';
             document.getElementById('adminControls').style.display = 'block';
+            // Обновляем время при открытии админки
+            updateGameTimeDisplay();
             renderAdminPanel();
         } else {
             error.textContent = 'Неверный пароль';
@@ -2167,7 +2172,7 @@
     }
 
     function renderAdminPanel() {
-        const container = document.getElementById('adminControls');
+        const container = document.getElementById('adminPlayersList');
         container.innerHTML = '<h4 style="color:#ffffff; text-align:center; font-family:\'8bitWonder\',monospace;">Управление игроками</h4>';
         Object.keys(characters).forEach(name => {
             const char = characters[name];
@@ -2222,12 +2227,6 @@
     function openFloor(floor) {
         document.getElementById('floorMessage').textContent = '📍 Этаж ' + floor + ' (ожидает описания)';
     }
-
-    // =========================================================
-    // ВРЕМЯ (БОЛЬШЕ НЕ ОБНОВЛЯЕТСЯ)
-    // =========================================================
-    // Функция updateTime больше не нужна, время теперь управляется из админки
-    // Оставляем только инициализацию, чтобы не было ошибок
 
     // =========================================================
     // ГЛЮКИ
