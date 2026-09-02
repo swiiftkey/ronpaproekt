@@ -226,6 +226,7 @@
             opacity: 0.12;
         }
 
+        /* ===== ВРЕМЯ В АКАДЕМИИ (ТЕПЕРЬ НЕ РЕАЛЬНОЕ) ===== */
         .academy-time {
             background: rgba(12, 7, 32, 0.8);
             padding: 10px 25px;
@@ -233,6 +234,7 @@
             text-align: center;
             flex-shrink: 0;
             box-shadow: 4px 4px 0px #0a0618;
+            min-width: 120px;
         }
         .academy-time .time-label { 
             font-size: 14px; 
@@ -673,7 +675,7 @@
         }
 
         /* ======================================== */
-        /* АДМИНКА */
+        /* АДМИНКА (С УПРАВЛЕНИЕМ ВРЕМЕНЕМ) */
         /* ======================================== */
         .admin-trigger {
             display: block;
@@ -702,6 +704,54 @@
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
             margin-bottom: 20px; 
         }
+
+        /* Секция управления временем */
+        .admin-time-section {
+            background: rgba(26, 16, 56, 0.6);
+            border: 1px solid #4d2e8a;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .admin-time-section label {
+            color: #d4c8ff;
+            font-size: 16px;
+            font-family: '8bitWonder', monospace;
+        }
+        .admin-time-section select {
+            padding: 8px 16px;
+            background: #1a1038;
+            color: #ffffff;
+            border: 2px solid #4d2e8a;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+        }
+        .admin-time-section button {
+            padding: 8px 25px;
+            background: #ffffff;
+            color: #0a0618;
+            border: none;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #0a0618;
+            transition: 0.3s;
+        }
+        .admin-time-section button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #0a0618;
+            background: #ddd;
+        }
+        .admin-time-section .current-time {
+            color: #a885ff;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
         .admin-panel .admin-field { 
             display: flex; 
             gap: 15px; 
@@ -1098,27 +1148,17 @@
         /* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (до 768px) */
         /* ======================================== */
         @media (max-width: 768px) {
-            /* Общие */
             body { padding: 10px; font-size: 16px; }
             .container { padding: 15px; border-width: 2px; }
-
-            /* Шапка */
             .header { flex-direction: column; text-align: center; gap: 10px; padding-bottom: 15px; margin-bottom: 15px; }
             .academy-main { font-size: 28px; }
             .academy-sub { font-size: 14px; letter-spacing: 4px; }
             .academy-time { padding: 8px 15px; }
             .academy-time .time-value { font-size: 18px; }
-
-            /* Статистика */
             .stats-section { padding: 10px; gap: 10px; }
             .stat-item .value { font-size: 22px; }
             .stat-item .label { font-size: 11px; }
-
-            /* Карточки (2 колонки, компактно) */
-            .catalog-grid { 
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-                gap: 12px; 
-            }
+            .catalog-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
             .catalog-item { padding: 15px 10px; }
             .catalog-item i { font-size: 32px; margin-bottom: 8px; }
             .catalog-item h3 { font-size: 13px; padding-bottom: 4px; }
@@ -1131,24 +1171,10 @@
             .catalog-item:nth-child(6) { transform: rotate(0deg); --rotation: 0deg; }
             .catalog-item:nth-child(7) { transform: rotate(0deg); --rotation: 0deg; }
             .catalog-item:nth-child(8) { transform: rotate(0deg); --rotation: 0deg; }
-
-            /* Карточки персонажей (сетка) */
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 10px;
-            }
-            .character-card p {
-                font-size: 12px;
-            }
-            .card-modal-content {
-                padding: 15px;
-                max-width: 95%;
-            }
-            .card-modal-content h3 {
-                font-size: 16px;
-            }
-
-            /* Профиль (Паспорт) */
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+            .character-card p { font-size: 12px; }
+            .card-modal-content { padding: 15px; max-width: 95%; }
+            .card-modal-content h3 { font-size: 16px; }
             .passport { padding: 15px; }
             .passport-name { font-size: 22px; padding-bottom: 10px; margin-bottom: 15px; }
             .passport-header { flex-direction: column; align-items: center; gap: 15px; }
@@ -1162,15 +1188,9 @@
             .passport-section h4 { font-size: 14px; }
             .floor-btn { padding: 8px 16px; font-size: 12px; }
             .files-status { font-size: 15px; }
-
-            /* Дневник */
             .diary-section textarea { min-height: 80px; font-size: 12px; padding: 10px; }
             .diary-section .diary-actions button { font-size: 11px; padding: 6px 14px; }
-
-            /* Кнопки */
             .back-btn { font-size: 12px; padding: 10px 20px; margin-top: 20px; }
-
-            /* Чат */
             .chat-container { padding: 15px; }
             .chat-messages { max-height: 300px; padding: 10px; gap: 4px; }
             .chat-message { gap: 6px; padding: 4px 8px; flex-wrap: wrap; }
@@ -1182,69 +1202,49 @@
             .chat-input-area input,
             .chat-input-area button { width: 100%; min-width: unset; font-size: 12px; padding: 8px 12px; }
             .chat-status { font-size: 11px; }
-
-            /* Сплетни */
             .gossip-container { flex-direction: column; gap: 15px; padding: 15px; }
             .gossip-monokuma { width: 80px; height: 80px; }
             .gossip-text-block .gossip-line { font-size: 16px; min-height: 60px; padding: 8px 0; }
             .gossip-buttons { justify-content: center; }
             .gossip-btn { font-size: 14px; padding: 8px 20px; }
-
-            /* Логин */
             .login-form { max-width: 100%; gap: 10px; }
             .login-form select,
             .login-form input { font-size: 12px; padding: 10px; }
             .login-btn { font-size: 14px; padding: 10px; }
-
-            /* Админ-панель */
             .admin-panel { padding: 15px; }
             .admin-panel h3 { font-size: 16px; }
+            .admin-time-section { flex-direction: column; gap: 10px; }
             .admin-panel .admin-field { flex-direction: column; align-items: stretch; gap: 6px; padding: 6px 0; }
             .admin-panel .admin-field label { min-width: auto; font-size: 14px; }
             .admin-panel .admin-field input,
             .admin-panel .admin-field select { width: 100%; font-size: 12px; padding: 6px 10px; }
             .admin-panel .admin-field button { width: 100%; font-size: 12px; padding: 6px; }
             .admin-close { font-size: 12px; padding: 8px 20px; }
-
-            /* Глюки */
             .glitch-text { font-size: 9px; }
             .admin-trigger { font-size: 10px; }
-
-            /* Новости */
             .news-feed { padding: 10px; }
             .news-feed h3 { font-size: 14px; }
             .news-feed li { font-size: 13px; padding: 4px 0; }
             .news-feed li .time { font-size: 10px; }
-
-            /* Подвал */
             .footer { font-size: 13px; padding-top: 15px; margin-top: 20px; }
         }
 
-        /* Для очень маленьких телефонов (до 420px) */
         @media (max-width: 420px) {
             .catalog-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
             .catalog-item { padding: 10px 6px; }
             .catalog-item i { font-size: 24px; margin-bottom: 4px; }
             .catalog-item h3 { font-size: 11px; }
             .catalog-item p { font-size: 10px; }
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 8px;
-            }
-            .character-card p {
-                font-size: 10px;
-            }
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+            .character-card p { font-size: 10px; }
             .passport-photo { width: 100px; height: 120px; }
             .passport-name { font-size: 18px; }
             .academy-main { font-size: 22px; }
             .academy-sub { font-size: 12px; letter-spacing: 2px; }
-            .card-modal-content h3 {
-                font-size: 14px;
-            }
-            .card-modal-content .close-btn {
-                font-size: 14px;
-                padding: 8px 20px;
-            }
+            .card-modal-content h3 { font-size: 14px; }
+            .card-modal-content .close-btn { font-size: 14px; padding: 8px 20px; }
+            .admin-time-section select { font-size: 12px; }
+            .admin-time-section button { font-size: 12px; }
         }
     </style>
 </head>
@@ -1328,7 +1328,6 @@
         <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Все ученики академии (19 из 20)</p>
 
         <div class="cards-grid">
-            <!-- ===== КАРТОЧКИ 1–19 ===== -->
             <div class="character-card" onclick="openCard('images/cards/1.png', 'Карточка #1')">
                 <img src="images/cards/1.png" alt="Карточка #1">
                 <p>#1</p>
@@ -1405,7 +1404,6 @@
                 <img src="images/cards/19.png" alt="Карточка #19">
                 <p>#19</p>
             </div>
-            <!-- ===== КАРТОЧКА 20 (будет позже) ===== -->
             <div class="character-card" style="opacity:0.4; cursor:default; pointer-events:none;">
                 <img src="images/cards/empty.png" alt="Скоро" style="border-color:#444;">
                 <p style="color:#666;">#20</p>
@@ -1424,7 +1422,6 @@
         </div>
     </div>
 
-    <!-- ===== ДРУГИЕ ВКЛАДКИ ===== -->
     <div id="tab-map" class="tab-content"><h2>Карта этажа</h2><p>Интерактивная карта академии. Кликай по комнатам, чтобы расследовать!</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Карта в разработке)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
     <div id="tab-shop" class="tab-content"><h2>Моношоп</h2><p>Обменивай монеты на припасы, оружие и улики.</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
 
@@ -1536,16 +1533,31 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ПОДВАЛ ===== -->
+    <!-- ===== ПОДВАЛ С АДМИНКОЙ ===== -->
     <div class="footer">
         <span>✦</span> <span id="randomQuote"></span> <span>✦</span>
         <div class="admin-trigger" onclick="toggleAdmin()">Админ-панель</div>
         
         <!-- ======================================== -->
-        <!-- АДМИН-ПАНЕЛЬ -->
+        <!-- АДМИН-ПАНЕЛЬ (ОБНОВЛЁННАЯ) -->
         <!-- ======================================== -->
         <div class="admin-panel" id="adminPanel">
             <h3>Админ-панель</h3>
+            
+            <!-- ===== УПРАВЛЕНИЕ ВРЕМЕНЕМ ===== -->
+            <div class="admin-time-section">
+                <label for="timeSelect">🕒 Время суток:</label>
+                <select id="timeSelect">
+                    <option value="утро">🌅 Утро</option>
+                    <option value="день">☀️ День</option>
+                    <option value="вечер">🌆 Вечер</option>
+                    <option value="ночь">🌙 Ночь</option>
+                </select>
+                <button onclick="saveGameTime()">Сохранить</button>
+                <span class="current-time" id="currentTimeDisplay">Текущее: —</span>
+            </div>
+
+            <!-- ===== УПРАВЛЕНИЕ ИГРОКАМИ ===== -->
             <div style="display:flex; flex-direction:column; gap:10px; max-width:300px; margin:0 auto 15px;">
                 <input type="password" id="adminPasswordInput" placeholder="Пароль" style="padding:10px; background:#1a1038; color:#ffffff; border:2px dotted #ffffff; font-family:'8bitWonder',monospace;">
                 <button onclick="checkAdminPassword()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Войти</button>
@@ -1559,7 +1571,7 @@
 
 <script>
     // =========================================================
-    // ПОДКЛЮЧЕНИЕ К JSONBin (С КЭШИРОВАНИЕМ)
+    // ПОДКЛЮЧЕНИЕ К JSONBin
     // =========================================================
     const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/6a88520bda38895dfeffc439';
     const JSONBIN_KEY = '$2a$10$tsqlxcFg9kXHu4maHVFwYOZx5mNQHYzpmCR89bDJrPRsEdd3UpSue';
@@ -1567,6 +1579,7 @@
     let characters = {};
     let chatMessages = [];
     let currentCharacter = null;
+    let gameTime = 'день'; // Значение по умолчанию
 
     // =========================================================
     // БАЗОВЫЕ ФУНКЦИИ
@@ -1599,17 +1612,38 @@
     }
 
     // =========================================================
-    // ЗАГРУЗКА ДАННЫХ ИЗ JSONBin (С КЭШИРОВАНИЕМ)
+    // ОБНОВЛЕНИЕ ВРЕМЕНИ В ШАПКЕ
+    // =========================================================
+    function updateGameTimeDisplay() {
+        const display = document.getElementById('gameTime');
+        const currentDisplay = document.getElementById('currentTimeDisplay');
+        const timeMap = {
+            'утро': '🌅 Утро',
+            'день': '☀️ День',
+            'вечер': '🌆 Вечер',
+            'ночь': '🌙 Ночь'
+        };
+        display.textContent = timeMap[gameTime] || '☀️ День';
+        if (currentDisplay) {
+            currentDisplay.textContent = 'Текущее: ' + (timeMap[gameTime] || '☀️ День');
+            // Обновляем выпадающий список
+            const select = document.getElementById('timeSelect');
+            if (select) select.value = gameTime;
+        }
+    }
+
+    // =========================================================
+    // ЗАГРУЗКА ДАННЫХ ИЗ JSONBin
     // =========================================================
     async function loadCharacters() {
         try {
-            // Пытаемся загрузить из кэша (localStorage)
             const cached = localStorage.getItem('danganronpa_data');
             if (cached) {
                 try {
                     const data = JSON.parse(cached);
                     characters = data.characters || {};
                     chatMessages = data.chat || [];
+                    gameTime = data.gameTime || 'день';
                     console.log('✅ Данные загружены из кэша', characters);
                     applyLoadedData();
                 } catch(e) {
@@ -1617,7 +1651,6 @@
                 }
             }
 
-            // Загружаем свежие данные из JSONBin
             const response = await fetch(JSONBIN_URL, {
                 headers: { 'X-Master-Key': JSONBIN_KEY }
             });
@@ -1626,25 +1659,25 @@
             if (data.record) {
                 characters = data.record.characters || {};
                 chatMessages = data.record.chat || [];
-                // Сохраняем в кэш
+                gameTime = data.record.gameTime || 'день';
                 localStorage.setItem('danganronpa_data', JSON.stringify({
                     characters: characters,
-                    chat: chatMessages
+                    chat: chatMessages,
+                    gameTime: gameTime
                 }));
                 console.log('✅ Данные загружены из JSONBin', characters);
                 applyLoadedData();
             }
         } catch (error) {
             console.error('❌ Ошибка загрузки:', error);
-            // Если нет кэша и нет сети — используем запасной вариант
             if (!localStorage.getItem('danganronpa_data')) {
                 useFallbackData();
             }
         }
     }
 
-    // Применяем загруженные данные к интерфейсу
     function applyLoadedData() {
+        updateGameTimeDisplay();
         updateCharacterSelect();
         updateGlobalStats();
         renderAdminPanel();
@@ -1664,7 +1697,8 @@
         try {
             const data = {
                 characters: characters,
-                chat: chatMessages
+                chat: chatMessages,
+                gameTime: gameTime
             };
             
             const response = await fetch(JSONBIN_URL, {
@@ -1680,7 +1714,6 @@
                 throw new Error('Ошибка сохранения: ' + response.status);
             }
             
-            // Обновляем кэш
             localStorage.setItem('danganronpa_data', JSON.stringify(data));
             console.log('✅ Данные сохранены в JSONBin и кэш');
             return true;
@@ -1689,6 +1722,18 @@
             alert('❌ Ошибка сохранения: ' + error.message);
             return false;
         }
+    }
+
+    // =========================================================
+    // СОХРАНЕНИЕ ВРЕМЕНИ
+    // =========================================================
+    async function saveGameTime() {
+        const select = document.getElementById('timeSelect');
+        const newTime = select.value;
+        gameTime = newTime;
+        await saveToJSONBin();
+        updateGameTimeDisplay();
+        alert('✅ Время суток сохранено: ' + gameTime);
     }
 
     // =========================================================
@@ -1708,6 +1753,7 @@
             }
         };
         chatMessages = [];
+        gameTime = 'день';
         applyLoadedData();
     }
 
@@ -1820,7 +1866,6 @@
         statusEl.textContent = character.status;
         statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
         
-        // Метка "АДМИН" в профиле (почти незаметная)
         const nameEl = document.getElementById('profileName');
         const oldBadge = nameEl.querySelector('.admin-badge');
         if (oldBadge) oldBadge.remove();
@@ -1977,7 +2022,7 @@
     }
 
     // =========================================================
-    // КАРТОЧКИ ПЕРСОНАЖЕЙ (ОТКРЫТИЕ В МОДАЛЬНОМ ОКНЕ)
+    // КАРТОЧКИ ПЕРСОНАЖЕЙ
     // =========================================================
     function openCard(imagePath, title) {
         document.getElementById('cardImage').src = imagePath;
@@ -1989,13 +2034,12 @@
         document.getElementById('cardModal').style.display = 'none';
     }
 
-    // Закрытие по клику вне окна
     document.getElementById('cardModal').addEventListener('click', function(e) {
         if (e.target === this) closeCardModal();
     });
 
     // =========================================================
-    // ЧАТ (ИСТОРИЯ СООБЩЕНИЙ)
+    // ЧАТ
     // =========================================================
     function renderChatMessages() {
         const container = document.getElementById('chatMessages');
@@ -2004,7 +2048,6 @@
             return;
         }
         let html = '';
-        // Показываем ВСЕ сообщения
         chatMessages.forEach(msg => {
             const time = msg.time ? formatTime(msg.time) : '--:--';
             const character = msg.character || 'Аноним';
@@ -2032,7 +2075,6 @@
 
     async function loadMessages() {
         try {
-            // Пытаемся загрузить из кэша
             const cached = localStorage.getItem('danganronpa_data');
             if (cached) {
                 try {
@@ -2044,14 +2086,12 @@
                 } catch(e) {}
             }
             
-            // Загружаем свежие данные из JSONBin
             const response = await fetch(JSONBIN_URL, {
                 headers: { 'X-Master-Key': JSONBIN_KEY }
             });
             const data = await response.json();
             if (data.record && data.record.chat) {
                 chatMessages = data.record.chat;
-                // Обновляем кэш
                 const cachedData = JSON.parse(localStorage.getItem('danganronpa_data') || '{}');
                 cachedData.chat = chatMessages;
                 localStorage.setItem('danganronpa_data', JSON.stringify(cachedData));
@@ -2177,21 +2217,17 @@
     }
 
     // =========================================================
-    // ОТКРЫТИЕ ЭТАЖА (БЕЗ ОПИСАНИЙ)
+    // ОТКРЫТИЕ ЭТАЖА
     // =========================================================
     function openFloor(floor) {
         document.getElementById('floorMessage').textContent = '📍 Этаж ' + floor + ' (ожидает описания)';
     }
 
     // =========================================================
-    // ВРЕМЯ
+    // ВРЕМЯ (БОЛЬШЕ НЕ ОБНОВЛЯЕТСЯ)
     // =========================================================
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('gameTime').textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-    }
-    updateTime();
-    setInterval(updateTime, 10000);
+    // Функция updateTime больше не нужна, время теперь управляется из админки
+    // Оставляем только инициализацию, чтобы не было ошибок
 
     // =========================================================
     // ГЛЮКИ
