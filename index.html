@@ -1318,6 +1318,11 @@
             <div class="catalog-item" onclick="openTab('chat'); playClick();"><i class="fas fa-comments"></i><h3>Чат</h3><p>Обсуждай с учениками</p></div>
             <div class="catalog-item locked" onclick="return false;"><i class="fas fa-file-alt"></i><h3>Файлы Монокумы</h3><p>Доступно позже</p><span class="lock-badge"><i class="fas fa-lock"></i></span></div>
             <div class="catalog-item" onclick="openTab('rules'); playClick();"><i class="fas fa-gavel"></i><h3>Правила</h3><p>Наказание ждёт</p></div>
+            <div class="catalog-item" onclick="openTab('students'); playClick();">
+    <i class="fas fa-address-book"></i>
+    <h3>Все ученики</h3>
+    <p>Список и стены</p>
+</div>
         </div>
     </div>
 
@@ -1541,6 +1546,59 @@
     <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
 </div>
     <div id="tab-shop" class="tab-content"><h2>Моношоп</h2><p>Обменивай монеты на припасы, оружие и улики.</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
+    <!-- ===== ВКЛАДКА: ВСЕ УЧЕНИКИ ===== -->
+<div id="tab-students" class="tab-content">
+    <h2>📖 Все ученики</h2>
+    <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Выбери персонажа, чтобы посмотреть его профиль и оставить запись на стене</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; max-width: 800px; margin: 0 auto;">
+        <!-- Список персонажей будет генерироваться через JavaScript -->
+        <div id="studentList" style="grid-column: 1/-1; text-align:center; color:#6b5596; padding:20px;">Загрузка...</div>
+    </div>
+
+    <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО: ПРОФИЛЬ ПЕРСОНАЖА (СТЕНА) ===== -->
+<div id="studentProfileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
+    <div style="background:#1a1038; border:3px solid #ffffff; padding:25px; max-width:600px; width:95%; max-height:90vh; overflow-y:auto; box-shadow:12px 12px 0px #0a0618;">
+        <!-- Заголовок -->
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:15px;">
+            <h3 id="studentProfileName" style="color:#ffffff; font-family:'8bitWonder',monospace; font-size:22px;">Персонаж</h3>
+            <button onclick="closeStudentProfile()" style="background:none; border:none; color:#ff6b8a; font-size:24px; cursor:pointer;">✕</button>
+        </div>
+
+        <!-- Информация о персонаже -->
+        <div style="display:flex; gap:15px; flex-wrap:wrap; background:rgba(26,16,56,0.5); padding:12px; border-radius:8px; margin-bottom:15px;">
+            <div><span style="color:#8a7aaa;">Талант:</span> <span id="studentTalent" style="color:#d4c8ff;">—</span></div>
+            <div><span style="color:#8a7aaa;">Возраст:</span> <span id="studentAge" style="color:#d4c8ff;">—</span></div>
+            <div><span style="color:#8a7aaa;">Статус:</span> <span id="studentStatus" style="color:#d4c8ff;">—</span></div>
+        </div>
+
+        <!-- Стена -->
+        <div style="margin-bottom:15px;">
+            <h4 style="color:#a885ff; font-family:'8bitWonder',monospace; font-size:16px; margin-bottom:8px;">📝 Стена</h4>
+            <div id="studentWallMessages" style="background:rgba(10,6,24,0.5); border:1px dotted #4d2e8a; padding:12px; max-height:200px; overflow-y:auto; border-radius:4px;">
+                <div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>
+            </div>
+        </div>
+
+        <!-- Форма отправки (только для авторизованных) -->
+        <div id="wallForm" style="display:none; border-top:2px solid #4d2e8a; padding-top:15px;">
+            <p style="color:#8a7aaa; font-size:14px; margin-bottom:8px;">Оставить запись на стене (от имени <span id="wallFromName" style="color:#a885ff;">—</span>)</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <input type="text" id="wallMessageInput" placeholder="Напиши что-нибудь..." style="flex:3; min-width:150px; padding:10px; background:rgba(26,16,56,0.8); color:#ffffff; border:2px dotted #ffffff; font-family:'8bitWonder',monospace; font-size:14px;">
+                <button onclick="sendWallMessage()" style="padding:10px 20px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618; transition:0.3s;">Отправить</button>
+            </div>
+            <div id="wallMessageStatus" style="color:#ff6b8a; font-size:12px; margin-top:5px;"></div>
+        </div>
+        <div id="wallNotAuthorized" style="display:none; text-align:center; color:#6b5596; font-size:14px; padding:10px 0; border-top:2px solid #4d2e8a; margin-top:10px;">
+            Войди в свой профиль, чтобы оставлять записи
+        </div>
+
+        <button onclick="closeStudentProfile()" style="display:block; margin:15px auto 0; padding:10px 30px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Закрыть</button>
+    </div>
+</div>
 
     <!-- ======================================== -->
     <!-- ПРОФИЛЬ -->
@@ -2352,6 +2410,196 @@
     }
     setInterval(updateGlitchTexts, 8000);
     setTimeout(updateGlitchTexts, 2000);
+
+    // =========================================================
+// ВСЕ УЧЕНИКИ (СПИСОК + СТЕНА)
+// =========================================================
+let wallMessages = [];
+let currentStudentProfile = null;
+
+// Загрузка стены из JSONBin
+async function loadWall() {
+    try {
+        const response = await fetch(JSONBIN_URL, {
+            headers: { 'X-Master-Key': JSONBIN_KEY }
+        });
+        const data = await response.json();
+        if (data.record && data.record.wall) {
+            wallMessages = data.record.wall;
+        }
+        return wallMessages;
+    } catch (error) {
+        console.error('Ошибка загрузки стены:', error);
+        return [];
+    }
+}
+
+// Сохранение стены в JSONBin
+async function saveWall() {
+    try {
+        const data = {
+            characters: characters,
+            chat: chatMessages,
+            gameTime: gameTime,
+            wall: wallMessages
+        };
+        const response = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': JSONBIN_KEY
+            },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            throw new Error('Ошибка сохранения стены: ' + response.status);
+        }
+        console.log('✅ Стена сохранена в JSONBin');
+        return true;
+    } catch (error) {
+        console.error('❌ Ошибка сохранения стены:', error);
+        return false;
+    }
+}
+
+// Отображение списка учеников
+function renderStudentList() {
+    const container = document.getElementById('studentList');
+    container.innerHTML = '';
+    
+    const studentNames = Object.keys(characters);
+    if (studentNames.length === 0) {
+        container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:20px;">Персонажей пока нет...</div>';
+        return;
+    }
+    
+    // Создаём карточки учеников
+    studentNames.forEach(name => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:rgba(26,16,56,0.8); border:2px dotted #ffffff; padding:15px; text-align:center; cursor:pointer; transition:0.3s; box-shadow:4px 4px 0px #0a0618;';
+        card.onmouseover = () => { card.style.borderColor = '#a885ff'; card.style.transform = 'scale(1.03)'; };
+        card.onmouseout = () => { card.style.borderColor = '#ffffff'; card.style.transform = 'scale(1)'; };
+        card.onclick = () => { openStudentProfile(name); };
+        
+        const avatar = characters[name].avatar || '';
+        const avatarHtml = avatar ? `<img src="${avatar}" alt="${name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #ffffff; margin-bottom:8px;">` : `<div style="width:60px; height:60px; border-radius:50%; background:#0a0618; border:2px solid #ffffff; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; color:#4a2b7a;"><i class="fas fa-user-circle" style="font-size:30px; color:#ffffff;"></i></div>`;
+        
+        card.innerHTML = `
+            ${avatarHtml}
+            <div style="color:#ffffff; font-size:16px; font-family:'8bitWonder',monospace;">${name}</div>
+            <div style="color:#8a7aaa; font-size:12px; margin-top:4px;">${characters[name].talent || ''}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Открытие профиля персонажа (стена)
+async function openStudentProfile(name) {
+    const character = characters[name];
+    if (!character) return;
+    
+    currentStudentProfile = name;
+    document.getElementById('studentProfileName').textContent = name;
+    document.getElementById('studentTalent').textContent = character.talent || '—';
+    document.getElementById('studentAge').textContent = character.age || '—';
+    document.getElementById('studentStatus').textContent = character.status || '—';
+    
+    // Загружаем стену
+    await loadWall();
+    renderStudentWall(name);
+    
+    // Показываем форму, если авторизован
+    const form = document.getElementById('wallForm');
+    const notAuth = document.getElementById('wallNotAuthorized');
+    if (currentCharacter) {
+        form.style.display = 'block';
+        notAuth.style.display = 'none';
+        document.getElementById('wallFromName').textContent = currentCharacter;
+        document.getElementById('wallMessageInput').value = '';
+        document.getElementById('wallMessageStatus').textContent = '';
+    } else {
+        form.style.display = 'none';
+        notAuth.style.display = 'block';
+    }
+    
+    document.getElementById('studentProfileModal').style.display = 'flex';
+}
+
+// Закрытие профиля
+function closeStudentProfile() {
+    document.getElementById('studentProfileModal').style.display = 'none';
+    currentStudentProfile = null;
+}
+
+// Отображение стены
+function renderStudentWall(name) {
+    const container = document.getElementById('studentWallMessages');
+    const messages = wallMessages.filter(msg => msg.to === name);
+    
+    if (messages.length === 0) {
+        container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    messages.slice().reverse().forEach(msg => {
+        const div = document.createElement('div');
+        div.style.cssText = 'padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);';
+        const time = msg.time ? formatTime(msg.time) : '';
+        div.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#a885ff; font-size:14px;">${msg.from}</span>
+                <span style="color:#6b5596; font-size:11px;">${time}</span>
+            </div>
+            <div style="color:#d4c8ff; font-size:14px; margin-top:2px;">${msg.text}</div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Отправка записи на стену
+async function sendWallMessage() {
+    if (!currentCharacter) {
+        document.getElementById('wallMessageStatus').textContent = '❌ Войди в профиль, чтобы писать на стене';
+        return;
+    }
+    if (!currentStudentProfile) {
+        document.getElementById('wallMessageStatus').textContent = '❌ Ошибка: выбери профиль';
+        return;
+    }
+    
+    const input = document.getElementById('wallMessageInput');
+    const text = input.value.trim();
+    if (!text) {
+        document.getElementById('wallMessageStatus').textContent = '✏️ Напиши что-нибудь!';
+        return;
+    }
+    
+    // Добавляем запись
+    wallMessages.push({
+        from: currentCharacter,
+        to: currentStudentProfile,
+        text: text,
+        time: new Date().toISOString()
+    });
+    
+    const saved = await saveWall();
+    if (saved) {
+        document.getElementById('wallMessageStatus').textContent = '✅ Запись добавлена!';
+        input.value = '';
+        renderStudentWall(currentStudentProfile);
+    } else {
+        document.getElementById('wallMessageStatus').textContent = '❌ Ошибка сохранения';
+    }
+}
+
+// Закрытие модалки по клику вне окна
+document.getElementById('studentProfileModal').addEventListener('click', function(e) {
+    if (e.target === this) closeStudentProfile();
+});
+
+// Обновляем renderAdminPanel, чтобы не затиралась стена
+// (оставляем как есть)
 
     // =========================================================
     // ЗАГРУЗКА
