@@ -1422,7 +1422,124 @@
         </div>
     </div>
 
-    <div id="tab-map" class="tab-content"><h2>Карта этажа</h2><p>Интерактивная карта академии. Кликай по комнатам, чтобы расследовать!</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Карта в разработке)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
+   <!-- ===== ВКЛАДКА: КАРТА ЭТАЖА ===== -->
+<div id="tab-map" class="tab-content">
+    <h2>Карта этажа</h2>
+    <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Первый этаж академии. Исследуй помещения.</p>
+
+    <!-- КАРТИНКА -->
+    <div style="max-width: 800px; margin: 0 auto; border: 2px dotted #ffffff; box-shadow: 8px 8px 0px #0a0618; padding: 5px; background: #0a0618;">
+        <img src="images/map_floor1.png" alt="Карта первого этажа" style="width:100%; height:auto; display:block;">
+    </div>
+
+    <!-- ОПИСАНИЕ КАРТЫ -->
+    <div style="max-width: 800px; margin: 20px auto 0; background: rgba(18, 11, 42, 0.7); border: 2px dotted #ffffff; padding: 20px; box-shadow: 8px 8px 0px #0a0618;">
+        <p style="color: #d4c8ff; font-size: 16px; line-height: 1.8; margin-bottom: 15px;">
+            Карта представляет собой план первого этажа академии с длинным центральным коридором и большими помещениями по центру. Вверху спокойно оформлённый внутренний дворик и ряд небольших кабинетов и помещений вдоль северной стены, слева медицинский блок, справа служебная зона с лестницей и кладовкой, внизу большой спортивный зал.
+        </p>
+        <p style="color: #6b5596; font-size: 14px; font-style: italic; border-top: 1px solid #2f1f4a; padding-top: 12px;">
+            — Монокума: «Вот так карта... Надеюсь, вы не заблудитесь. Хотя если заблудитесь — это будет забавно!»
+        </p>
+    </div>
+
+    <!-- СПИСОК ПОМЕЩЕНИЙ -->
+    <div style="max-width: 800px; margin: 25px auto 0;">
+        <h3 style="color: #ffffff; font-size: 20px; font-family: '8bitWonder', monospace; text-align:center; border-bottom: 2px solid #4d2e8a; padding-bottom: 10px;">Помещения академии</h3>
+
+        <!-- 1. Медпункт -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">1.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Медпункт</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Находится в западной части карты, отдельный блок с крестом. Предназначен для медицинской помощи: койки, шкафы с медикаментами.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Да там же куча всякой медицинской литературы! Десятки гайдов на самые разные темы, от перевязки раны до создания яда.»</p>
+            </div>
+        </div>
+
+        <!-- 2. Задний дворик -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">2.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Задний дворик академии</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Большой открытый внутренний двор с декоративной клумбой в центре. Окружён прогулочной дорожкой, служит местом отдыха, организованных мероприятий.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Столько клумб, кустов и высокой травы... Идеальное место, чтобы что-то спрятать!»</p>
+            </div>
+        </div>
+
+        <!-- 3. Библиотека -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">3.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Библиотека</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Левое центральное помещение с иконкой книги. Занимает значительную площадь, имеет стеллажи, рабочие столы и зоны для чтения; имеет небольшой «второй этаж», являющийся подъемом к более современной литературе.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Тут всегда так тихо и скучно... Идеальное место для чтения. Авось найдётся что-то интереснее классической литературы?»</p>
+            </div>
+        </div>
+
+        <!-- 4. Столовая -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">4.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Столовая</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Правое центральное помещение с иконкой приборов. Большая обеденная зона с линией выдачи пищи, посадочными местами и выходом в коридор.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Куча всяких ножей, вилок, а также в открытую стоящей еды... Интересно.»</p>
+            </div>
+        </div>
+
+        <!-- 5. Спортзал -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">5.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Спортзал</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Самое большое помещение у южной стены, отмечено мячом. Пространство для спортивных занятий, зал содержит разметку для игр, трибуны и лавки у стен и широкие двери для организации потока людей и эвакуации. Напротив массивных дверей, у дальней стены, расположена большая сцена, завешенная красным занавесом.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Самое скучное место из всех возможных!»</p>
+            </div>
+        </div>
+
+        <!-- 6. Туалет -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">6.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Мужской и женский туалет</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Расположены в западной части коридора, рядом со спортзалом. Отдельные кабинки для мужчин и женщин.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Что я должен сказать?»</p>
+            </div>
+        </div>
+
+        <!-- 7. Кладовка -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">7.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Кладовка</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Небольшое служебное помещение в правой боковой зоне. Хранение запаса инвентаря, уборочного снаряжения и расходных материалов столовой и библиотеки.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Куча всяких средств для мытья полов, освежителей воздуха... Идеальный инвентарь для скрытия отпечатков и прочих мерзких улик!»</p>
+            </div>
+        </div>
+
+        <!-- 8. Мусоросжигатель -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">8.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Мусоросжигатель</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Расположен в правой зоне, между столовой и общежитием.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Можно сжечь абсолютно всё!»</p>
+            </div>
+        </div>
+
+        <!-- 9. Лестница -->
+        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">9.</span>
+            <div>
+                <span style="color: #ffffff; font-size: 18px;">Лестница на второй этаж</span>
+                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Отмечена стрелкой «2F» в правой части карты рядом с кладовкой. Основной вертикальный узел движения между этажами. На данный момент проход к лестнице закрыт массивной решёткой, которая непонятно когда откроется.</p>
+                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Не переживайте, я обязательно открою вам новые этажи, как только посчитаю нужным!»</p>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+</div>
     <div id="tab-shop" class="tab-content"><h2>Моношоп</h2><p>Обменивай монеты на припасы, оружие и улики.</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
 
     <!-- ======================================== -->
