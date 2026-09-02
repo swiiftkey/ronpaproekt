@@ -1203,7 +1203,36 @@
     </div>
 
     <!-- ===== ВКЛАДКИ ===== -->
-    <div id="tab-characters" class="tab-content"><h2>Карточки персонажей</h2><p>Здесь будут все ученики с их талантами, статусами и спрайтами.</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Скоро тут появится список)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
+    <!-- ===== ВКЛАДКА: КАРТОЧКИ ПЕРСОНАЖЕЙ ===== -->
+<div id="tab-characters" class="tab-content">
+    <h2>📋 Карточки персонажей</h2>
+    <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Все ученики академии (19 из 20)</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; max-width: 1000px; margin: 0 auto;">
+        <!-- ===== КАРТОЧКА 1 ===== -->
+        <div class="character-card" onclick="openCard('images/cards/1.png', 'Карточка #1')">
+            <img src="images/cards/1.png" alt="Карточка #1" style="width:100%; height:auto; border: 2px solid #ffffff; box-shadow: 4px 4px 0px #0a0618; cursor:pointer; transition:0.3s;">
+            <p style="text-align:center; color:#d4c8ff; font-size:14px; margin-top:5px;">#1</p>
+        </div>
+        <!-- ===== КАРТОЧКА 2 ===== -->
+        <div class="character-card" onclick="openCard('images/cards/2.png', 'Карточка #2')">
+            <img src="images/cards/2.png" alt="Карточка #2" style="width:100%; height:auto; border: 2px solid #ffffff; box-shadow: 4px 4px 0px #0a0618; cursor:pointer; transition:0.3s;">
+            <p style="text-align:center; color:#d4c8ff; font-size:14px; margin-top:5px;">#2</p>
+        </div>
+        <!-- ... и так до 19 -->
+    </div>
+
+    <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+</div>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА КАРТОЧКИ ===== -->
+<div id="cardModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
+    <div style="background:#1a1038; border:3px solid #ffffff; padding:20px; max-width:600px; width:90%; box-shadow:12px 12px 0px #0a0618; position:relative;">
+        <h3 id="cardTitle" style="color:#ffffff; font-family:'8bitWonder',monospace; font-size:18px; text-align:center; margin-bottom:15px;">Карточка</h3>
+        <img id="cardImage" src="" alt="Карточка" style="width:100%; height:auto; border:2px solid #ffffff;">
+        <button onclick="closeCardModal()" style="display:block; margin:15px auto 0; padding:10px 30px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:16px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Закрыть</button>
+    </div>
+</div>
     <div id="tab-map" class="tab-content"><h2>Карта этажа</h2><p>Интерактивная карта академии. Кликай по комнатам, чтобы расследовать!</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Карта в разработке)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
     <div id="tab-shop" class="tab-content"><h2>Моношоп</h2><p>Обменивай монеты на припасы, оружие и улики.</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
 
