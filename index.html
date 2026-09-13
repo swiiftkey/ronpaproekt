@@ -1999,24 +1999,24 @@
                 
                 <div id="adminPlayersList"></div>
 
-                <!-- УПРАВЛЕНИЕ ДОСТИЖЕНИЯМИ -->
-                <div style="margin-top:25px; padding-top:20px; border-top:2px solid #4d2e8a;">
-                    <h4 style="color:#ffffff; text-align:center; font-size:18px; margin-bottom:15px;">🏆 Управление достижениями</h4>
-                    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px;">
-                        <input type="text" id="newAchIcon" placeholder="Иконка (эмодзи)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
-                        <input type="text" id="newAchName" placeholder="Название" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
-                        <input type="text" id="newAchDesc" placeholder="Описание" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
-                        <button onclick="addAchievement()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Добавить достижение</button>
-                    </div>
-                    <div id="adminAchievementsList" style="display:flex; flex-direction:column; gap:8px;"></div>
-                </div>
-            </div>
-            
-            <button class="admin-close" onclick="closeAdmin()">Закрыть панель</button>
-        </div>
-    </div>
-</div>
 
+<!-- УПРАВЛЕНИЕ ДОСТИЖЕНИЯМИ -->
+<div style="margin-top:25px; padding-top:20px; border-top:2px solid #4d2e8a;">
+    <h4 style="color:#ffffff; text-align:center; font-size:18px; margin-bottom:15px;">🏆 Управление достижениями</h4>
+
+    <!-- Форма создания -->
+    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px; background:rgba(10,6,24,0.5); padding:12px; border:1px solid #4d2e8a;">
+        <p style="color:#a885ff; font-size:13px; margin:0 0 5px 0;">➕ Создать достижение:</p>
+        <input type="text" id="newAchIcon" placeholder="Иконка (эмодзи, напр. 🎉)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+        <input type="text" id="newAchName" placeholder="Название" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+        <input type="text" id="newAchDesc" placeholder="Описание" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+        <button onclick="addAchievement()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Добавить достижение</button>
+    </div>
+
+    <!-- Список достижений с выдачей -->
+    <p style="color:#a885ff; font-size:13px; margin:0 0 8px 0;">📋 Список достижений:</p>
+    <div id="adminAchievementsList" style="display:flex; flex-direction:column; gap:10px;"></div>
+</div>
 <script>
     // =========================================================
     // ПОДКЛЮЧЕНИЕ К JSONBin
@@ -2605,66 +2605,198 @@
         renderAchievements('profileAchievements');
     }
 
-    function addAchievement() {
-        const icon = document.getElementById('newAchIcon').value.trim();
-        const name = document.getElementById('newAchName').value.trim();
-        const desc = document.getElementById('newAchDesc').value.trim();
-        
-        if (!name) {
-            alert('❌ Введи название достижения!');
-            return;
+// =========================================================
+// ДОСТИЖЕНИЯ — АДМИНКА
+// =========================================================
+function addAchievement() {
+    const icon = document.getElementById('newAchIcon').value.trim();
+    const name = document.getElementById('newAchName').value.trim();
+    const desc = document.getElementById('newAchDesc').value.trim();
+    
+    if (!name) {
+        alert('❌ Введи название достижения!');
+        return;
+    }
+    
+    const id = 'ach_' + Date.now();
+    achievements.push({
+        id: id,
+        icon: icon || '🏆',
+        name: name,
+        desc: desc || 'Без описания',
+        unlocked: false
+    });
+    
+    saveToJSONBin();
+    renderAdminAchievements();
+    renderAchievements('achievementsList');
+    renderProfileAchievements();
+    
+    document.getElementById('newAchIcon').value = '';
+    document.getElementById('newAchName').value = '';
+    document.getElementById('newAchDesc').value = '';
+    
+    alert('✅ Достижение "' + name + '" добавлено!');
+}
+
+function deleteAchievement(id) {
+    if (!confirm('Удалить это достижение у ВСЕХ игроков?')) return;
+    
+    // Удаляем из общего списка
+    achievements = achievements.filter(a => a.id !== id);
+    
+    // Удаляем у всех персонажей
+    Object.keys(characters).forEach(name => {
+        if (characters[name].achievements) {
+            characters[name].achievements = characters[name].achievements.filter(a => a !== id);
         }
-        
-        const id = 'ach_' + Date.now();
-        achievements.push({
-            id: id,
-            icon: icon || '🏆',
-            name: name,
-            desc: desc || 'Без описания',
-            unlocked: false
+    });
+    
+    saveToJSONBin();
+    renderAdminAchievements();
+    renderAchievements('achievementsList');
+    renderProfileAchievements();
+    
+    alert('🗑️ Достижение удалено');
+}
+
+function renderAdminAchievements() {
+    const container = document.getElementById('adminAchievementsList');
+    if (!container) return;
+    
+    if (achievements.length === 0) {
+        container.innerHTML = '<p style="color:#6b5596; font-size:12px; text-align:center; padding:10px;">Нет достижений. Создай первое!</p>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    achievements.forEach(ach => {
+        // Кто уже получил это достижение
+        const owners = Object.keys(characters).filter(name => {
+            return characters[name].achievements && characters[name].achievements.includes(ach.id);
         });
         
-        saveToJSONBin();
-        renderAdminAchievements();
-        renderAchievements('achievementsList');
-        renderProfileAchievements();
+        const ownersText = owners.length > 0 
+            ? '✅ У: ' + owners.join(', ') 
+            : '🔒 Ни у кого';
         
-        document.getElementById('newAchIcon').value = '';
-        document.getElementById('newAchName').value = '';
-        document.getElementById('newAchDesc').value = '';
+        const ownersColor = owners.length > 0 ? '#00ff88' : '#6b5596';
         
-        alert('✅ Достижение "' + name + '" добавлено!');
-    }
+        const div = document.createElement('div');
+        div.style.cssText = 'background:rgba(10,6,24,0.6); border:1px solid #4d2e8a; padding:12px; display:flex; flex-direction:column; gap:8px;';
+        
+        div.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+                <span style="color:#ffffff; font-size:14px; flex:1;">
+                    ${ach.icon} <b>${ach.name}</b>
+                </span>
+                <button onclick="deleteAchievement('${ach.id}')" 
+                        style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px; box-shadow:2px 2px 0px #0a0618;"
+                        title="Удалить достижение">✕</button>
+            </div>
+            
+            <div style="color:#b09fd4; font-size:11px; font-style:italic;">${ach.desc}</div>
+            
+            <div style="color:${ownersColor}; font-size:11px;">${ownersText}</div>
+            
+            <div style="display:flex; gap:6px; margin-top:4px;">
+                <select id="ach-char-${ach.id}" 
+                        style="flex:1; padding:6px 8px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:12px;">
+                    <option value="">— Выбери персонажа —</option>
+                    ${Object.keys(characters).map(name => {
+                        const has = characters[name].achievements && characters[name].achievements.includes(ach.id);
+                        return `<option value="${name}" ${has ? 'disabled' : ''}>${name}${has ? ' ✓' : ''}</option>`;
+                    }).join('')}
+                </select>
+                <button onclick="giveAchievement('${ach.id}')" 
+                        style="padding:6px 14px; background:#a885ff; color:#ffffff; border:none; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer; box-shadow:2px 2px 0px #0a0618;">
+                    Выдать
+                </button>
+                <button onclick="revokeAchievement('${ach.id}')" 
+                        style="padding:6px 14px; background:#1a1038; color:#ff6b8a; border:1px solid #ff6b8a; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer;"
+                        title="Забрать у выбранного">
+                    Забрать
+                </button>
+            </div>
+        `;
+        
+        container.appendChild(div);
+    });
+}
 
-    function deleteAchievement(id) {
-        if (!confirm('Удалить это достижение?')) return;
-        achievements = achievements.filter(a => a.id !== id);
-        saveToJSONBin();
-        renderAdminAchievements();
-        renderAchievements('achievementsList');
+// ВЫДАТЬ достижение выбранному персонажу
+async function giveAchievement(achId) {
+    const select = document.getElementById('ach-char-' + achId);
+    if (!select) return;
+    
+    const charName = select.value;
+    if (!charName) {
+        alert('Выбрать персонажа');
+        return;
+    }
+    
+    const ach = achievements.find(a => a.id === achId);
+    if (!ach) return;
+    
+    if (!characters[charName].achievements) characters[charName].achievements = [];
+    
+    if (characters[charName].achievements.includes(achId)) {
+        alert(' У ' + charName + ' уже есть это достижение!');
+        return;
+    }
+    
+    characters[charName].achievements.push(achId);
+    await saveToJSONBin();
+    
+    // Уведомление
+    addNotification('🏆 ' + charName + ' получил достижение: ' + ach.name);
+    
+    // Если это текущий игрок — обновить профиль
+    if (currentCharacter === charName) {
         renderProfileAchievements();
     }
+    
+    renderAdminAchievements();
+    renderAchievements('achievementsList');
+    
+    alert(' Достижение "' + ach.name + '" выдано ' + charName + '!');
+}
 
-    function renderAdminAchievements() {
-        const container = document.getElementById('adminAchievementsList');
-        if (!container) return;
-        
-        if (achievements.length === 0) {
-            container.innerHTML = '<p style="color:#6b5596; font-size:12px; text-align:center;">Нет достижений</p>';
-            return;
-        }
-        
-        container.innerHTML = '';
-        achievements.forEach(ach => {
-            const div = document.createElement('div');
-            div.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding:8px; background:rgba(10,6,24,0.5); border:1px solid #4d2e8a;';
-            div.innerHTML = `
-                <span style="color:#d4c8ff; font-size:13px;">${ach.icon} ${ach.name}</span>
-                <button onclick="deleteAchievement('${ach.id}')" style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px;">✕</button>
-            `;
-            container.appendChild(div);
-        });
+// ЗАБРАТЬ достижение у выбранного персонажа
+async function revokeAchievement(achId) {
+    const select = document.getElementById('ach-char-' + achId);
+    if (!select) return;
+    
+    const charName = select.value;
+    if (!charName) {
+        alert('Выбрать персонажа');
+        return;
     }
+    
+    const ach = achievements.find(a => a.id === achId);
+    if (!ach) return;
+    
+    if (!characters[charName].achievements || !characters[charName].achievements.includes(achId)) {
+        alert(' У ' + charName + ' нет этого достижения!');
+        return;
+    }
+    
+    if (!confirm('Забрать достижение "' + ach.name + '" у ' + charName + '?')) return;
+    
+    characters[charName].achievements = characters[charName].achievements.filter(a => a !== achId);
+    await saveToJSONBin();
+    
+    // Если это текущий игрок — обновить профиль
+    if (currentCharacter === charName) {
+        renderProfileAchievements();
+    }
+    
+    renderAdminAchievements();
+    renderAchievements('achievementsList');
+    
+    alert('Достижение "' + ach.name + '" забрано у ' + charName);
+}
 
     // =========================================================
     // ДНЕВНИК
