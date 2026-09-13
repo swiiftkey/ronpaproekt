@@ -1127,6 +1127,102 @@ body {
         }
 
         /* ======================================== */
+/* МОНОШОП */
+/* ======================================== */
+.shop-item {
+    background: rgba(26, 16, 56, 0.85);
+    border: 2px dotted #ffffff;
+    padding: 18px;
+    box-shadow: 6px 6px 0px #0a0618;
+    position: relative;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+.shop-item:hover {
+    border-color: #a885ff;
+    box-shadow: 6px 6px 0px #a885ff;
+    transform: translate(-2px, -2px);
+}
+.shop-item.sold-out {
+    opacity: 0.6;
+    filter: grayscale(0.4);
+}
+.shop-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+.shop-item-name {
+    color: #ffffff;
+    font-size: 15px;
+    font-family: '8bitWonder', monospace;
+    flex: 1;
+}
+.shop-item-price {
+    color: #a885ff;
+    font-size: 16px;
+    font-family: '8bitWonder', monospace;
+    font-weight: bold;
+    white-space: nowrap;
+    text-shadow: 0 0 15px rgba(168, 133, 255, 0.5);
+}
+.shop-item-desc {
+    color: #b09fd4;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex: 1;
+    font-style: italic;
+}
+.sold-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    color: #ff6b8a;
+    font-size: 22px;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 107, 138, 0.8);
+    border: 3px solid #ff6b8a;
+    padding: 5px 15px;
+    background: rgba(18, 11, 42, 0.85);
+    z-index: 2;
+    pointer-events: none;
+    letter-spacing: 2px;
+}
+.shop-buy-btn {
+    padding: 10px 20px;
+    background: #ffffff;
+    color: #0a0618;
+    border: none;
+    font-family: '8bitWonder', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #0a0618;
+    transition: 0.3s;
+    width: 100%;
+    margin-top: auto;
+}
+.shop-buy-btn:hover:not(.disabled) {
+    background: #a885ff;
+    color: #ffffff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #0a0618;
+}
+.shop-buy-btn.disabled,
+.shop-buy-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #666;
+    color: #aaa;
+}
+
+        /* ======================================== */
         /* АДАПТАЦИЯ */
         /* ======================================== */
         @media (max-width: 768px) {
@@ -1448,13 +1544,207 @@ body {
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ВКЛАДКА: МОНОШОП ===== -->
-    <div id="tab-shop" class="tab-content">
-        <h2>Моношоп</h2>
-        <p>Обменивай монеты на припасы, оружие и улики.</p>
-        <p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p>
-        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+<!-- ===== ВКЛАДКА: МОНОШОП ===== -->
+<div id="tab-shop" class="tab-content">
+    <div style="text-align:center; margin-bottom:30px;">
+        <h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">🛒 МОНОШОП</h2>
+        <p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">ТЫ ПОПАЛ В МОНОШОП!</p>
+        <p style="color:#b09fd4; font-size:15px; margin-top:10px; max-width:700px; margin-left:auto; margin-right:auto;">
+            В этом прекрасном месте ты сможешь приобрести для себя какие-то плюшки! Или, может, добавить щепотку веселья в скучные будни Академии.
+        </p>
     </div>
+
+    <!-- ПРАВИЛА МОНОШОПА -->
+    <div style="max-width:900px; margin:0 auto 30px; background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618;">
+        <h3 style="color:#a885ff; font-size:18px; margin-bottom:15px; text-align:center;">📜 ПРАВИЛА МОНОШОПА</h3>
+        <div style="color:#d4c8ff; font-size:15px; line-height:1.7;">
+            <p style="margin-bottom:8px;"><span style="color:#ff6b8a;">1.</span> На покупку товаров одной категории предоставляется особая валюта, получаемая путём выполнения заданий РП формата и просто во благо проекта.</p>
+            <p style="margin-bottom:8px;"><span style="color:#ff6b8a;">2.</span> Монеты любого формата не могут быть переданы, украдены, потеряны или изъяты в следствии смерти.</p>
+            <p><span style="color:#ff6b8a;">3.</span> Подсчёт любого выполнения задания, начисление монет и вся активность, связанная с моношопом, входит в силу с момента его появления.</p>
+        </div>
+        <p style="color:#ff6b8a; font-size:14px; margin-top:15px; text-align:center; font-style:italic;">
+            🌟 Круто! Теперь ты можешь батрачить на имя империи, только теперь с вознаграждением, а не под гнетом вылета!
+        </p>
+    </div>
+
+    <!-- ТАЙМЕР ДО ОБНОВЛЕНИЯ -->
+    <div style="max-width:900px; margin:0 auto 30px; text-align:center; background:rgba(26,16,56,0.6); border:2px solid #4d2e8a; padding:15px;">
+        <p style="color:#b09fd4; font-size:14px;">⏳ До обновления ассортимента:</p>
+        <p style="color:#ffffff; font-size:24px; font-weight:bold;" id="shopUpdateTimer">13 дней</p>
+    </div>
+
+    <!-- ================= МОНОИВЕНТЫ ================= -->
+    <div style="max-width:1000px; margin:0 auto 40px;">
+        <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
+            🎭 МОНОИВЕНТЫ
+        </h3>
+        <p style="color:#b09fd4; font-size:14px; text-align:center; margin-bottom:20px;">
+            События, что ты можешь заказать у Монокумы. Выключить свет? Пожалуйста! Раскидать всех по академии? Сорви их чертово свидание, давай!
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+            <!-- Сплетня -->
+            <div class="shop-item" data-price="100">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">1. Сплетня</span>
+                    <span class="shop-item-price">100 🪙</span>
+                </div>
+                <p class="shop-item-desc">Если вдруг тебе стало скучно, то потрать 200 монеток и получи самую бесполезную вещь — сплетню про кого-то из учеников! Уверяю, я точно придумаю что-нибудь стоящее, пху-ху-ху!</p>
+                <button class="shop-buy-btn" onclick="buyItem('Сплетня', 100)">Купить</button>
+            </div>
+
+            <!-- Определенная сплетня -->
+            <div class="shop-item" data-price="250">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">2. Определённая сплетня</span>
+                    <span class="shop-item-price">250 🪙</span>
+                </div>
+                <p class="shop-item-desc">Ой, не хочешь, чтобы сплетня вдруг оказалась про тебя? Так выбери жертву сам и я опозорю её в ваших монопадах!</p>
+                <button class="shop-buy-btn" onclick="buyItem('Определённая сплетня', 250)">Купить</button>
+            </div>
+
+            <!-- Темнота -->
+            <div class="shop-item" data-price="500">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">3. Темнота</span>
+                    <span class="shop-item-price">500 🪙</span>
+                </div>
+                <p class="shop-item-desc">«Скучно! Слишком темно, слишком безопасно! Пора добавить щепотку ужаса… Гасим свет!» — сказал бы я, будь я самым скучным монокумой! Кстати, свет будет отключён всего на час РЕАЛЬНОГО времени, поэтому-у-у-у.. Не знаю, как вы реализуете это.</p>
+                <button class="shop-buy-btn" onclick="buyItem('Темнота', 500)">Купить</button>
+            </div>
+
+            <!-- Русская рулетка -->
+            <div class="shop-item" data-price="2500">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">4. Русская рулетка</span>
+                    <span class="shop-item-price">2500 🪙</span>
+                </div>
+                <p class="shop-item-desc">Пу-пу-пу, все на самом деле очень просто. Две жертвы, один стрелок, каждый участвует в игре по очереди, принимая одну из ролей. Револьвер заряжен случайным образом. Ты можешь выстрелить в своего друга или, например, в себя, но сделать что-то придётся в ЛЮБОМ случае, иначе за бездействие стрелок поплатится жизнью!</p>
+                <button class="shop-buy-btn" onclick="buyItem('Русская рулетка', 2500)">Купить</button>
+            </div>
+        </div>
+
+        <p style="color:#6b5596; font-size:12px; text-align:center; margin-top:15px; font-style:italic;">
+            * Список МоноИвентов будет меняться в зависимости от популярности товаров и приоритетов администрации, раз в 14 дней, а так же дополняться в любой момент.
+        </p>
+    </div>
+
+    <!-- ================= МОНОАЙТЕМЫ ================= -->
+    <div style="max-width:1000px; margin:0 auto 40px;">
+        <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
+            🎁 МОНОАЙТЕМЫ
+        </h3>
+        <p style="color:#b09fd4; font-size:14px; text-align:center; margin-bottom:20px;">
+            Вещи, что могут приобрести ваши персонажи, используя в личных целях или.. Просто как коллекционная часть.
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+            <!-- Розовый бантик -->
+            <div class="shop-item sold-out" data-price="10">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">Розовый бантик</span>
+                    <span class="shop-item-price">10 🪙</span>
+                </div>
+                <span class="sold-badge">[ПРОДАНО]</span>
+                <p class="shop-item-desc">Какой… МИЛЫЙ… ДОБРЕНЬКИЙ… Бантик… Да, это определенно полный отстой. Без комментариев.</p>
+                <button class="shop-buy-btn disabled" disabled>Продано</button>
+            </div>
+
+            <!-- Кухонный нож -->
+            <div class="shop-item sold-out" data-price="100">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">Кухонный нож</span>
+                    <span class="shop-item-price">100 🪙</span>
+                </div>
+                <span class="sold-badge">[ПРОДАНО]</span>
+                <p class="shop-item-desc">Вау, это же самый стандартный ножик. Вроде ничего необычного, но смотря на его острое лезвие, я начинаю превращаться в мокрого лосося…</p>
+                <button class="shop-buy-btn disabled" disabled>Продано</button>
+            </div>
+
+            <!-- Белоснежная миниатюрная подушка -->
+            <div class="shop-item sold-out" data-price="200">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">Белоснежная миниатюрная подушка</span>
+                    <span class="shop-item-price">200 🪙</span>
+                </div>
+                <span class="sold-badge">[ПРОДАНО]</span>
+                <p class="shop-item-desc">А-а-ах… Такая мягкая, что даже мое игрушечное тельце хочет забыться в этом комфорте.</p>
+                <button class="shop-buy-btn disabled" disabled>Продано</button>
+            </div>
+
+            <!-- Декоративная сумка -->
+            <div class="shop-item" data-price="325">
+                <div class="shop-item-header">
+                    <span class="shop-item-name">Декоративная сумка, в форме кассеты</span>
+                    <span class="shop-item-price">325 🪙</span>
+                </div>
+                <p class="shop-item-desc">Выглядит как безвкусные сумки от популярных брендов, только лучше! Пху-ху-ху, а мне такое пойдёт?</p>
+                <button class="shop-buy-btn" onclick="buyItem('Декоративная сумка', 325)">Купить</button>
+            </div>
+        </div>
+
+        <p style="color:#6b5596; font-size:12px; text-align:center; margin-top:15px; font-style:italic;">
+            * Список МоноАйтемов будет обновляться/меняться в зависимости от популярности и желания администрации каждый понедельник.
+        </p>
+    </div>
+
+    <!-- ================= ЗАДАНИЯ ================= -->
+    <div style="max-width:1000px; margin:0 auto 40px;">
+        <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
+            📋 ЗАДАНИЯ
+        </h3>
+
+        <!-- Проходка новичка -->
+        <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618; margin-bottom:20px;">
+            <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">🌟 ПРОХОДКА НОВИЧКА</h4>
+            <p style="color:#ff6b8a; font-size:14px; font-style:italic; margin-bottom:15px;">«Да здравствует восхождение отчаяния!»</p>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(10,6,24,0.5); border-left:3px solid #a885ff;">
+                    <div>
+                        <p style="color:#d4c8ff; font-size:15px; margin:0;">1. Отписать 5 постов любой длины в этапе «Пролог»</p>
+                        <p style="color:#6b5596; font-size:12px; margin:4px 0 0 0;">Награда: 100 🪙 + 200 🪙</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(10,6,24,0.5); border-left:3px solid #a885ff;">
+                    <div>
+                        <p style="color:#d4c8ff; font-size:15px; margin:0;">2. Задать вопрос Монокуме, содержащий в себе что-то помимо «Какого хрена?!»</p>
+                        <p style="color:#6b5596; font-size:12px; margin:4px 0 0 0;">Награда: 300 🪙 + 200 🪙</p>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(10,6,24,0.5); border-left:3px solid #a885ff;">
+                    <div>
+                        <p style="color:#d4c8ff; font-size:15px; margin:0;">3. Купить что-нибудь в Моношопе</p>
+                        <p style="color:#6b5596; font-size:12px; margin:4px 0 0 0;">Награда: 100 🪙 + 100 🪙</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color:#6b5596; font-size:12px; margin-top:15px; font-style:italic;">
+                * Данный «Бандл» не подлежит обновлению или изменению. После выполнения задания, выполнить его повторно не предоставляется возможным, в рамках этого бандла.
+            </p>
+            <p style="color:#6b5596; font-size:12px; margin-top:8px; font-style:italic;">
+                * При выполнении любого условия или его части, просьба отмечать @onetnahyi и/или @swiftkwit, дабы мы могли вести честный подсчёт.
+            </p>
+        </div>
+
+        <!-- Задания недели -->
+        <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618; margin-bottom:20px;">
+            <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">💥 ЗАДАНИЯ НЕДЕЛИ</h4>
+            <p style="color:#6b5596; font-size:14px; text-align:center; padding:20px;">💥 Пока что здесь пусто.</p>
+        </div>
+
+        <!-- Задания дня -->
+        <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618;">
+            <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">💥 ЗАДАНИЯ ДНЯ</h4>
+            <p style="color:#6b5596; font-size:14px; text-align:center; padding:20px;">💥 Неуверен, что здесь что-то будет вообще.</p>
+        </div>
+    </div>
+
+    <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+</div>
 
     <!-- ===== ВКЛАДКА: ВСЕ УЧЕНИКИ ===== -->
     <div id="tab-students" class="tab-content">
@@ -2543,6 +2833,66 @@ body {
             document.getElementById('wallMessageStatus').textContent = '❌ Ошибка сохранения';
         }
     }
+
+    // =========================================================
+// МОНОШОП — ПОКУПКА
+// =========================================================
+function buyItem(itemName, price) {
+    if (!currentCharacter) {
+        alert('❌ Войди в профиль, чтобы покупать в Моношопе!');
+        openTab('profile');
+        return;
+    }
+    
+    const character = characters[currentCharacter];
+    const currentCoins = character.coins || 0;
+    
+    if (currentCoins < price) {
+        alert('❌ Недостаточно монет!\n\nУ тебя: ' + currentCoins + ' 🪙\nНужно: ' + price + ' 🪙');
+        return;
+    }
+    
+    if (!confirm('Купить "' + itemName + '" за ' + price + ' 🪙?\n\nУ тебя останется: ' + (currentCoins - price) + ' 🪙')) {
+        return;
+    }
+    
+    character.coins = currentCoins - price;
+    
+    // Добавляем в инвентарь (если его нет)
+    if (!character.inventory) character.inventory = [];
+    character.inventory.push({
+        name: itemName,
+        price: price,
+        date: new Date().toISOString()
+    });
+    
+    saveToJSONBin().then(function() {
+        alert('✅ Покупка успешна!\n\n"' + itemName + '" добавлен в твой инвентарь.\n\nОсталось монет: ' + character.coins + ' 🪙');
+        if (document.getElementById('profileCoins')) {
+            document.getElementById('profileCoins').textContent = character.coins;
+        }
+    });
+}
+
+// =========================================================
+// ТАЙМЕР ДО ОБНОВЛЕНИЯ МОНОШОПА
+// =========================================================
+function updateShopTimer() {
+    const timerEl = document.getElementById('shopUpdateTimer');
+    if (!timerEl) return;
+    
+    // Дата обновления: 13 дней от сегодня
+    const updateDate = new Date();
+    updateDate.setDate(updateDate.getDate() + 13);
+    
+    const now = new Date();
+    const diff = updateDate - now;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    
+    timerEl.textContent = days + ' дней';
+}
+setInterval(updateShopTimer, 60000);
+setTimeout(updateShopTimer, 1000);
 
     // =========================================================
     // ЗАГРУЗКА
