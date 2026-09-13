@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙 Академия Возрождения Надежды</title>
+    <title>Академия Возрождения Надежды</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @font-face {
@@ -326,6 +326,8 @@
         .catalog-item:nth-child(7) { transform: rotate(-1.0deg); --rotation: -1.0deg; }
         .catalog-item:nth-child(8) { transform: rotate(0.5deg); --rotation: 0.5deg; }
         .catalog-item:nth-child(9) { transform: rotate(-0.8deg); --rotation: -0.8deg; }
+        .catalog-item:nth-child(10) { transform: rotate(1.1deg); --rotation: 1.1deg; }
+        .catalog-item:nth-child(11) { transform: rotate(-0.6deg); --rotation: -0.6deg; }
 
         .catalog-item:hover {
             animation: glitchLight 0.08s infinite;
@@ -1220,6 +1222,164 @@
             background: #ddd;
         }
 
+        .pm-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 500px;
+        }
+        .pm-sidebar {
+            background: rgba(18, 11, 42, 0.7);
+            border: 2px dotted #ffffff;
+            padding: 15px;
+            box-shadow: 8px 8px 0px #0a0618;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .pm-sidebar h3 {
+            color: #a885ff;
+            font-size: 14px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #4d2e8a;
+            padding-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .pm-contact {
+            padding: 10px;
+            border: 1px solid #4d2e8a;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 6, 24, 0.5);
+        }
+        .pm-contact:hover {
+            border-color: #a885ff;
+            background: rgba(38, 26, 74, 0.7);
+        }
+        .pm-contact.active {
+            border-color: #a885ff;
+            background: rgba(38, 26, 74, 0.9);
+            box-shadow: 4px 4px 0px #a885ff;
+        }
+        .pm-contact .pm-name {
+            color: #ffffff;
+            font-size: 14px;
+        }
+        .pm-contact .pm-badge {
+            background: #ff6b8a;
+            color: #ffffff;
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+        .pm-window {
+            background: rgba(18, 11, 42, 0.7);
+            border: 2px dotted #ffffff;
+            padding: 20px;
+            box-shadow: 8px 8px 0px #0a0618;
+            display: flex;
+            flex-direction: column;
+            min-height: 500px;
+        }
+        .pm-window-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            color: #6b5596;
+            font-size: 15px;
+            text-align: center;
+        }
+        .pm-header {
+            border-bottom: 2px solid #4d2e8a;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .pm-header h3 {
+            color: #ffffff;
+            font-size: 18px;
+        }
+        .pm-messages {
+            flex: 1;
+            max-height: 380px;
+            overflow-y: auto;
+            padding: 12px;
+            background: rgba(10, 6, 24, 0.5);
+            border: 1px dotted rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .pm-message {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+        .pm-message.mine {
+            background: rgba(168, 133, 255, 0.08);
+            border-left: 3px solid #a885ff;
+        }
+        .pm-message .pm-from {
+            font-size: 13px;
+            color: #a885ff;
+            font-weight: bold;
+            min-width: 100px;
+            flex-shrink: 0;
+        }
+        .pm-message .pm-time {
+            font-size: 10px;
+            color: #6b5596;
+            flex-shrink: 0;
+        }
+        .pm-message .pm-text {
+            font-size: 14px;
+            color: #d4c8ff;
+            word-break: break-word;
+            flex: 1;
+        }
+        .pm-input-area {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .pm-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            background: rgba(26, 16, 56, 0.8);
+            color: #ffffff;
+            border: 2px dotted #ffffff;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            min-width: 150px;
+        }
+        .pm-input-area button {
+            padding: 10px 25px;
+            background: #ffffff;
+            color: #0a0618;
+            border: none;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #0a0618;
+            transition: 0.3s;
+        }
+        .pm-input-area button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #0a0618;
+            background: #ddd;
+        }
+
         @media (max-width: 768px) {
             body { padding: 10px; font-size: 16px; }
             .container { padding: 15px; border-width: 2px; }
@@ -1236,16 +1396,7 @@
             .catalog-item i { font-size: 32px; margin-bottom: 8px; }
             .catalog-item h3 { font-size: 13px; padding-bottom: 4px; }
             .catalog-item p { font-size: 12px; margin-top: 4px; }
-            .catalog-item:nth-child(1),
-            .catalog-item:nth-child(2),
-            .catalog-item:nth-child(3),
-            .catalog-item:nth-child(4),
-            .catalog-item:nth-child(5),
-            .catalog-item:nth-child(6),
-            .catalog-item:nth-child(7),
-            .catalog-item:nth-child(8),
-            .catalog-item:nth-child(9),
-            .catalog-item:nth-child(10) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(n) { transform: rotate(0deg); --rotation: 0deg; }
             .cards-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
             .character-card p { font-size: 12px; }
             .card-modal-content { padding: 15px; max-width: 95%; }
@@ -1303,6 +1454,10 @@
             .notif-panel { width: calc(100% - 20px); right: 10px; top: 55px; }
             .inventory-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
             .achievements-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+            .pm-layout { grid-template-columns: 1fr; gap: 12px; }
+            .pm-sidebar { max-height: 200px; }
+            .pm-window { min-height: 400px; }
+            .pm-messages { max-height: 250px; }
         }
 
         @media (max-width: 420px) {
@@ -1329,20 +1484,20 @@
     <canvas id="matrixRainCanvas"></canvas>
 
     <div class="notif-bell" onclick="toggleNotifPanel()">
-        🔔<span class="notif-count" id="notifCount">0</span>
+        <i class="fas fa-bell"></i><span class="notif-count" id="notifCount">0</span>
     </div>
     <div class="notif-panel" id="notifPanel">
-        <h4>📬 Уведомления</h4>
+        <h4>Уведомления</h4>
         <div id="notifList">
             <div class="notif-empty">Нет уведомлений</div>
         </div>
     </div>
 
-    <div style="position:fixed; bottom: 50px; left: 20px; color: rgba(255,255,255,0.06); font-size: 60px; transform: rotate(-15deg); pointer-events: none; z-index: 0;">◼</div>
-    <div style="position:fixed; top: 100px; right: 30px; color: rgba(255,255,255,0.05); font-size: 40px; transform: rotate(45deg); pointer-events: none; z-index: 0;">◼</div>
-    <div style="position:fixed; bottom: 200px; left: 85%; color: rgba(255,255,255,0.04); font-size: 30px; pointer-events: none; z-index: 0;">◼</div>
-    <div style="position:fixed; top: 40%; left: 8%; color: rgba(255,255,255,0.05); font-size: 20px; pointer-events: none; z-index: 0;">✦</div>
-    <div style="position:fixed; bottom: 30%; right: 3%; color: rgba(255,255,255,0.05); font-size: 35px; pointer-events: none; z-index: 0;">✦</div>
+    <div style="position:fixed; bottom: 50px; left: 20px; color: rgba(255,255,255,0.06); font-size: 60px; transform: rotate(-15deg); pointer-events: none; z-index: 0;">X</div>
+    <div style="position:fixed; top: 100px; right: 30px; color: rgba(255,255,255,0.05); font-size: 40px; transform: rotate(45deg); pointer-events: none; z-index: 0;">X</div>
+    <div style="position:fixed; bottom: 200px; left: 85%; color: rgba(255,255,255,0.04); font-size: 30px; pointer-events: none; z-index: 0;">X</div>
+    <div style="position:fixed; top: 40%; left: 8%; color: rgba(255,255,255,0.05); font-size: 20px; pointer-events: none; z-index: 0;">*</div>
+    <div style="position:fixed; bottom: 30%; right: 3%; color: rgba(255,255,255,0.05); font-size: 35px; pointer-events: none; z-index: 0;">*</div>
 
     <div class="glitch-text top-left" id="glitchTopLeft">[СИСТЕМА: ОШИБКА]</div>
     <div class="glitch-text bottom-right" id="glitchBottomRight">[НЕТ СИГНАЛА]</div>
@@ -1390,7 +1545,8 @@
             <div class="catalog-item" onclick="openTab('shop'); playClick();"><i class="fas fa-store"></i><h3>Моношоп</h3><p>Обменяй монеты</p></div>
             <div class="catalog-item" onclick="openTab('profile'); playClick();"><i class="fas fa-id-card"></i><h3>Мой профиль</h3><p>Личное дело</p></div>
             <div class="catalog-item" onclick="openTab('gossip'); playClick();"><i class="fas fa-comment-dots"></i><h3>Сплетни</h3><p>Секреты Монокумы</p></div>
-            <div class="catalog-item" onclick="openTab('chat'); playClick();"><i class="fas fa-comments"></i><h3>Чат</h3><p>Обсуждай с учениками</p></div>
+            <div class="catalog-item" onclick="openTab('chat'); playClick();"><i class="fas fa-comments"></i><h3>Общий чат</h3><p>Обсуждай с учениками</p></div>
+            <div class="catalog-item" onclick="openTab('pm'); playClick();"><i class="fas fa-envelope"></i><h3>Личные сообщения</h3><p>Секретные переписки</p></div>
             <div class="catalog-item locked" onclick="return false;"><i class="fas fa-file-alt"></i><h3>Файлы Монокумы</h3><p>Доступно позже</p><span class="lock-badge"><i class="fas fa-lock"></i></span></div>
             <div class="catalog-item" onclick="openTab('rules'); playClick();"><i class="fas fa-gavel"></i><h3>Правила</h3><p>Наказание ждёт</p></div>
             <div class="catalog-item" onclick="openTab('students'); playClick();"><i class="fas fa-address-book"></i><h3>Все ученики</h3><p>Список и стены</p></div>
@@ -1398,10 +1554,9 @@
         </div>
     </div>
 
-    <!-- ===== ВКЛАДКА: КАРТОЧКИ ПЕРСОНАЖЕЙ ===== -->
     <div id="tab-characters" class="tab-content">
-        <h2>📋 Карточки персонажей</h2>
-        <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Все ученики академии (20 из 20)</p>
+        <h2>Карточки персонажей</h2>
+        <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Все ученики академии</p>
 
         <div class="cards-grid">
             <div class="character-card" onclick="openCard('images/cards/1.png', 'Карточка #1')"><img src="images/cards/1.png" alt="Карточка #1"><p>#1</p></div>
@@ -1429,7 +1584,6 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧКИ ===== -->
     <div class="card-modal" id="cardModal">
         <div class="card-modal-content">
             <h3 id="cardTitle">Карточка</h3>
@@ -1438,7 +1592,6 @@
         </div>
     </div>
 
-    <!-- ===== ВКЛАДКА: КАРТА ЭТАЖА ===== -->
     <div id="tab-map" class="tab-content">
         <h2>Карта этажа</h2>
         <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Первый этаж академии. Исследуй помещения.</p>
@@ -1544,10 +1697,9 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ВКЛАДКА: МОНОШОП ===== -->
     <div id="tab-shop" class="tab-content">
         <div style="text-align:center; margin-bottom:30px;">
-            <h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">🛒 МОНОШОП</h2>
+            <h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">МОНОШОП</h2>
             <p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">ТЫ ПОПАЛ В МОНОШОП!</p>
             <p style="color:#b09fd4; font-size:15px; margin-top:10px; max-width:700px; margin-left:auto; margin-right:auto;">
                 В этом прекрасном месте ты сможешь приобрести для себя какие-то плюшки! Или, может, добавить щепотку веселья в скучные будни Академии.
@@ -1555,44 +1707,41 @@
         </div>
 
         <div style="max-width:900px; margin:0 auto 30px; background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618;">
-            <h3 style="color:#a885ff; font-size:18px; margin-bottom:15px; text-align:center;">📜 ПРАВИЛА МОНОШОПА</h3>
+            <h3 style="color:#a885ff; font-size:18px; margin-bottom:15px; text-align:center;">ПРАВИЛА МОНОШОПА</h3>
             <div style="color:#d4c8ff; font-size:15px; line-height:1.7;">
                 <p style="margin-bottom:8px;"><span style="color:#ff6b8a;">1.</span> На покупку товаров одной категории предоставляется особая валюта, получаемая путём выполнения заданий РП формата и просто во благо проекта.</p>
                 <p style="margin-bottom:8px;"><span style="color:#ff6b8a;">2.</span> Монеты любого формата не могут быть переданы, украдены, потеряны или изъяты в следствии смерти.</p>
                 <p><span style="color:#ff6b8a;">3.</span> Подсчёт любого выполнения задания, начисление монет и вся активность, связанная с моношопом, входит в силу с момента его появления.</p>
             </div>
-            <p style="color:#ff6b8a; font-size:14px; margin-top:15px; text-align:center; font-style:italic;">
-                🌟 Круто! Теперь ты можешь батрачить на имя империи, только теперь с вознаграждением, а не под гнетом вылета!
-            </p>
         </div>
 
         <div style="max-width:900px; margin:0 auto 30px; text-align:center; background:rgba(26,16,56,0.6); border:2px solid #4d2e8a; padding:15px;">
-            <p style="color:#b09fd4; font-size:14px;">⏳ До обновления ассортимента:</p>
+            <p style="color:#b09fd4; font-size:14px;">До обновления ассортимента:</p>
             <p style="color:#ffffff; font-size:24px; font-weight:bold;" id="shopUpdateTimer">13 дней</p>
         </div>
 
         <div style="max-width:1000px; margin:0 auto 40px;">
             <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
-                 МОНОИВЕНТЫ
+                МОНОИВЕНТЫ
             </h3>
             <p style="color:#b09fd4; font-size:14px; text-align:center; margin-bottom:20px;">
-                События, что ты можешь заказать у Монокумы. Выключить свет? Пожалуйста! Раскидать всех по академии? Сорви их чертово свидание, давай!
+                События, что ты можешь заказать у Монокумы.
             </p>
 
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
                 <div class="shop-item" data-price="100">
                     <div class="shop-item-header">
                         <span class="shop-item-name">1. Сплетня</span>
-                        <span class="shop-item-price">100 🪙</span>
+                        <span class="shop-item-price">100 монет</span>
                     </div>
-                    <p class="shop-item-desc">Если вдруг тебе стало скучно, то потрать 200 монеток и получи самую бесполезную вещь — сплетню про кого-то из учеников! Уверяю, я точно придумаю что-нибудь стоящее, пху-ху-ху!</p>
+                    <p class="shop-item-desc">Если вдруг тебе стало скучно, то потрать 100 монет и получи самую бесполезную вещь — сплетню про кого-то из учеников! Уверяю, я точно придумаю что-нибудь стоящее, пху-ху-ху!</p>
                     <button class="shop-buy-btn" onclick="buyItem('Сплетня', 100, 'events')">Купить</button>
                 </div>
 
                 <div class="shop-item" data-price="250">
                     <div class="shop-item-header">
                         <span class="shop-item-name">2. Определённая сплетня</span>
-                        <span class="shop-item-price">250 🪙</span>
+                        <span class="shop-item-price">250 монет</span>
                     </div>
                     <p class="shop-item-desc">Ой, не хочешь, чтобы сплетня вдруг оказалась про тебя? Так выбери жертву сам и я опозорю её в ваших монопадах!</p>
                     <button class="shop-buy-btn" onclick="buyItem('Определённая сплетня', 250, 'events')">Купить</button>
@@ -1601,7 +1750,7 @@
                 <div class="shop-item" data-price="500">
                     <div class="shop-item-header">
                         <span class="shop-item-name">3. Темнота</span>
-                        <span class="shop-item-price">500 🪙</span>
+                        <span class="shop-item-price">500 монет</span>
                     </div>
                     <p class="shop-item-desc">«Скучно! Слишком темно, слишком безопасно! Пора добавить щепотку ужаса… Гасим свет!» — сказал бы я, будь я самым скучным монокумой! Кстати, свет будет отключён всего на час РЕАЛЬНОГО времени, поэтому-у-у-у.. Не знаю, как вы реализуете это.</p>
                     <button class="shop-buy-btn" onclick="buyItem('Темнота', 500, 'events')">Купить</button>
@@ -1610,16 +1759,12 @@
                 <div class="shop-item" data-price="2500">
                     <div class="shop-item-header">
                         <span class="shop-item-name">4. Русская рулетка</span>
-                        <span class="shop-item-price">2500 🪙</span>
+                        <span class="shop-item-price">2500 монет</span>
                     </div>
                     <p class="shop-item-desc">Пу-пу-пу, все на самом деле очень просто. Две жертвы, один стрелок, каждый участвует в игре по очереди, принимая одну из ролей. Револьвер заряжен случайным образом. Ты можешь выстрелить в своего друга или, например, в себя, но сделать что-то придётся в ЛЮБОМ случае, иначе за бездействие стрелок поплатится жизнью!</p>
                     <button class="shop-buy-btn" onclick="buyItem('Русская рулетка', 2500, 'events')">Купить</button>
                 </div>
             </div>
-
-            <p style="color:#6b5596; font-size:12px; text-align:center; margin-top:15px; font-style:italic;">
-                * Список МоноИвентов будет меняться в зависимости от популярности товаров и приоритетов администрации, раз в 14 дней, а так же дополняться в любой момент.
-            </p>
         </div>
 
         <div style="max-width:1000px; margin:0 auto 40px;">
@@ -1634,7 +1779,7 @@
                 <div class="shop-item sold-out" data-price="10">
                     <div class="shop-item-header">
                         <span class="shop-item-name">Розовый бантик</span>
-                        <span class="shop-item-price">10 🪙</span>
+                        <span class="shop-item-price">10 монет</span>
                     </div>
                     <span class="sold-badge">[ПРОДАНО]</span>
                     <p class="shop-item-desc">Какой… МИЛЫЙ… ДОБРЕНЬКИЙ… Бантик… Да, это определенно полный отстой. Без комментариев.</p>
@@ -1644,7 +1789,7 @@
                 <div class="shop-item sold-out" data-price="100">
                     <div class="shop-item-header">
                         <span class="shop-item-name">Кухонный нож</span>
-                        <span class="shop-item-price">100 🪙</span>
+                        <span class="shop-item-price">100 монет</span>
                     </div>
                     <span class="sold-badge">[ПРОДАНО]</span>
                     <p class="shop-item-desc">Вау, это же самый стандартный ножик. Вроде ничего необычного, но смотря на его острое лезвие, я начинаю превращаться в мокрого лосося…</p>
@@ -1654,7 +1799,7 @@
                 <div class="shop-item sold-out" data-price="200">
                     <div class="shop-item-header">
                         <span class="shop-item-name">Белоснежная миниатюрная подушка</span>
-                        <span class="shop-item-price">200 🪙</span>
+                        <span class="shop-item-price">200 монет</span>
                     </div>
                     <span class="sold-badge">[ПРОДАНО]</span>
                     <p class="shop-item-desc">А-а-ах… Такая мягкая, что даже мое игрушечное тельце хочет забыться в этом комфорте.</p>
@@ -1664,40 +1809,35 @@
                 <div class="shop-item" data-price="325">
                     <div class="shop-item-header">
                         <span class="shop-item-name">Декоративная сумка, в форме кассеты</span>
-                        <span class="shop-item-price">325 🪙</span>
+                        <span class="shop-item-price">325 монет</span>
                     </div>
                     <p class="shop-item-desc">Выглядит как безвкусные сумки от популярных брендов, только лучше! Пху-ху-ху, а мне такое пойдёт?</p>
                     <button class="shop-buy-btn" onclick="buyItem('Декоративная сумка', 325, 'items')">Купить</button>
                 </div>
             </div>
-
-            <p style="color:#6b5596; font-size:12px; text-align:center; margin-top:15px; font-style:italic;">
-                * Список МоноАйтемов будет обновляться/меняться в зависимости от популярности и желания администрации каждый понедельник.
-            </p>
         </div>
 
         <div style="max-width:1000px; margin:0 auto 40px;">
             <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
-                📋 ЗАДАНИЯ
+                ЗАДАНИЯ
             </h3>
 
             <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618; margin-bottom:20px;">
-                <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">💥 ЗАДАНИЯ НЕДЕЛИ</h4>
-                <p style="color:#6b5596; font-size:14px; text-align:center; padding:20px;">💥 Пока что здесь пусто.</p>
+                <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">ЗАДАНИЯ НЕДЕЛИ</h4>
+                <p style="color:#6b5596; font-size:14px; text-align:center; padding:20px;">Пока что здесь пусто.</p>
             </div>
 
             <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618;">
-                <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">💥 ЗАДАНИЯ ДНЯ</h4>
-                <p style="color:#6b5596; font-size:14px; text-align:center; padding:20px;">💥 Неуверен, что здесь что-то будет вообще.</p>
+                <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">ЗАДАНИЯ ДНЯ</h4>
+                <p style="color:#6b5596; font-size:14px; text-align:center; padding:20px;">Неуверен, что здесь что-то будет вообще.</p>
             </div>
         </div>
 
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ВКЛАДКА: ВСЕ УЧЕНИКИ ===== -->
     <div id="tab-students" class="tab-content">
-        <h2>📖 Все ученики</h2>
+        <h2>Все ученики</h2>
         <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Выбери персонажа, чтобы посмотреть его профиль и оставить запись на стене</p>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; max-width: 800px; margin: 0 auto;">
@@ -1707,14 +1847,13 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ВКЛАДКА: ДОСТИЖЕНИЯ ===== -->
     <div id="tab-achievements" class="tab-content">
-        <h2>🏆 Достижения</h2>
+        <h2>Достижения</h2>
         <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Твои награды за активность в академии</p>
 
         <div class="achievements-grid" id="achievementsList">
             <div class="achievement-item locked">
-                <span class="ach-icon">✕</span>
+                <span class="ach-icon">X</span>
                 <div class="ach-name">Загрузка...</div>
                 <div class="ach-desc">Подожди немного</div>
             </div>
@@ -1723,12 +1862,44 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== МОДАЛЬНОЕ ОКНО: ПРОФИЛЬ ПЕРСОНАЖА ===== -->
+    <div id="tab-pm" class="tab-content">
+        <h2>Личные сообщения</h2>
+        <p style="color:#8a7aaa; font-size:15px; margin-bottom:20px;">Выбери собеседника слева. Переписка видна только вам двоим.</p>
+
+        <div class="pm-layout">
+            <div class="pm-sidebar" id="pmSidebar">
+                <h3>Контакты</h3>
+                <div id="pmContactList">
+                    <div class="notif-empty">Войди в профиль</div>
+                </div>
+            </div>
+
+            <div class="pm-window" id="pmWindow">
+                <div class="pm-window-empty" id="pmEmpty">
+                    Выбери собеседника слева, чтобы начать переписку
+                </div>
+                <div id="pmChatArea" style="display:none; flex-direction:column; flex:1;">
+                    <div class="pm-header">
+                        <h3 id="pmWithName">—</h3>
+                    </div>
+                    <div class="pm-messages" id="pmMessages"></div>
+                    <div class="pm-input-area">
+                        <input type="text" id="pmInput" placeholder="Напиши сообщение..." maxlength="500">
+                        <button onclick="sendPrivateMessage()">Отправить</button>
+                    </div>
+                    <div style="font-size:11px; color:#6b5596; margin-top:8px; text-align:center;" id="pmStatus"></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
+    </div>
+
     <div id="studentProfileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
         <div style="background:#1a1038; border:3px solid #ffffff; padding:25px; max-width:600px; width:95%; max-height:90vh; overflow-y:auto; box-shadow:12px 12px 0px #0a0618;">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:15px;">
                 <h3 id="studentProfileName" style="color:#ffffff; font-family:'8bitWonder',monospace; font-size:22px;">Персонаж</h3>
-                <button onclick="closeStudentProfile()" style="background:none; border:none; color:#ff6b8a; font-size:24px; cursor:pointer;">✕</button>
+                <button onclick="closeStudentProfile()" style="background:none; border:none; color:#ff6b8a; font-size:24px; cursor:pointer;">X</button>
             </div>
 
             <div style="display:flex; gap:15px; flex-wrap:wrap; background:rgba(26,16,56,0.5); padding:12px; border-radius:8px; margin-bottom:15px;">
@@ -1738,7 +1909,7 @@
             </div>
 
             <div style="margin-bottom:15px;">
-                <h4 style="color:#a885ff; font-family:'8bitWonder',monospace; font-size:16px; margin-bottom:8px;">📝 Стена</h4>
+                <h4 style="color:#a885ff; font-family:'8bitWonder',monospace; font-size:16px; margin-bottom:8px;">Стена</h4>
                 <div id="studentWallMessages" style="background:rgba(10,6,24,0.5); border:1px dotted #4d2e8a; padding:12px; max-height:200px; overflow-y:auto; border-radius:4px;">
                     <div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>
                 </div>
@@ -1760,7 +1931,6 @@
         </div>
     </div>
 
-    <!-- ===== ПРОФИЛЬ ===== -->
     <div id="tab-profile" class="tab-content">
         <div id="loginBlock" style="display: none;">
             <h2 style="text-align:center;">Вход в Академию</h2>
@@ -1784,7 +1954,7 @@
                             <span>Фото</span>
                         </div>
                         <div style="position:absolute; bottom:5px; right:5px; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px; font-size:12px; cursor:pointer;" onclick="document.getElementById('avatarUpload').click();">
-                            📷
+                            <i class="fas fa-camera"></i>
                         </div>
                         <input type="file" id="avatarUpload" accept="image/*" style="display:none;" onchange="uploadAvatarBase64(event)">
                     </div>
@@ -1799,11 +1969,11 @@
                     <h4>Моно-монеты</h4>
                     <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
                         <div style="text-align:center; flex:1; min-width:150px;">
-                            <div style="color:#a885ff; font-size:14px; margin-bottom:5px;"> МоноИвенты</div>
+                            <div style="color:#a885ff; font-size:14px; margin-bottom:5px;">МоноИвенты</div>
                             <div class="passport-coins" id="profileCoinsEvents" style="font-size:32px;">0</div>
                         </div>
                         <div style="text-align:center; flex:1; min-width:150px;">
-                            <div style="color:#ff6b8a; font-size:14px; margin-bottom:5px;"> МоноАйтемы</div>
+                            <div style="color:#ff6b8a; font-size:14px; margin-bottom:5px;">МоноАйтемы</div>
                             <div class="passport-coins" id="profileCoinsItems" style="font-size:32px;">0</div>
                         </div>
                     </div>
@@ -1812,17 +1982,17 @@
                 <div class="passport-section"><h4>Файлы Монокумы</h4><div class="files-status" id="profileFiles">Закрыто</div></div>
 
                 <div class="passport-section">
-                    <h4>🎒 Инвентарь</h4>
+                    <h4>Инвентарь</h4>
                     <div class="inventory-grid" id="inventoryList">
                         <div class="inventory-empty">Инвентарь пуст</div>
                     </div>
                 </div>
 
                 <div class="passport-section">
-                    <h4>🏆 Достижения</h4>
+                    <h4>Достижения</h4>
                     <div class="achievements-grid" id="profileAchievements">
                         <div class="achievement-item locked">
-                            <span class="ach-icon">✕</span>
+                            <span class="ach-icon">X</span>
                             <div class="ach-name">Загрузка...</div>
                             <div class="ach-desc">Подожди немного</div>
                         </div>
@@ -1838,7 +2008,6 @@
         </div>
     </div>
 
-    <!-- ===== СПЛЕТНИ МОНОКУМЫ ===== -->
     <div id="tab-gossip" class="tab-content">
         <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">Сплетни Монокумы</h2></div>
         <div class="gossip-container">
@@ -1852,35 +2021,28 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ЧАТ УЧЕНИКОВ ===== -->
     <div id="tab-chat" class="tab-content">
-        <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">💬 Чат учеников</h2><p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">Обсуждай, подозревай, расследуй</p><p id="chatUserInfo" style="color:#6b5596; font-size:14px; margin-top:5px;"></p></div>
+        <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">Общий чат</h2><p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">Обсуждай, подозревай, расследуй</p><p id="chatUserInfo" style="color:#6b5596; font-size:14px; margin-top:5px;"></p></div>
         <div class="chat-container">
             <div class="chat-messages" id="chatMessages"><div style="text-align:center; color:#6b5596; padding:20px;">Загрузка сообщений...</div></div>
             <div class="chat-emotions" id="chatEmotions">
-                <span style="color:#6b5596; font-size:12px; margin-right:5px;">Эмоции:</span>
-                <button class="chat-emotion-btn" onclick="insertEmotion('🔪')" title="Нож">🔪</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('💀')" title="Череп">💀</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('😈')" title="Злой">😈</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('😭')" title="Плач">😭</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('😱')" title="Ужас">😱</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('🤡')" title="Клоун">🤡</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('❤️')" title="Сердце">❤️</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('🐻')" title="Монокума">🐻</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('⭐')" title="Звезда">⭐</button>
-                <button class="chat-emotion-btn" onclick="insertEmotion('🔥')" title="Огонь">🔥</button>
+                <span style="color:#6b5596; font-size:12px; margin-right:5px;">Быстрые вставки:</span>
+                <button class="chat-emotion-btn" onclick="insertEmotion('...')" title="Многоточие">...</button>
+                <button class="chat-emotion-btn" onclick="insertEmotion('!!!')" title="Восклицание">!!!</button>
+                <button class="chat-emotion-btn" onclick="insertEmotion('???')" title="Вопрос">???</button>
+                <button class="chat-emotion-btn" onclick="insertEmotion('*')" title="Действие">*</button>
+                <button class="chat-emotion-btn" onclick="insertEmotion('->')" title="Стрелка">-></button>
             </div>
             <div class="chat-input-area" style="margin-top:10px;">
                 <select id="chatCharacterSelect" disabled><option value="Аноним">Аноним</option></select>
                 <input type="text" id="chatMessageInput" placeholder="Напиши сообщение..." maxlength="500" disabled>
                 <button onclick="sendMessage()" id="chatSendBtn" disabled>Отправить</button>
             </div>
-            <div class="chat-status"><span id="chatStatus">Подключение к чату...</span><span class="refresh-btn" onclick="loadMessages()">🔄 Обновить</span></div>
+            <div class="chat-status"><span id="chatStatus">Подключение к чату...</span><span class="refresh-btn" onclick="loadMessages()">Обновить</span></div>
         </div>
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ПРАВИЛА ===== -->
     <div id="tab-rules" class="tab-content">
         <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">Внимание правила</h2><p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">Нарушение карается смертью</p></div>
         <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:30px; box-shadow:8px 8px 0px #0a0618;">
@@ -1897,9 +2059,8 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ===== ПОДВАЛ С АДМИНКОЙ ===== -->
     <div class="footer">
-        <span>✦</span> <span id="randomQuote"></span> <span>✦</span>
+        <span>*</span> <span id="randomQuote"></span> <span>*</span>
         <div class="admin-trigger" onclick="toggleAdmin()">Админ-панель</div>
         
         <div class="admin-panel" id="adminPanel">
@@ -1913,12 +2074,12 @@
             
             <div id="adminControls" style="display:none; margin-top:20px;">
                 <div class="admin-time-section">
-                    <label for="timeSelect">🕒 Время суток:</label>
+                    <label for="timeSelect">Время суток:</label>
                     <select id="timeSelect">
-                        <option value="утро">🌅 Утро</option>
-                        <option value="день">☀️ День</option>
-                        <option value="вечер">🌆 Вечер</option>
-                        <option value="ночь">🌙 Ночь</option>
+                        <option value="утро">Утро</option>
+                        <option value="день">День</option>
+                        <option value="вечер">Вечер</option>
+                        <option value="ночь">Ночь</option>
                     </select>
                     <button onclick="saveGameTime()">Сохранить</button>
                     <span class="current-time" id="currentTimeDisplay">Текущее: —</span>
@@ -1927,17 +2088,17 @@
                 <div id="adminPlayersList"></div>
 
                 <div style="margin-top:25px; padding-top:20px; border-top:2px solid #4d2e8a;">
-                    <h4 style="color:#ffffff; text-align:center; font-size:18px; margin-bottom:15px;">🏆 Управление достижениями</h4>
+                    <h4 style="color:#ffffff; text-align:center; font-size:18px; margin-bottom:15px;">Управление достижениями</h4>
 
                     <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px; background:rgba(10,6,24,0.5); padding:12px; border:1px solid #4d2e8a;">
-                        <p style="color:#a885ff; font-size:13px; margin:0 0 5px 0;">➕ Создать достижение:</p>
-                        <input type="text" id="newAchIcon" placeholder="Иконка (символ, напр. ★)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+                        <p style="color:#a885ff; font-size:13px; margin:0 0 5px 0;">Создать достижение:</p>
+                        <input type="text" id="newAchIcon" placeholder="Иконка (символ, напр. звезда)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
                         <input type="text" id="newAchName" placeholder="Название" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
                         <input type="text" id="newAchDesc" placeholder="Описание" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
                         <button onclick="addAchievement()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Добавить достижение</button>
                     </div>
 
-                    <p style="color:#a885ff; font-size:13px; margin:0 0 8px 0;">📋 Список достижений:</p>
+                    <p style="color:#a885ff; font-size:13px; margin:0 0 8px 0;">Список достижений:</p>
                     <div id="adminAchievementsList" style="display:flex; flex-direction:column; gap:10px;"></div>
                 </div>
             </div>
@@ -1954,9 +2115,11 @@
     let characters = {};
     let chatMessages = [];
     let wallMessages = [];
+    let privateMessages = [];
     let achievements = [];
     let notifications = [];
     let currentCharacter = null;
+    let currentPMWith = null;
     let gameTime = 'день';
 
     // МАТРИЧНЫЙ ДОЖДЬ
@@ -2020,6 +2183,7 @@
             if (tabName === 'chat') loadMessages();
             if (tabName === 'students') renderStudentList();
             if (tabName === 'achievements') renderAchievements('achievementsList');
+            if (tabName === 'pm') renderPMContacts();
         } else closeTab();
     }
 
@@ -2086,10 +2250,10 @@
     function updateGameTimeDisplay() {
         const display = document.getElementById('gameTime');
         const currentDisplay = document.getElementById('currentTimeDisplay');
-        const timeMap = { 'утро': '🌅 Утро', 'день': '☀️ День', 'вечер': '🌆 Вечер', 'ночь': '🌙 Ночь' };
-        if (display) display.textContent = timeMap[gameTime] || '☀️ День';
+        const timeMap = { 'утро': 'Утро', 'день': 'День', 'вечер': 'Вечер', 'ночь': 'Ночь' };
+        if (display) display.textContent = timeMap[gameTime] || 'День';
         if (currentDisplay) {
-            currentDisplay.textContent = 'Текущее: ' + (timeMap[gameTime] || '☀️ День');
+            currentDisplay.textContent = 'Текущее: ' + (timeMap[gameTime] || 'День');
             const select = document.getElementById('timeSelect');
             if (select) select.value = gameTime;
         }
@@ -2106,6 +2270,7 @@
                     chatMessages = data.chat || [];
                     gameTime = data.gameTime || 'день';
                     wallMessages = data.wall || [];
+                    privateMessages = data.privateMessages || [];
                     achievements = data.achievements || getDefaultAchievements();
                     notifications = data.notifications || [];
                     migrateCoins();
@@ -2119,11 +2284,13 @@
                 chatMessages = data.record.chat || [];
                 gameTime = data.record.gameTime || 'день';
                 wallMessages = data.record.wall || [];
+                privateMessages = data.record.privateMessages || [];
                 achievements = data.record.achievements || getDefaultAchievements();
                 notifications = data.record.notifications || [];
                 migrateCoins();
                 localStorage.setItem('danganronpa_data', JSON.stringify({
-                    characters, chat: chatMessages, gameTime, wall: wallMessages, achievements, notifications
+                    characters, chat: chatMessages, gameTime, wall: wallMessages,
+                    privateMessages, achievements, notifications
                 }));
                 applyLoadedData();
             }
@@ -2148,10 +2315,11 @@
     function getDefaultAchievements() {
         return [
             { id: 'first_login', icon: 'I', name: 'Первый вход', desc: 'Войти в академию', unlocked: false },
-            { id: 'first_message', icon: 'II', name: 'Первое слово', desc: 'Написать в чат', unlocked: false },
+            { id: 'first_message', icon: 'II', name: 'Первое слово', desc: 'Написать в общий чат', unlocked: false },
             { id: 'first_purchase', icon: 'III', name: 'Первая покупка', desc: 'Купить что-то в Моношопе', unlocked: false },
-            { id: 'rich', icon: '★', name: 'Богач', desc: 'Накопить 1000 монет', unlocked: false },
-            { id: 'survivor', icon: '★★★', name: 'Выживший', desc: 'Пережить первый суд', unlocked: false }
+            { id: 'first_pm', icon: 'IV', name: 'Шёпот', desc: 'Отправить личное сообщение', unlocked: false },
+            { id: 'rich', icon: 'V', name: 'Богач', desc: 'Накопить 1000 монет', unlocked: false },
+            { id: 'survivor', icon: 'VI', name: 'Выживший', desc: 'Пережить первый суд', unlocked: false }
         ];
     }
 
@@ -2174,7 +2342,7 @@
 
     async function saveToJSONBin() {
         try {
-            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, achievements, notifications };
+            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, privateMessages, achievements, notifications };
             const response = await fetch(JSONBIN_URL, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
@@ -2190,12 +2358,12 @@
         gameTime = document.getElementById('timeSelect').value;
         await saveToJSONBin();
         updateGameTimeDisplay();
-        alert('✅ Время суток сохранено: ' + gameTime);
+        alert('Время суток сохранено: ' + gameTime);
     }
 
     function useFallbackData() {
         characters = { "Кио Нагахара": { age: 17, talent: "Абсолютный Гипнотизер", status: "Жив", coinsEvents: 0, coinsItems: 0, password: "12345", diary: "", avatar: "", admin: false, inventory: [], achievements: [] } };
-        chatMessages = []; wallMessages = []; achievements = getDefaultAchievements(); notifications = []; gameTime = 'день';
+        chatMessages = []; wallMessages = []; privateMessages = []; achievements = getDefaultAchievements(); notifications = []; gameTime = 'день';
         applyLoadedData();
     }
 
@@ -2220,6 +2388,7 @@
     function clearAuth() {
         localStorage.removeItem('danganronpa_user');
         currentCharacter = null;
+        currentPMWith = null;
         document.getElementById('loginBlock').style.display = 'block';
         document.getElementById('profileBlock').style.display = 'none';
         updateChatCharacterSelect();
@@ -2252,7 +2421,7 @@
             select.disabled = false;
             document.getElementById('chatMessageInput').disabled = false;
             document.getElementById('chatSendBtn').disabled = false;
-            document.getElementById('chatUserInfo').textContent = '✅ Вы вошли как ' + currentCharacter;
+            document.getElementById('chatUserInfo').textContent = 'Вы вошли как ' + currentCharacter;
         } else {
             const anonOption = document.createElement('option');
             anonOption.value = 'Аноним'; anonOption.textContent = 'Аноним (только чтение)';
@@ -2260,7 +2429,7 @@
             select.disabled = true;
             document.getElementById('chatMessageInput').disabled = true;
             document.getElementById('chatSendBtn').disabled = true;
-            document.getElementById('chatUserInfo').textContent = '❌ Войдите в профиль, чтобы писать в чат';
+            document.getElementById('chatUserInfo').textContent = 'Войдите в профиль, чтобы писать в чат';
         }
     }
 
@@ -2333,7 +2502,7 @@
         if (!character.achievements) character.achievements = [];
         if (!character.achievements.includes('first_login')) {
             character.achievements.push('first_login');
-            addNotification('★ Получено достижение: Первый вход!');
+            addNotification('Получено достижение: Первый вход!');
             saveToJSONBin();
         }
     }
@@ -2362,8 +2531,8 @@
         inventory.forEach(item => {
             const div = document.createElement('div');
             div.className = 'inventory-item';
-            const catIcon = item.category === 'items' ? '★' : '★';
-            div.innerHTML = `<div class="item-name">${catIcon} ${item.name}</div><div class="item-price">${item.price} 🪙</div>`;
+            const catIcon = item.category === 'items' ? 'A' : 'E';
+            div.innerHTML = `<div class="item-name">[${catIcon}] ${item.name}</div><div class="item-price">${item.price} монет</div>`;
             container.appendChild(div);
         });
     }
@@ -2373,7 +2542,7 @@
         const container = document.getElementById(containerId);
         if (!container) return;
         if (achievements.length === 0) {
-            container.innerHTML = '<div class="achievement-item locked"><span class="ach-icon">✕</span><div class="ach-name">Нет достижений</div></div>';
+            container.innerHTML = '<div class="achievement-item locked"><span class="ach-icon">X</span><div class="ach-name">Нет достижений</div></div>';
             return;
         }
         const unlocked = (currentCharacter && characters[currentCharacter]) ? (characters[currentCharacter].achievements || []) : [];
@@ -2383,10 +2552,10 @@
             const div = document.createElement('div');
             div.className = 'achievement-item ' + (isUnlocked ? 'unlocked' : 'locked');
             div.innerHTML = `
-                <span class="ach-icon" style="color:${isUnlocked ? '#a885ff' : '#6b5596'}; font-size:28px; display:block; margin-bottom:8px;">${isUnlocked ? (ach.icon || '★') : '✕'}</span>
+                <span class="ach-icon" style="color:${isUnlocked ? '#a885ff' : '#6b5596'}; font-size:28px; display:block; margin-bottom:8px;">${isUnlocked ? (ach.icon || '*') : 'X'}</span>
                 <div class="ach-name">${ach.name}</div>
                 <div class="ach-desc">${ach.desc}</div>
-                <div class="ach-status">${isUnlocked ? '✓ Получено' : '✕ Закрыто'}</div>
+                <div class="ach-status">${isUnlocked ? 'Получено' : 'Закрыто'}</div>
             `;
             container.appendChild(div);
         });
@@ -2398,9 +2567,9 @@
         const icon = document.getElementById('newAchIcon').value.trim();
         const name = document.getElementById('newAchName').value.trim();
         const desc = document.getElementById('newAchDesc').value.trim();
-        if (!name) { alert('❌ Введи название достижения!'); return; }
+        if (!name) { alert('Введи название достижения!'); return; }
         const id = 'ach_' + Date.now();
-        achievements.push({ id, icon: icon || '★', name, desc: desc || 'Без описания', unlocked: false });
+        achievements.push({ id, icon: icon || '*', name, desc: desc || 'Без описания', unlocked: false });
         saveToJSONBin();
         renderAdminAchievements();
         renderAchievements('achievementsList');
@@ -2408,7 +2577,7 @@
         document.getElementById('newAchIcon').value = '';
         document.getElementById('newAchName').value = '';
         document.getElementById('newAchDesc').value = '';
-        alert('✅ Достижение "' + name + '" добавлено!');
+        alert('Достижение "' + name + '" добавлено!');
     }
 
     function deleteAchievement(id) {
@@ -2423,7 +2592,7 @@
         renderAdminAchievements();
         renderAchievements('achievementsList');
         renderProfileAchievements();
-        alert('🗑️ Достижение удалено');
+        alert('Достижение удалено');
     }
 
     function renderAdminAchievements() {
@@ -2436,16 +2605,16 @@
         container.innerHTML = '';
         achievements.forEach(ach => {
             const owners = Object.keys(characters).filter(name => characters[name].achievements && characters[name].achievements.includes(ach.id));
-            const ownersText = owners.length > 0 ? '✅ У: ' + owners.join(', ') : '🔒 Ни у кого';
+            const ownersText = owners.length > 0 ? 'У: ' + owners.join(', ') : 'Ни у кого';
             const ownersColor = owners.length > 0 ? '#00ff88' : '#6b5596';
             const div = document.createElement('div');
             div.style.cssText = 'background:rgba(10,6,24,0.6); border:1px solid #4d2e8a; padding:12px; display:flex; flex-direction:column; gap:8px;';
             div.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
                     <span style="color:#ffffff; font-size:14px; flex:1;">
-                        <span style="color:#a885ff; font-size:16px; margin-right:6px;">${ach.icon || '★'}</span><b>${ach.name}</b>
+                        <span style="color:#a885ff; font-size:16px; margin-right:6px;">${ach.icon || '*'}</span><b>${ach.name}</b>
                     </span>
-                    <button onclick="deleteAchievement('${ach.id}')" style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px; box-shadow:2px 2px 0px #0a0618;">✕</button>
+                    <button onclick="deleteAchievement('${ach.id}')" style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px; box-shadow:2px 2px 0px #0a0618;">X</button>
                 </div>
                 <div style="color:#b09fd4; font-size:11px; font-style:italic;">${ach.desc}</div>
                 <div style="color:${ownersColor}; font-size:11px;">${ownersText}</div>
@@ -2454,7 +2623,7 @@
                         <option value="">— Выбери персонажа —</option>
                         ${Object.keys(characters).map(name => {
                             const has = characters[name].achievements && characters[name].achievements.includes(ach.id);
-                            return `<option value="${name}" ${has ? 'disabled' : ''}>${name}${has ? ' ✓' : ''}</option>`;
+                            return `<option value="${name}" ${has ? 'disabled' : ''}>${name}${has ? ' (есть)' : ''}</option>`;
                         }).join('')}
                     </select>
                     <button onclick="giveAchievement('${ach.id}')" style="padding:6px 14px; background:#a885ff; color:#ffffff; border:none; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer; box-shadow:2px 2px 0px #0a0618;">Выдать</button>
@@ -2476,7 +2645,7 @@
         if (characters[charName].achievements.includes(achId)) { alert('У ' + charName + ' уже есть это достижение!'); return; }
         characters[charName].achievements.push(achId);
         await saveToJSONBin();
-        addNotification('★ ' + charName + ' получил достижение: ' + ach.name);
+        addNotification(charName + ' получил достижение: ' + ach.name);
         if (currentCharacter === charName) renderProfileAchievements();
         renderAdminAchievements();
         renderAchievements('achievementsList');
@@ -2507,13 +2676,13 @@
         if (!currentCharacter) { document.getElementById('diaryStatus').textContent = 'Войди в профиль'; return; }
         characters[currentCharacter].diary = document.getElementById('diaryInput').value;
         saveToJSONBin();
-        document.getElementById('diaryStatus').textContent = '✅ Заметки сохранены!';
+        document.getElementById('diaryStatus').textContent = 'Заметки сохранены!';
     }
 
     function loadDiary() {
         if (!currentCharacter) return;
         document.getElementById('diaryInput').value = characters[currentCharacter].diary || '';
-        document.getElementById('diaryStatus').textContent = '🔄 Заметки загружены';
+        document.getElementById('diaryStatus').textContent = 'Заметки загружены';
     }
 
     // СПЛЕТНИ
@@ -2574,7 +2743,7 @@
     async function uploadAvatarBase64(event) {
         const file = event.target.files[0];
         if (!file) return;
-        if (file.size > 5 * 1024 * 1024) { alert('❌ Картинка слишком большая! Максимум 5 МБ.'); return; }
+        if (file.size > 5 * 1024 * 1024) { alert('Картинка слишком большая! Максимум 5 МБ.'); return; }
         const previewReader = new FileReader();
         previewReader.onload = function(e) {
             document.getElementById('avatarPreview').src = e.target.result;
@@ -2587,8 +2756,8 @@
             characters[currentCharacter].avatar = compressedBase64;
             await saveToJSONBin();
             document.getElementById('avatarPreview').src = compressedBase64;
-            alert('✅ Аватарка сохранена!');
-        } catch (error) { alert('❌ Ошибка: ' + error.message); }
+            alert('Аватарка сохранена!');
+        } catch (error) { alert('Ошибка: ' + error.message); }
     }
 
     // КАРТОЧКИ
@@ -2647,37 +2816,142 @@
                 chatMessages = data.record.chat;
                 renderChatMessages();
             }
+            if (data.record && data.record.privateMessages) {
+                privateMessages = data.record.privateMessages;
+            }
             const statusEl = document.getElementById('chatStatus');
-            if (statusEl) statusEl.textContent = '✅ Загружено сообщений: ' + chatMessages.length;
+            if (statusEl) statusEl.textContent = 'Загружено сообщений: ' + chatMessages.length;
         } catch (error) {
             const statusEl = document.getElementById('chatStatus');
-            if (statusEl) statusEl.textContent = '❌ Ошибка подключения';
+            if (statusEl) statusEl.textContent = 'Ошибка подключения';
         }
     }
 
     async function sendMessage() {
-        if (!currentCharacter) { document.getElementById('chatStatus').textContent = '❌ Войди в профиль'; return; }
+        if (!currentCharacter) { document.getElementById('chatStatus').textContent = 'Войди в профиль'; return; }
         const character = document.getElementById('chatCharacterSelect').value;
         const message = document.getElementById('chatMessageInput').value.trim();
-        if (!message) { document.getElementById('chatStatus').textContent = '✏️ Напиши сообщение!'; return; }
+        if (!message) { document.getElementById('chatStatus').textContent = 'Напиши сообщение!'; return; }
         if (character !== 'Аноним' && character !== currentCharacter) {
-            document.getElementById('chatStatus').textContent = '❌ Только от своего лица или Аноним';
+            document.getElementById('chatStatus').textContent = 'Только от своего лица или Аноним';
             return;
         }
         try {
             document.getElementById('chatStatus').textContent = 'Отправка...';
             chatMessages.push({ time: new Date().toISOString(), character, message });
             await saveToJSONBin();
-            document.getElementById('chatStatus').textContent = '✅ Сообщение отправлено!';
+            document.getElementById('chatStatus').textContent = 'Сообщение отправлено!';
             document.getElementById('chatMessageInput').value = '';
             renderChatMessages();
             if (!characters[currentCharacter].achievements) characters[currentCharacter].achievements = [];
             if (!characters[currentCharacter].achievements.includes('first_message')) {
                 characters[currentCharacter].achievements.push('first_message');
-                addNotification('★ Получено достижение: Первое слово!');
+                addNotification('Получено достижение: Первое слово!');
                 saveToJSONBin();
             }
-        } catch (error) { document.getElementById('chatStatus').textContent = '❌ Ошибка отправки'; }
+        } catch (error) { document.getElementById('chatStatus').textContent = 'Ошибка отправки'; }
+    }
+
+    // ЛИЧНЫЕ СООБЩЕНИЯ
+    function renderPMContacts() {
+        const container = document.getElementById('pmContactList');
+        if (!container) return;
+        if (!currentCharacter) {
+            container.innerHTML = '<div class="notif-empty">Войди в профиль</div>';
+            return;
+        }
+        container.innerHTML = '';
+        const contactNames = Object.keys(characters).filter(name => name !== currentCharacter);
+        if (contactNames.length === 0) {
+            container.innerHTML = '<div class="notif-empty">Нет других персонажей</div>';
+            return;
+        }
+        contactNames.forEach(name => {
+            const unread = privateMessages.filter(m => m.to === currentCharacter && m.from === name && !m.read).length;
+            const div = document.createElement('div');
+            div.className = 'pm-contact' + (currentPMWith === name ? ' active' : '');
+            div.onclick = () => openPMWith(name);
+            div.innerHTML = `
+                <span class="pm-name">${name}</span>
+                ${unread > 0 ? `<span class="pm-badge">${unread}</span>` : ''}
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function openPMWith(name) {
+        if (!currentCharacter) { alert('Войди в профиль'); return; }
+        currentPMWith = name;
+        document.getElementById('pmEmpty').style.display = 'none';
+        document.getElementById('pmChatArea').style.display = 'flex';
+        document.getElementById('pmWithName').textContent = name;
+        document.getElementById('pmInput').value = '';
+        document.getElementById('pmStatus').textContent = '';
+        renderPMMessages();
+        renderPMContacts();
+        // Помечаем входящие от этого собеседника как прочитанные
+        let changed = false;
+        privateMessages.forEach(m => {
+            if (m.to === currentCharacter && m.from === name && !m.read) {
+                m.read = true;
+                changed = true;
+            }
+        });
+        if (changed) saveToJSONBin();
+    }
+
+    function renderPMMessages() {
+        const container = document.getElementById('pmMessages');
+        if (!container) return;
+        if (!currentCharacter || !currentPMWith) {
+            container.innerHTML = '';
+            return;
+        }
+        const msgs = privateMessages.filter(m =>
+            (m.from === currentCharacter && m.to === currentPMWith) ||
+            (m.from === currentPMWith && m.to === currentCharacter)
+        ).sort((a, b) => new Date(a.time) - new Date(b.time));
+
+        if (msgs.length === 0) {
+            container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:20px;">Пока нет сообщений. Напиши первым!</div>';
+            return;
+        }
+        let html = '';
+        msgs.forEach(m => {
+            const time = m.time ? formatTime(m.time) : '';
+            const mine = m.from === currentCharacter;
+            html += `<div class="pm-message ${mine ? 'mine' : ''}"><span class="pm-from">${m.from}</span><span class="pm-time">${time}</span><span class="pm-text">${m.text}</span></div>`;
+        });
+        container.innerHTML = html;
+        container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendPrivateMessage() {
+        if (!currentCharacter) { alert('Войди в профиль'); return; }
+        if (!currentPMWith) { alert('Выбери собеседника'); return; }
+        const input = document.getElementById('pmInput');
+        const text = input.value.trim();
+        if (!text) { document.getElementById('pmStatus').textContent = 'Напиши сообщение!'; return; }
+        document.getElementById('pmStatus').textContent = 'Отправка...';
+        privateMessages.push({
+            from: currentCharacter,
+            to: currentPMWith,
+            text: text,
+            time: new Date().toISOString(),
+            read: false
+        });
+        await saveToJSONBin();
+        input.value = '';
+        document.getElementById('pmStatus').textContent = 'Отправлено!';
+        renderPMMessages();
+        addNotification('ЛС для ' + currentPMWith + ' отправлено');
+
+        if (!characters[currentCharacter].achievements) characters[currentCharacter].achievements = [];
+        if (!characters[currentCharacter].achievements.includes('first_pm')) {
+            characters[currentCharacter].achievements.push('first_pm');
+            addNotification('Получено достижение: Шёпот!');
+            saveToJSONBin();
+        }
     }
 
     // АДМИНКА
@@ -2728,7 +3002,7 @@
             coinsRow.style.cssText = 'display:flex; gap:8px; flex-wrap:wrap; align-items:center;';
             const eventsWrapper = document.createElement('div');
             eventsWrapper.style.cssText = 'display:flex; align-items:center; gap:6px; flex:1; min-width:140px;';
-            eventsWrapper.innerHTML = `<span style="color:#a885ff; font-size:12px;"> Ивенты:</span>`;
+            eventsWrapper.innerHTML = `<span style="color:#a885ff; font-size:12px;">Ивенты:</span>`;
             const eventsInput = document.createElement('input');
             eventsInput.type = 'number';
             eventsInput.value = char.coinsEvents || 0;
@@ -2737,7 +3011,7 @@
             eventsWrapper.appendChild(eventsInput);
             const itemsWrapper = document.createElement('div');
             itemsWrapper.style.cssText = 'display:flex; align-items:center; gap:6px; flex:1; min-width:140px;';
-            itemsWrapper.innerHTML = `<span style="color:#ff6b8a; font-size:12px;"> Айтемы:</span>`;
+            itemsWrapper.innerHTML = `<span style="color:#ff6b8a; font-size:12px;">Айтемы:</span>`;
             const itemsInput = document.createElement('input');
             itemsInput.type = 'number';
             itemsInput.value = char.coinsItems || 0;
@@ -2757,7 +3031,7 @@
             statusSelect.appendChild(optionDead);
             statusSelect.value = char.status;
             const applyBtn = document.createElement('button');
-            applyBtn.textContent = '✅ Сохранить';
+            applyBtn.textContent = 'Сохранить';
             applyBtn.style.cssText = 'padding:8px; background:#ffffff; color:#0a0618; border:none; font-family:\'8bitWonder\',monospace; font-size:12px; cursor:pointer; box-shadow:3px 3px 0px #0a0618;';
             applyBtn.onclick = async function() {
                 const coinsEvents = parseInt(document.getElementById('admin-coinsEvents-' + name).value) || 0;
@@ -2776,7 +3050,7 @@
                     statusEl.style.color = status === 'Жив' ? '#00ff88' : '#ff6b8a';
                 }
                 renderAdminPanel();
-                alert('✅ Данные для "' + name + '" обновлены!');
+                alert('Данные для "' + name + '" обновлены!');
             };
             div.appendChild(coinsRow);
             div.appendChild(statusSelect);
@@ -2802,13 +3076,14 @@
             const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
             const data = await response.json();
             if (data.record && data.record.wall) wallMessages = data.record.wall;
+            if (data.record && data.record.privateMessages) privateMessages = data.record.privateMessages;
             return wallMessages;
         } catch (error) { return []; }
     }
 
     async function saveWall() {
         try {
-            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, achievements, notifications };
+            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, privateMessages, achievements, notifications };
             const response = await fetch(JSONBIN_URL, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
@@ -2889,54 +3164,53 @@
     }
 
     async function sendWallMessage() {
-        if (!currentCharacter) { document.getElementById('wallMessageStatus').textContent = '❌ Войди в профиль'; return; }
-        if (!currentStudentProfile) { document.getElementById('wallMessageStatus').textContent = '❌ Ошибка'; return; }
+        if (!currentCharacter) { document.getElementById('wallMessageStatus').textContent = 'Войди в профиль'; return; }
+        if (!currentStudentProfile) { document.getElementById('wallMessageStatus').textContent = 'Ошибка'; return; }
         const input = document.getElementById('wallMessageInput');
         const text = input.value.trim();
-        if (!text) { document.getElementById('wallMessageStatus').textContent = '✏️ Напиши что-нибудь!'; return; }
+        if (!text) { document.getElementById('wallMessageStatus').textContent = 'Напиши что-нибудь!'; return; }
         wallMessages.push({ from: currentCharacter, to: currentStudentProfile, text, time: new Date().toISOString() });
         const saved = await saveWall();
         if (saved) {
-            document.getElementById('wallMessageStatus').textContent = '✅ Запись добавлена!';
+            document.getElementById('wallMessageStatus').textContent = 'Запись добавлена!';
             input.value = '';
             renderStudentWall(currentStudentProfile);
-            addNotification('📝 ' + currentCharacter + ' оставил запись на стене ' + currentStudentProfile);
+            addNotification(currentCharacter + ' оставил запись на стене ' + currentStudentProfile);
         } else {
-            document.getElementById('wallMessageStatus').textContent = '❌ Ошибка сохранения';
+            document.getElementById('wallMessageStatus').textContent = 'Ошибка сохранения';
         }
     }
 
-    // МОНОШОП — ПОКУПКА
+    // МОНОШОП
     function buyItem(itemName, price, category) {
-        if (!currentCharacter) { alert('❌ Войди в профиль, чтобы покупать в Моношопе!'); openTab('profile'); return; }
+        if (!currentCharacter) { alert('Войди в профиль, чтобы покупать в Моношопе!'); openTab('profile'); return; }
         const character = characters[currentCharacter];
         const coinField = category === 'items' ? 'coinsItems' : 'coinsEvents';
         const currentCoins = character[coinField] || 0;
         const categoryName = category === 'items' ? 'МоноАйтемы' : 'МоноИвенты';
         if (currentCoins < price) {
-            alert('❌ Недостаточно монет для ' + categoryName + '!\n\nУ тебя: ' + currentCoins + ' 🪙\nНужно: ' + price + ' 🪙');
+            alert('Недостаточно монет для ' + categoryName + '!\n\nУ тебя: ' + currentCoins + '\nНужно: ' + price);
             return;
         }
-        if (!confirm('Купить "' + itemName + '" за ' + price + ' 🪙?\n\nКатегория: ' + categoryName + '\nУ тебя останется: ' + (currentCoins - price) + ' 🪙')) return;
+        if (!confirm('Купить "' + itemName + '" за ' + price + '?\n\nКатегория: ' + categoryName + '\nУ тебя останется: ' + (currentCoins - price))) return;
         character[coinField] = currentCoins - price;
         if (!character.inventory) character.inventory = [];
         character.inventory.push({ name: itemName, price, category, date: new Date().toISOString() });
         saveToJSONBin().then(function() {
-            alert('✅ Покупка успешна!\n\n"' + itemName + '" добавлен в твой инвентарь.\n\nОсталось ' + categoryName + ': ' + character[coinField] + ' 🪙');
+            alert('Покупка успешна!\n\n"' + itemName + '" добавлен в твой инвентарь.\n\nОсталось ' + categoryName + ': ' + character[coinField]);
             document.getElementById('profileCoinsEvents').textContent = character.coinsEvents || 0;
             document.getElementById('profileCoinsItems').textContent = character.coinsItems || 0;
             renderInventory();
-            addNotification('🛒 ' + currentCharacter + ' купил "' + itemName + '"');
+            addNotification(currentCharacter + ' купил "' + itemName + '"');
             if (!character.achievements) character.achievements = [];
             if (!character.achievements.includes('first_purchase')) {
                 character.achievements.push('first_purchase');
-                addNotification('★ Получено достижение: Первая покупка!');
+                addNotification('Получено достижение: Первая покупка!');
                 saveToJSONBin();
             }
         });
     }
 
-    // ТАЙМЕР
     function updateShopTimer() {
         const timerEl = document.getElementById('shopUpdateTimer');
         if (!timerEl) return;
@@ -2957,6 +3231,12 @@
         if (chatInput) {
             chatInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter' && !this.disabled) { e.preventDefault(); sendMessage(); }
+            });
+        }
+        const pmInput = document.getElementById('pmInput');
+        if (pmInput) {
+            pmInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') { e.preventDefault(); sendPrivateMessage(); }
             });
         }
         const cardModal = document.getElementById('cardModal');
