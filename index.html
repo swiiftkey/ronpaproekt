@@ -18,7 +18,7 @@
         }
 
         /* ======================================== */
-        /* БАЗА: ТВОЙ ФОН */
+        /* БАЗА */
         /* ======================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -31,19 +31,15 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background-image: url('images/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background: #0a0618;
             overflow-x: hidden;
             position: relative;
         }
 
         /* ======================================== */
-        /* ДОЖДЬ ИЗ ПИКСЕЛЕЙ */
+        /* МАТРИЧНЫЙ ДОЖДЬ */
         /* ======================================== */
-        #pixelRainCanvas {
+        #matrixRainCanvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -51,6 +47,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
+            opacity: 0.85;
         }
 
         /* ======================================== */
@@ -136,7 +133,7 @@
         .container {
             max-width: 1200px;
             width: 100%;
-            background: rgba(18, 11, 42, 0.65);
+            background: rgba(18, 11, 42, 0.75);
             backdrop-filter: blur(3px);
             border: 3px dotted #ffffff;
             border-radius: 0px;
@@ -184,11 +181,11 @@
             position: relative;
         }
         .title { flex: 1; text-align: center; }
-        .academy-sub { 
-            font-size: 18px; 
-            letter-spacing: 6px; 
-            color: #ffffff; 
-            text-transform: uppercase; 
+        .academy-sub {
+            font-size: 18px;
+            letter-spacing: 6px;
+            color: #ffffff;
+            text-transform: uppercase;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
         }
 
@@ -202,8 +199,8 @@
             display: inline-block;
             animation: titleGlitch 10s infinite;
         }
-        .academy-main span { 
-            color: #a885ff; 
+        .academy-main span {
+            color: #a885ff;
             text-shadow: 0 0 50px rgba(168, 133, 255, 0.5);
         }
 
@@ -226,7 +223,7 @@
             opacity: 0.12;
         }
 
-        /* ===== ВРЕМЯ В АКАДЕМИИ ===== */
+        /* ===== ВРЕМЯ ===== */
         .academy-time {
             background: rgba(12, 7, 32, 0.8);
             padding: 10px 25px;
@@ -236,17 +233,17 @@
             box-shadow: 4px 4px 0px #0a0618;
             min-width: 120px;
         }
-        .academy-time .time-label { 
-            font-size: 14px; 
-            color: #ffffff; 
-            text-transform: uppercase; 
+        .academy-time .time-label {
+            font-size: 14px;
+            color: #ffffff;
+            text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
-        .academy-time .time-value { 
-            font-size: 22px; 
-            font-weight: 400; 
-            color: #ffffff; 
+        .academy-time .time-value {
+            font-size: 22px;
+            font-weight: 400;
+            color: #ffffff;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
         }
 
@@ -260,31 +257,31 @@
             border: 2px solid #4d2e8a;
         }
         .stat-item { flex: 1; min-width: 150px; }
-        .stat-item .label { 
-            font-size: 14px; 
-            color: #aaa; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
+        .stat-item .label {
+            font-size: 14px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .stat-item .value { 
-            font-size: 28px; 
-            font-weight: bold; 
-            color: #ffffff; 
+        .stat-item .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffffff;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
         }
-        .progress-bar { 
-            width: 100%; 
-            height: 12px; 
-            background: #0a0618; 
-            border: 1px solid #4d2e8a; 
-            margin-top: 6px; 
-            overflow: hidden; 
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #0a0618;
+            border: 1px solid #4d2e8a;
+            margin-top: 6px;
+            overflow: hidden;
         }
-        .progress-fill { 
-            height: 100%; 
-            background: linear-gradient(90deg, #ffffff, #a885ff); 
-            transition: width 0.5s ease; 
-            width: 100%; 
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffffff, #a885ff);
+            transition: width 0.5s ease;
+            width: 100%;
         }
 
         /* ======================================== */
@@ -296,34 +293,34 @@
             padding: 15px 20px;
             margin-bottom: 25px;
         }
-        .news-feed h3 { 
-            font-size: 16px; 
-            color: #ffffff; 
-            margin-bottom: 12px; 
+        .news-feed h3 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 12px;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
         .news-feed ul { list-style: none; padding: 0; }
-        .news-feed li { 
-            font-size: 15px; 
-            color: #d4c8ff; 
-            padding: 6px 0; 
+        .news-feed li {
+            font-size: 15px;
+            color: #d4c8ff;
+            padding: 6px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .news-feed li:last-child { border-bottom: none; }
-        .news-feed li .time { 
-            color: #888; 
-            font-size: 12px; 
-            margin-right: 10px; 
+        .news-feed li .time {
+            color: #888;
+            font-size: 12px;
+            margin-right: 10px;
         }
-        .news-feed li .highlight { 
-            color: #ffffff; 
+        .news-feed li .highlight {
+            color: #ffffff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
-        .news-feed .empty-news { 
-            color: #888; 
-            font-size: 14px; 
-            text-align: center; 
-            padding: 10px 0; 
+        .news-feed .empty-news {
+            color: #888;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px 0;
         }
 
         /* ======================================== */
@@ -358,12 +355,13 @@
         .catalog-item:nth-child(6) { transform: rotate(2.3deg); --rotation: 2.3deg; }
         .catalog-item:nth-child(7) { transform: rotate(-1.0deg); --rotation: -1.0deg; }
         .catalog-item:nth-child(8) { transform: rotate(0.5deg); --rotation: 0.5deg; }
+        .catalog-item:nth-child(9) { transform: rotate(-0.8deg); --rotation: -0.8deg; }
 
         .catalog-item:hover {
             animation: glitchLight 0.08s infinite;
             border-color: #a885ff;
             background: rgba(38, 26, 74, 0.9);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5),
                         0 0 60px rgba(168, 133, 255, 0.3),
                         0 0 90px rgba(255, 255, 255, 0.1);
             transition: box-shadow 0.3s ease;
@@ -390,41 +388,41 @@
             text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
         }
 
-        .catalog-item h3 { 
-            font-size: 16px; 
-            font-weight: 400; 
-            letter-spacing: 1px; 
+        .catalog-item h3 {
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 1px;
             color: #ffffff;
             padding-bottom: 6px;
             border-bottom: 2px solid #ffffff;
             margin-bottom: 6px;
         }
 
-        .catalog-item p { 
-            font-size: 16px; 
-            color: #b09fd4; 
-            margin-top: 8px; 
+        .catalog-item p {
+            font-size: 16px;
+            color: #b09fd4;
+            margin-top: 8px;
         }
 
-        .catalog-item.locked { 
-            opacity: 0.5; 
-            cursor: not-allowed; 
-            border-color: #444; 
-            animation: none; 
+        .catalog-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #444;
+            animation: none;
         }
-        .catalog-item.locked:hover { 
-            animation: none; 
-            transform: none; 
-            border-color: #444; 
-            box-shadow: 6px 6px 0px #0a0618; 
-            background: rgba(26, 16, 56, 0.8); 
+        .catalog-item.locked:hover {
+            animation: none;
+            transform: none;
+            border-color: #444;
+            box-shadow: 6px 6px 0px #0a0618;
+            background: rgba(26, 16, 56, 0.8);
         }
-        .catalog-item .lock-badge { 
-            position: absolute; 
-            top: 12px; 
-            right: 16px; 
-            font-size: 18px; 
-            color: #ffffff; 
+        .catalog-item .lock-badge {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 18px;
+            color: #ffffff;
             text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
         }
 
@@ -433,22 +431,22 @@
         /* ======================================== */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeInWithDark 0.6s ease; }
-        @keyframes fadeInWithDark { 
-            0% { opacity: 0; transform: translateY(20px); filter: brightness(0); } 
-            40% { opacity: 0.3; filter: brightness(0.2); } 
-            100% { opacity: 1; transform: translateY(0); filter: brightness(1); } 
+        @keyframes fadeInWithDark {
+            0% { opacity: 0; transform: translateY(20px); filter: brightness(0); }
+            40% { opacity: 0.3; filter: brightness(0.2); }
+            100% { opacity: 1; transform: translateY(0); filter: brightness(1); }
         }
-        .tab-content h2 { 
-            font-size: 24px; 
-            font-weight: 400; 
-            color: #ffffff; 
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
-            margin-bottom: 20px; 
+        .tab-content h2 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
-        .tab-content p { 
-            font-size: 20px; 
-            color: #d4c8ff; 
-            line-height: 1.6; 
+        .tab-content p {
+            font-size: 20px;
+            color: #d4c8ff;
+            line-height: 1.6;
         }
 
         .back-btn {
@@ -483,30 +481,30 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        .passport-name { 
-            font-size: 32px; 
-            color: #ffffff; 
-            text-align: center; 
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
-            letter-spacing: 2px; 
-            border-bottom: 2px solid #ffffff; 
-            padding-bottom: 15px; 
-            margin-bottom: 25px; 
+        .passport-name {
+            font-size: 32px;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
         }
         .passport-header { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
-        .passport-photo { 
-            flex-shrink: 0; 
-            width: 180px; 
-            height: 200px; 
-            background: #0a0618; 
-            border: 3px dotted #ffffff; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: #4a2b7a; 
-            font-size: 14px; 
-            text-align: center; 
-            overflow: hidden; 
+        .passport-photo {
+            flex-shrink: 0;
+            width: 180px;
+            height: 200px;
+            background: #0a0618;
+            border: 3px dotted #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a2b7a;
+            font-size: 14px;
+            text-align: center;
+            overflow: hidden;
             position: relative;
         }
         .passport-photo img {
@@ -514,75 +512,56 @@
             height: 100%;
             object-fit: cover;
         }
-        .passport-photo .placeholder { 
-            color: #4a2b7a; 
-            font-size: 14px; 
-            text-align: center; 
+        .passport-photo .placeholder {
+            color: #4a2b7a;
+            font-size: 14px;
+            text-align: center;
         }
-        .passport-photo .placeholder i { 
-            font-size: 48px; 
-            display: block; 
-            margin-bottom: 10px; 
-            color: #ffffff; 
-        }
-        .passport-info { flex: 1; min-width: 200px; }
-        .passport-field { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 10px 0; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
-        }
-        .passport-field .label { 
-            color: #aaa; 
-            font-size: 14px; 
-            letter-spacing: 1px; 
-        }
-        .passport-field .value { 
-            color: #ffffff; 
-            font-size: 18px; 
-            text-align: right; 
-        }
-        .passport-section { 
-            margin-top: 25px; 
-            padding-top: 20px; 
-            border-top: 2px solid #ffffff; 
-        }
-        .passport-section h4 { 
-            font-size: 16px; 
-            color: #ffffff; 
-            margin-bottom: 12px; 
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-        .passport-coins { 
-            font-size: 42px; 
-            color: #ffffff; 
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4); 
-            text-align: center; 
-        }
-        .floor-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-        .floor-btn { 
-            padding: 10px 24px; 
-            background: rgba(26, 16, 56, 0.8); 
-            border: 2px dotted #ffffff; 
-            color: #ffffff; 
-            font-family: '8bitWonder', monospace; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: 0.3s ease; 
-            box-shadow: 4px 4px 0px #0a0618; 
-        }
-        .floor-btn:hover { 
-            background: rgba(38, 26, 74, 0.9); 
-            border-color: #a885ff; 
-            transform: translate(-2px, -2px); 
-            box-shadow: 6px 6px 0px #ffffff; 
+        .passport-photo .placeholder i {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 10px;
             color: #ffffff;
         }
-        .files-status { 
-            text-align: center; 
-            color: #d4c8ff; 
-            font-size: 18px; 
-            padding: 5px 0; 
+        .passport-info { flex: 1; min-width: 200px; }
+        .passport-field {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .passport-field .label {
+            color: #aaa;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .passport-field .value {
+            color: #ffffff;
+            font-size: 18px;
+            text-align: right;
+        }
+        .passport-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #ffffff;
+        }
+        .passport-section h4 {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 12px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        .passport-coins {
+            font-size: 42px;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+        .files-status {
+            text-align: center;
+            color: #d4c8ff;
+            font-size: 18px;
+            padding: 5px 0;
         }
 
         /* ======================================== */
@@ -668,10 +647,10 @@
             transition: 0.3s ease;
             box-shadow: 4px 4px 0px #0a0618;
         }
-        .login-btn:hover { 
-            background: #ddd; 
-            transform: translate(-2px, -2px); 
-            box-shadow: 6px 6px 0px #0a0618; 
+        .login-btn:hover {
+            background: #ddd;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #0a0618;
         }
 
         /* ======================================== */
@@ -697,15 +676,14 @@
             margin-top: 25px;
             box-shadow: 10px 10px 0px #0a0618;
         }
-        .admin-panel h3 { 
-            color: #ffffff; 
-            text-align: center; 
-            font-size: 20px; 
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3); 
-            margin-bottom: 20px; 
+        .admin-panel h3 {
+            color: #ffffff;
+            text-align: center;
+            font-size: 20px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
 
-        /* Секция управления временем (внутри админки) */
         .admin-time-section {
             background: rgba(26, 16, 56, 0.6);
             border: 1px solid #4d2e8a;
@@ -752,60 +730,60 @@
             margin-left: 10px;
         }
 
-        .admin-panel .admin-field { 
-            display: flex; 
-            gap: 15px; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            padding: 8px 0; 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        .admin-panel .admin-field {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .admin-panel .admin-field label { 
-            min-width: 140px; 
-            color: #ffffff; 
-            font-size: 16px; 
+        .admin-panel .admin-field label {
+            min-width: 140px;
+            color: #ffffff;
+            font-size: 16px;
         }
-        .admin-panel .admin-field input, 
-        .admin-panel .admin-field select { 
-            flex: 1; 
-            min-width: 100px; 
-            padding: 8px 12px; 
-            background: #1a1038; 
-            color: #ffffff; 
-            border: 1px solid #4d2e8a; 
-            font-family: '8bitWonder', monospace; 
-            font-size: 14px; 
+        .admin-panel .admin-field input,
+        .admin-panel .admin-field select {
+            flex: 1;
+            min-width: 100px;
+            padding: 8px 12px;
+            background: #1a1038;
+            color: #ffffff;
+            border: 1px solid #4d2e8a;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
         }
-        .admin-panel .admin-field button { 
-            padding: 8px 20px; 
-            background: #ffffff; 
-            border: none; 
-            color: #0a0618; 
-            font-family: '8bitWonder', monospace; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            box-shadow: 4px 4px 0px #0a0618; 
+        .admin-panel .admin-field button {
+            padding: 8px 20px;
+            background: #ffffff;
+            border: none;
+            color: #0a0618;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 4px 4px 0px #0a0618;
         }
-        .admin-panel .admin-field button:hover { 
-            background: #ddd; 
-            transform: translate(-2px, -2px); 
-            box-shadow: 6px 6px 0px #0a0618; 
+        .admin-panel .admin-field button:hover {
+            background: #ddd;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #0a0618;
         }
-        .admin-panel .admin-close { 
-            display: block; 
-            margin: 20px auto 0; 
-            padding: 10px 30px; 
-            background: #1a1038; 
-            border: 2px dotted #ffffff; 
-            color: #ffffff; 
-            font-family: '8bitWonder', monospace; 
-            font-size: 14px; 
-            cursor: pointer; 
-            transition: 0.3s; 
+        .admin-panel .admin-close {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 30px;
+            background: #1a1038;
+            border: 2px dotted #ffffff;
+            color: #ffffff;
+            font-family: '8bitWonder', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .admin-panel .admin-close:hover { 
-            border-color: #a885ff; 
+        .admin-panel .admin-close:hover {
+            border-color: #a885ff;
             background: rgba(38, 26, 74, 0.9);
         }
 
@@ -821,8 +799,8 @@
             padding-top: 20px;
             letter-spacing: 1px;
         }
-        .footer span { 
-            color: #ffffff; 
+        .footer span {
+            color: #ffffff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
@@ -1038,7 +1016,7 @@
         }
 
         /* ======================================== */
-        /* ПОЧТИ НЕЗАМЕТНАЯ МЕТКА "АДМИН" */
+        /* МЕТКА АДМИН */
         /* ======================================== */
         .admin-badge {
             display: inline-block;
@@ -1056,7 +1034,7 @@
         }
 
         /* ======================================== */
-        /* КАРТОЧКИ ПЕРСОНАЖЕЙ (СЕТКА) */
+        /* КАРТОЧКИ ПЕРСОНАЖЕЙ */
         /* ======================================== */
         .cards-grid {
             display: grid;
@@ -1089,7 +1067,7 @@
         }
 
         /* ======================================== */
-        /* МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧКИ */
+        /* МОДАЛЬНОЕ ОКНО КАРТОЧКИ */
         /* ======================================== */
         .card-modal {
             display: none;
@@ -1145,7 +1123,7 @@
         }
 
         /* ======================================== */
-        /* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (до 768px) */
+        /* АДАПТАЦИЯ */
         /* ======================================== */
         @media (max-width: 768px) {
             body { padding: 10px; font-size: 16px; }
@@ -1163,14 +1141,15 @@
             .catalog-item i { font-size: 32px; margin-bottom: 8px; }
             .catalog-item h3 { font-size: 13px; padding-bottom: 4px; }
             .catalog-item p { font-size: 12px; margin-top: 4px; }
-            .catalog-item:nth-child(1) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(2) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(3) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(4) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(5) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(6) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(7) { transform: rotate(0deg); --rotation: 0deg; }
-            .catalog-item:nth-child(8) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(1),
+            .catalog-item:nth-child(2),
+            .catalog-item:nth-child(3),
+            .catalog-item:nth-child(4),
+            .catalog-item:nth-child(5),
+            .catalog-item:nth-child(6),
+            .catalog-item:nth-child(7),
+            .catalog-item:nth-child(8),
+            .catalog-item:nth-child(9) { transform: rotate(0deg); --rotation: 0deg; }
             .cards-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
             .character-card p { font-size: 12px; }
             .card-modal-content { padding: 15px; max-width: 95%; }
@@ -1186,7 +1165,6 @@
             .passport-field .value { font-size: 14px; }
             .passport-coins { font-size: 32px; }
             .passport-section h4 { font-size: 14px; }
-            .floor-btn { padding: 8px 16px; font-size: 12px; }
             .files-status { font-size: 15px; }
             .diary-section textarea { min-height: 80px; font-size: 12px; padding: 10px; }
             .diary-section .diary-actions button { font-size: 11px; padding: 6px 14px; }
@@ -1251,13 +1229,11 @@
 <body>
 
     <!-- ======================================== -->
-    <!-- ДОЖДЬ ИЗ ПИКСЕЛЕЙ -->
+    <!-- МАТРИЧНЫЙ ДОЖДЬ -->
     <!-- ======================================== -->
-    <canvas id="pixelRainCanvas"></canvas>
+    <canvas id="matrixRainCanvas"></canvas>
 
-    <!-- ======================================== -->
     <!-- ДЕКОРАТИВНЫЙ МУСОР -->
-    <!-- ======================================== -->
     <div style="position:fixed; bottom: 50px; left: 20px; color: rgba(255,255,255,0.06); font-size: 60px; transform: rotate(-15deg); pointer-events: none; z-index: 0;">◼</div>
     <div style="position:fixed; top: 100px; right: 30px; color: rgba(255,255,255,0.05); font-size: 40px; transform: rotate(45deg); pointer-events: none; z-index: 0;">◼</div>
     <div style="position:fixed; bottom: 200px; left: 85%; color: rgba(255,255,255,0.04); font-size: 30px; pointer-events: none; z-index: 0;">◼</div>
@@ -1318,101 +1294,36 @@
             <div class="catalog-item" onclick="openTab('chat'); playClick();"><i class="fas fa-comments"></i><h3>Чат</h3><p>Обсуждай с учениками</p></div>
             <div class="catalog-item locked" onclick="return false;"><i class="fas fa-file-alt"></i><h3>Файлы Монокумы</h3><p>Доступно позже</p><span class="lock-badge"><i class="fas fa-lock"></i></span></div>
             <div class="catalog-item" onclick="openTab('rules'); playClick();"><i class="fas fa-gavel"></i><h3>Правила</h3><p>Наказание ждёт</p></div>
-            <div class="catalog-item" onclick="openTab('students'); playClick();">
-    <i class="fas fa-address-book"></i>
-    <h3>Все ученики</h3>
-    <p>Список и стены</p>
-</div>
+            <div class="catalog-item" onclick="openTab('students'); playClick();"><i class="fas fa-address-book"></i><h3>Все ученики</h3><p>Список и стены</p></div>
         </div>
     </div>
 
-    <!-- ===== ВКЛАДКИ ===== -->
     <!-- ===== ВКЛАДКА: КАРТОЧКИ ПЕРСОНАЖЕЙ ===== -->
     <div id="tab-characters" class="tab-content">
         <h2>📋 Карточки персонажей</h2>
-        <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Все ученики академии (19 из 20)</p>
+        <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Все ученики академии (20 из 20)</p>
 
         <div class="cards-grid">
-            <div class="character-card" onclick="openCard('images/cards/1.png', 'Карточка #1')">
-                <img src="images/cards/1.png" alt="Карточка #1">
-                <p>#1</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/2.png', 'Карточка #2')">
-                <img src="images/cards/2.png" alt="Карточка #2">
-                <p>#2</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/3.png', 'Карточка #3')">
-                <img src="images/cards/3.png" alt="Карточка #3">
-                <p>#3</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/4.png', 'Карточка #4')">
-                <img src="images/cards/4.png" alt="Карточка #4">
-                <p>#4</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/5.png', 'Карточка #5')">
-                <img src="images/cards/5.png" alt="Карточка #5">
-                <p>#5</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/6.png', 'Карточка #6')">
-                <img src="images/cards/6.png" alt="Карточка #6">
-                <p>#6</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/7.png', 'Карточка #7')">
-                <img src="images/cards/7.png" alt="Карточка #7">
-                <p>#7</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/8.png', 'Карточка #8')">
-                <img src="images/cards/8.png" alt="Карточка #8">
-                <p>#8</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/9.png', 'Карточка #9')">
-                <img src="images/cards/9.png" alt="Карточка #9">
-                <p>#9</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/10.png', 'Карточка #10')">
-                <img src="images/cards/10.png" alt="Карточка #10">
-                <p>#10</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/11.png', 'Карточка #11')">
-                <img src="images/cards/11.png" alt="Карточка #11">
-                <p>#11</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/12.png', 'Карточка #12')">
-                <img src="images/cards/12.png" alt="Карточка #12">
-                <p>#12</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/13.png', 'Карточка #13')">
-                <img src="images/cards/13.png" alt="Карточка #13">
-                <p>#13</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/14.png', 'Карточка #14')">
-                <img src="images/cards/14.png" alt="Карточка #14">
-                <p>#14</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/15.png', 'Карточка #15')">
-                <img src="images/cards/15.png" alt="Карточка #15">
-                <p>#15</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/16.png', 'Карточка #16')">
-                <img src="images/cards/16.png" alt="Карточка #16">
-                <p>#16</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/17.png', 'Карточка #17')">
-                <img src="images/cards/17.png" alt="Карточка #17">
-                <p>#17</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/18.png', 'Карточка #18')">
-                <img src="images/cards/18.png" alt="Карточка #18">
-                <p>#18</p>
-            </div>
-            <div class="character-card" onclick="openCard('images/cards/19.png', 'Карточка #19')">
-                <img src="images/cards/19.png" alt="Карточка #19">
-                <p>#19</p>
-            </div>
-   <div class="character-card" onclick="openCard('images/cards/20.png', 'Карточка #20')">
-    <img src="images/cards/20.png" alt="Карточка #20">
-    <p>#20</p>
-</div>
+            <div class="character-card" onclick="openCard('images/cards/1.png', 'Карточка #1')"><img src="images/cards/1.png" alt="Карточка #1"><p>#1</p></div>
+            <div class="character-card" onclick="openCard('images/cards/2.png', 'Карточка #2')"><img src="images/cards/2.png" alt="Карточка #2"><p>#2</p></div>
+            <div class="character-card" onclick="openCard('images/cards/3.png', 'Карточка #3')"><img src="images/cards/3.png" alt="Карточка #3"><p>#3</p></div>
+            <div class="character-card" onclick="openCard('images/cards/4.png', 'Карточка #4')"><img src="images/cards/4.png" alt="Карточка #4"><p>#4</p></div>
+            <div class="character-card" onclick="openCard('images/cards/5.png', 'Карточка #5')"><img src="images/cards/5.png" alt="Карточка #5"><p>#5</p></div>
+            <div class="character-card" onclick="openCard('images/cards/6.png', 'Карточка #6')"><img src="images/cards/6.png" alt="Карточка #6"><p>#6</p></div>
+            <div class="character-card" onclick="openCard('images/cards/7.png', 'Карточка #7')"><img src="images/cards/7.png" alt="Карточка #7"><p>#7</p></div>
+            <div class="character-card" onclick="openCard('images/cards/8.png', 'Карточка #8')"><img src="images/cards/8.png" alt="Карточка #8"><p>#8</p></div>
+            <div class="character-card" onclick="openCard('images/cards/9.png', 'Карточка #9')"><img src="images/cards/9.png" alt="Карточка #9"><p>#9</p></div>
+            <div class="character-card" onclick="openCard('images/cards/10.png', 'Карточка #10')"><img src="images/cards/10.png" alt="Карточка #10"><p>#10</p></div>
+            <div class="character-card" onclick="openCard('images/cards/11.png', 'Карточка #11')"><img src="images/cards/11.png" alt="Карточка #11"><p>#11</p></div>
+            <div class="character-card" onclick="openCard('images/cards/12.png', 'Карточка #12')"><img src="images/cards/12.png" alt="Карточка #12"><p>#12</p></div>
+            <div class="character-card" onclick="openCard('images/cards/13.png', 'Карточка #13')"><img src="images/cards/13.png" alt="Карточка #13"><p>#13</p></div>
+            <div class="character-card" onclick="openCard('images/cards/14.png', 'Карточка #14')"><img src="images/cards/14.png" alt="Карточка #14"><p>#14</p></div>
+            <div class="character-card" onclick="openCard('images/cards/15.png', 'Карточка #15')"><img src="images/cards/15.png" alt="Карточка #15"><p>#15</p></div>
+            <div class="character-card" onclick="openCard('images/cards/16.png', 'Карточка #16')"><img src="images/cards/16.png" alt="Карточка #16"><p>#16</p></div>
+            <div class="character-card" onclick="openCard('images/cards/17.png', 'Карточка #17')"><img src="images/cards/17.png" alt="Карточка #17"><p>#17</p></div>
+            <div class="character-card" onclick="openCard('images/cards/18.png', 'Карточка #18')"><img src="images/cards/18.png" alt="Карточка #18"><p>#18</p></div>
+            <div class="character-card" onclick="openCard('images/cards/19.png', 'Карточка #19')"><img src="images/cards/19.png" alt="Карточка #19"><p>#19</p></div>
+            <div class="character-card" onclick="openCard('images/cards/20.png', 'Карточка #20')"><img src="images/cards/20.png" alt="Карточка #20"><p>#20</p></div>
         </div>
 
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
@@ -1427,182 +1338,170 @@
         </div>
     </div>
 
-   <!-- ===== ВКЛАДКА: КАРТА ЭТАЖА ===== -->
-<div id="tab-map" class="tab-content">
-    <h2>Карта этажа</h2>
-    <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Первый этаж академии. Исследуй помещения.</p>
+    <!-- ===== ВКЛАДКА: КАРТА ЭТАЖА ===== -->
+    <div id="tab-map" class="tab-content">
+        <h2>Карта этажа</h2>
+        <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Первый этаж академии. Исследуй помещения.</p>
 
-    <!-- КАРТИНКА -->
-    <div style="max-width: 800px; margin: 0 auto; border: 2px dotted #ffffff; box-shadow: 8px 8px 0px #0a0618; padding: 5px; background: #0a0618;">
-        <img src="images/map_floor1.png" alt="Карта первого этажа" style="width:100%; height:auto; display:block;">
+        <div style="max-width: 800px; margin: 0 auto; border: 2px dotted #ffffff; box-shadow: 8px 8px 0px #0a0618; padding: 5px; background: #0a0618;">
+            <img src="images/map_floor1.png" alt="Карта первого этажа" style="width:100%; height:auto; display:block;">
+        </div>
+
+        <div style="max-width: 800px; margin: 20px auto 0; background: rgba(18, 11, 42, 0.7); border: 2px dotted #ffffff; padding: 20px; box-shadow: 8px 8px 0px #0a0618;">
+            <p style="color: #d4c8ff; font-size: 16px; line-height: 1.8; margin-bottom: 15px;">
+                Карта представляет собой план первого этажа академии с длинным центральным коридором и большими помещениями по центру. Вверху спокойно оформлённый внутренний дворик и ряд небольших кабинетов и помещений вдоль северной стены, слева медицинский блок, справа служебная зона с лестницей и кладовкой, внизу большой спортивный зал.
+            </p>
+            <p style="color: #6b5596; font-size: 14px; font-style: italic; border-top: 1px solid #2f1f4a; padding-top: 12px;">
+                — Монокума: «Вот так карта... Надеюсь, вы не заблудитесь. Хотя если заблудитесь — это будет забавно!»
+            </p>
+        </div>
+
+        <div style="max-width: 800px; margin: 25px auto 0;">
+            <h3 style="color: #ffffff; font-size: 20px; font-family: '8bitWonder', monospace; text-align:center; border-bottom: 2px solid #4d2e8a; padding-bottom: 10px;">Помещения академии</h3>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">1.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Медпункт</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Находится в западной части карты, отдельный блок с крестом. Предназначен для медицинской помощи: койки, шкафы с медикаментами.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Да там же куча всякой медицинской литературы! Десятки гайдов на самые разные темы, от перевязки раны до создания яда.»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">2.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Задний дворик академии</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Большой открытый внутренний двор с декоративной клумбой в центре. Окружён прогулочной дорожкой, служит местом отдыха, организованных мероприятий.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Столько клумб, кустов и высокой травы... Идеальное место, чтобы что-то спрятать!»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">3.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Библиотека</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Левое центральное помещение с иконкой книги. Занимает значительную площадь, имеет стеллажи, рабочие столы и зоны для чтения; имеет небольшой «второй этаж», являющийся подъемом к более современной литературе.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Тут всегда так тихо и скучно... Идеальное место для чтения. Авось найдётся что-то интереснее классической литературы?»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">4.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Столовая</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Правое центральное помещение с иконкой приборов. Большая обеденная зона с линией выдачи пищи, посадочными местами и выходом в коридор.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Куча всяких ножей, вилок, а также в открытую стоящей еды... Интересно.»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">5.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Спортзал</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Самое большое помещение у южной стены, отмечено мячом. Пространство для спортивных занятий, зал содержит разметку для игр, трибуны и лавки у стен и широкие двери для организации потока людей и эвакуации. Напротив массивных дверей, у дальней стены, расположена большая сцена, завешенная красным занавесом.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Самое скучное место из всех возможных!»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">6.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Мужской и женский туалет</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Расположены в западной части коридора, рядом со спортзалом. Отдельные кабинки для мужчин и женщин.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Что я должен сказать?»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">7.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Кладовка</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Небольшое служебное помещение в правой боковой зоне. Хранение запаса инвентаря, уборочного снаряжения и расходных материалов столовой и библиотеки.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Куча всяких средств для мытья полов, освежителей воздуха... Идеальный инвентарь для скрытия отпечатков и прочих мерзких улик!»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">8.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Мусоросжигатель</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Расположен в правой зоне, между столовой и общежитием.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Можно сжечь абсолютно всё!»</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">9.</span>
+                <div>
+                    <span style="color: #ffffff; font-size: 18px;">Лестница на второй этаж</span>
+                    <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Отмечена стрелкой «2F» в правой части карты рядом с кладовкой. Основной вертикальный узел движения между этажами. На данный момент проход к лестнице закрыт массивной решёткой, которая непонятно когда откроется.</p>
+                    <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Не переживайте, я обязательно открою вам новые этажи, как только посчитаю нужным!»</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ОПИСАНИЕ КАРТЫ -->
-    <div style="max-width: 800px; margin: 20px auto 0; background: rgba(18, 11, 42, 0.7); border: 2px dotted #ffffff; padding: 20px; box-shadow: 8px 8px 0px #0a0618;">
-        <p style="color: #d4c8ff; font-size: 16px; line-height: 1.8; margin-bottom: 15px;">
-            Карта представляет собой план первого этажа академии с длинным центральным коридором и большими помещениями по центру. Вверху спокойно оформлённый внутренний дворик и ряд небольших кабинетов и помещений вдоль северной стены, слева медицинский блок, справа служебная зона с лестницей и кладовкой, внизу большой спортивный зал.
-        </p>
-        <p style="color: #6b5596; font-size: 14px; font-style: italic; border-top: 1px solid #2f1f4a; padding-top: 12px;">
-            — Монокума: «Вот так карта... Надеюсь, вы не заблудитесь. Хотя если заблудитесь — это будет забавно!»
-        </p>
+    <!-- ===== ВКЛАДКА: МОНОШОП ===== -->
+    <div id="tab-shop" class="tab-content">
+        <h2>Моношоп</h2>
+        <p>Обменивай монеты на припасы, оружие и улики.</p>
+        <p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p>
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- СПИСОК ПОМЕЩЕНИЙ -->
-    <div style="max-width: 800px; margin: 25px auto 0;">
-        <h3 style="color: #ffffff; font-size: 20px; font-family: '8bitWonder', monospace; text-align:center; border-bottom: 2px solid #4d2e8a; padding-bottom: 10px;">Помещения академии</h3>
-
-        <!-- 1. Медпункт -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">1.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Медпункт</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Находится в западной части карты, отдельный блок с крестом. Предназначен для медицинской помощи: койки, шкафы с медикаментами.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Да там же куча всякой медицинской литературы! Десятки гайдов на самые разные темы, от перевязки раны до создания яда.»</p>
-            </div>
-        </div>
-
-        <!-- 2. Задний дворик -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">2.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Задний дворик академии</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Большой открытый внутренний двор с декоративной клумбой в центре. Окружён прогулочной дорожкой, служит местом отдыха, организованных мероприятий.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Столько клумб, кустов и высокой травы... Идеальное место, чтобы что-то спрятать!»</p>
-            </div>
-        </div>
-
-        <!-- 3. Библиотека -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">3.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Библиотека</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Левое центральное помещение с иконкой книги. Занимает значительную площадь, имеет стеллажи, рабочие столы и зоны для чтения; имеет небольшой «второй этаж», являющийся подъемом к более современной литературе.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Тут всегда так тихо и скучно... Идеальное место для чтения. Авось найдётся что-то интереснее классической литературы?»</p>
-            </div>
-        </div>
-
-        <!-- 4. Столовая -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">4.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Столовая</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Правое центральное помещение с иконкой приборов. Большая обеденная зона с линией выдачи пищи, посадочными местами и выходом в коридор.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Куча всяких ножей, вилок, а также в открытую стоящей еды... Интересно.»</p>
-            </div>
-        </div>
-
-        <!-- 5. Спортзал -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">5.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Спортзал</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Самое большое помещение у южной стены, отмечено мячом. Пространство для спортивных занятий, зал содержит разметку для игр, трибуны и лавки у стен и широкие двери для организации потока людей и эвакуации. Напротив массивных дверей, у дальней стены, расположена большая сцена, завешенная красным занавесом.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Самое скучное место из всех возможных!»</p>
-            </div>
-        </div>
-
-        <!-- 6. Туалет -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">6.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Мужской и женский туалет</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Расположены в западной части коридора, рядом со спортзалом. Отдельные кабинки для мужчин и женщин.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Что я должен сказать?»</p>
-            </div>
-        </div>
-
-        <!-- 7. Кладовка -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">7.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Кладовка</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Небольшое служебное помещение в правой боковой зоне. Хранение запаса инвентаря, уборочного снаряжения и расходных материалов столовой и библиотеки.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Куча всяких средств для мытья полов, освежителей воздуха... Идеальный инвентарь для скрытия отпечатков и прочих мерзких улик!»</p>
-            </div>
-        </div>
-
-        <!-- 8. Мусоросжигатель -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">8.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Мусоросжигатель</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Расположен в правой зоне, между столовой и общежитием.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Можно сжечь абсолютно всё!»</p>
-            </div>
-        </div>
-
-        <!-- 9. Лестница -->
-        <div style="display: flex; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <span style="font-size: 22px; color: #a885ff; font-weight: bold; min-width: 40px;">9.</span>
-            <div>
-                <span style="color: #ffffff; font-size: 18px;">Лестница на второй этаж</span>
-                <p style="color: #b09fd4; font-size: 15px; margin: 2px 0 0 0;">Отмечена стрелкой «2F» в правой части карты рядом с кладовкой. Основной вертикальный узел движения между этажами. На данный момент проход к лестнице закрыт массивной решёткой, которая непонятно когда откроется.</p>
-                <p style="color: #6b5596; font-size: 14px; font-style: italic; margin: 4px 0 0 0;">— Монокума: «Не переживайте, я обязательно открою вам новые этажи, как только посчитаю нужным!»</p>
-            </div>
-        </div>
-
-    </div>
-
-    <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
-</div>
-    <div id="tab-shop" class="tab-content"><h2>Моношоп</h2><p>Обменивай монеты на припасы, оружие и улики.</p><p style="color:#8a7aaa; font-size:17px; margin-top:10px;">(Ассортимент скоро появится)</p><button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button></div>
     <!-- ===== ВКЛАДКА: ВСЕ УЧЕНИКИ ===== -->
-<div id="tab-students" class="tab-content">
-    <h2>📖 Все ученики</h2>
-    <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Выбери персонажа, чтобы посмотреть его профиль и оставить запись на стене</p>
+    <div id="tab-students" class="tab-content">
+        <h2>📖 Все ученики</h2>
+        <p style="color:#8a7aaa; font-size:17px; margin-bottom:20px;">Выбери персонажа, чтобы посмотреть его профиль и оставить запись на стене</p>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; max-width: 800px; margin: 0 auto;">
-        <!-- Список персонажей будет генерироваться через JavaScript -->
-        <div id="studentList" style="grid-column: 1/-1; text-align:center; color:#6b5596; padding:20px;">Загрузка...</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; max-width: 800px; margin: 0 auto;">
+            <div id="studentList" style="grid-column: 1/-1; text-align:center; color:#6b5596; padding:20px;">Загрузка...</div>
+        </div>
+
+        <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
-</div> 
-
-<!-- ===== МОДАЛЬНОЕ ОКНО: ПРОФИЛЬ ПЕРСОНАЖА (СТЕНА) ===== -->
-<div id="studentProfileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
-    <div style="background:#1a1038; border:3px solid #ffffff; padding:25px; max-width:600px; width:95%; max-height:90vh; overflow-y:auto; box-shadow:12px 12px 0px #0a0618;">
-        <!-- Заголовок -->
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:15px;">
-            <h3 id="studentProfileName" style="color:#ffffff; font-family:'8bitWonder',monospace; font-size:22px;">Персонаж</h3>
-            <button onclick="closeStudentProfile()" style="background:none; border:none; color:#ff6b8a; font-size:24px; cursor:pointer;">✕</button>
-        </div>
-
-        <!-- Информация о персонаже -->
-        <div style="display:flex; gap:15px; flex-wrap:wrap; background:rgba(26,16,56,0.5); padding:12px; border-radius:8px; margin-bottom:15px;">
-            <div><span style="color:#8a7aaa;">Талант:</span> <span id="studentTalent" style="color:#d4c8ff;">—</span></div>
-            <div><span style="color:#8a7aaa;">Возраст:</span> <span id="studentAge" style="color:#d4c8ff;">—</span></div>
-            <div><span style="color:#8a7aaa;">Статус:</span> <span id="studentStatus" style="color:#d4c8ff;">—</span></div>
-        </div>
-
-        <!-- Стена -->
-        <div style="margin-bottom:15px;">
-            <h4 style="color:#a885ff; font-family:'8bitWonder',monospace; font-size:16px; margin-bottom:8px;">📝 Стена</h4>
-            <div id="studentWallMessages" style="background:rgba(10,6,24,0.5); border:1px dotted #4d2e8a; padding:12px; max-height:200px; overflow-y:auto; border-radius:4px;">
-                <div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>
+    <!-- ===== МОДАЛЬНОЕ ОКНО: ПРОФИЛЬ ПЕРСОНАЖА ===== -->
+    <div id="studentProfileModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
+        <div style="background:#1a1038; border:3px solid #ffffff; padding:25px; max-width:600px; width:95%; max-height:90vh; overflow-y:auto; box-shadow:12px 12px 0px #0a0618;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:15px;">
+                <h3 id="studentProfileName" style="color:#ffffff; font-family:'8bitWonder',monospace; font-size:22px;">Персонаж</h3>
+                <button onclick="closeStudentProfile()" style="background:none; border:none; color:#ff6b8a; font-size:24px; cursor:pointer;">✕</button>
             </div>
-        </div>
 
-        <!-- Форма отправки (только для авторизованных) -->
-        <div id="wallForm" style="display:none; border-top:2px solid #4d2e8a; padding-top:15px;">
-            <p style="color:#8a7aaa; font-size:14px; margin-bottom:8px;">Оставить запись на стене (от имени <span id="wallFromName" style="color:#a885ff;">—</span>)</p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <input type="text" id="wallMessageInput" placeholder="Напиши что-нибудь..." style="flex:3; min-width:150px; padding:10px; background:rgba(26,16,56,0.8); color:#ffffff; border:2px dotted #ffffff; font-family:'8bitWonder',monospace; font-size:14px;">
-                <button onclick="sendWallMessage()" style="padding:10px 20px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618; transition:0.3s;">Отправить</button>
+            <div style="display:flex; gap:15px; flex-wrap:wrap; background:rgba(26,16,56,0.5); padding:12px; border-radius:8px; margin-bottom:15px;">
+                <div><span style="color:#8a7aaa;">Талант:</span> <span id="studentTalent" style="color:#d4c8ff;">—</span></div>
+                <div><span style="color:#8a7aaa;">Возраст:</span> <span id="studentAge" style="color:#d4c8ff;">—</span></div>
+                <div><span style="color:#8a7aaa;">Статус:</span> <span id="studentStatus" style="color:#d4c8ff;">—</span></div>
             </div>
-            <div id="wallMessageStatus" style="color:#ff6b8a; font-size:12px; margin-top:5px;"></div>
-        </div>
-        <div id="wallNotAuthorized" style="display:none; text-align:center; color:#6b5596; font-size:14px; padding:10px 0; border-top:2px solid #4d2e8a; margin-top:10px;">
-            Войди в свой профиль, чтобы оставлять записи
-        </div>
 
-        <button onclick="closeStudentProfile()" style="display:block; margin:15px auto 0; padding:10px 30px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Закрыть</button>
+            <div style="margin-bottom:15px;">
+                <h4 style="color:#a885ff; font-family:'8bitWonder',monospace; font-size:16px; margin-bottom:8px;">📝 Стена</h4>
+                <div id="studentWallMessages" style="background:rgba(10,6,24,0.5); border:1px dotted #4d2e8a; padding:12px; max-height:200px; overflow-y:auto; border-radius:4px;">
+                    <div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>
+                </div>
+            </div>
+
+            <div id="wallForm" style="display:none; border-top:2px solid #4d2e8a; padding-top:15px;">
+                <p style="color:#8a7aaa; font-size:14px; margin-bottom:8px;">Оставить запись на стене (от имени <span id="wallFromName" style="color:#a885ff;">—</span>)</p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <input type="text" id="wallMessageInput" placeholder="Напиши что-нибудь..." style="flex:3; min-width:150px; padding:10px; background:rgba(26,16,56,0.8); color:#ffffff; border:2px dotted #ffffff; font-family:'8bitWonder',monospace; font-size:14px;">
+                    <button onclick="sendWallMessage()" style="padding:10px 20px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618; transition:0.3s;">Отправить</button>
+                </div>
+                <div id="wallMessageStatus" style="color:#ff6b8a; font-size:12px; margin-top:5px;"></div>
+            </div>
+            <div id="wallNotAuthorized" style="display:none; text-align:center; color:#6b5596; font-size:14px; padding:10px 0; border-top:2px solid #4d2e8a; margin-top:10px;">
+                Войди в свой профиль, чтобы оставлять записи
+            </div>
+
+            <button onclick="closeStudentProfile()" style="display:block; margin:15px auto 0; padding:10px 30px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Закрыть</button>
+        </div>
     </div>
-</div>
 
-    <!-- ======================================== -->
-    <!-- ПРОФИЛЬ -->
-    <!-- ======================================== -->
+    <!-- ===== ПРОФИЛЬ ===== -->
     <div id="tab-profile" class="tab-content">
         <div id="loginBlock" style="display: none;">
             <h2 style="text-align:center;">Вход в Академию</h2>
@@ -1647,9 +1546,7 @@
         </div>
     </div>
 
-    <!-- ======================================== -->
-    <!-- СПЛЕТНИ МОНОКУМЫ -->
-    <!-- ======================================== -->
+    <!-- ===== СПЛЕТНИ МОНОКУМЫ ===== -->
     <div id="tab-gossip" class="tab-content">
         <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">Сплетни Монокумы</h2></div>
         <div class="gossip-container">
@@ -1663,9 +1560,7 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ======================================== -->
-    <!-- ЧАТ УЧЕНИКОВ -->
-    <!-- ======================================== -->
+    <!-- ===== ЧАТ УЧЕНИКОВ ===== -->
     <div id="tab-chat" class="tab-content">
         <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">💬 Чат учеников</h2><p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">Обсуждай, подозревай, расследуй</p><p id="chatUserInfo" style="color:#6b5596; font-size:14px; margin-top:5px;"></p></div>
         <div class="chat-container">
@@ -1680,9 +1575,7 @@
         <button class="back-btn" onclick="closeTab(); playClick();"><i class="fas fa-arrow-left"></i> Назад</button>
     </div>
 
-    <!-- ======================================== -->
-    <!-- ПРАВИЛА -->
-    <!-- ======================================== -->
+    <!-- ===== ПРАВИЛА ===== -->
     <div id="tab-rules" class="tab-content">
         <div style="text-align:center; margin-bottom:30px;"><h2 style="font-size:36px; color:#ffffff; text-shadow:0 0 30px rgba(255,255,255,0.4); letter-spacing:4px;">Внимание правила</h2><p style="color:#ff6b8a; font-size:16px; letter-spacing:2px;">Нарушение карается смертью</p></div>
         <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:30px; box-shadow:8px 8px 0px #0a0618;">
@@ -1704,9 +1597,6 @@
         <span>✦</span> <span id="randomQuote"></span> <span>✦</span>
         <div class="admin-trigger" onclick="toggleAdmin()">Админ-панель</div>
         
-        <!-- ======================================== -->
-        <!-- АДМИН-ПАНЕЛЬ -->
-        <!-- ======================================== -->
         <div class="admin-panel" id="adminPanel">
             <h3>Админ-панель</h3>
             
@@ -1716,9 +1606,7 @@
                 <p id="adminError" style="color:#ff6b8a; text-align:center; font-size:14px;"></p>
             </div>
             
-            <!-- ===== АДМИН-КОНТРОЛ (ПОЯВЛЯЕТСЯ ПОСЛЕ ПАРОЛЯ) ===== -->
             <div id="adminControls" style="display:none; margin-top:20px;">
-                <!-- ===== УПРАВЛЕНИЕ ВРЕМЕНЕМ ===== -->
                 <div class="admin-time-section">
                     <label for="timeSelect">🕒 Время суток:</label>
                     <select id="timeSelect">
@@ -1731,7 +1619,6 @@
                     <span class="current-time" id="currentTimeDisplay">Текущее: —</span>
                 </div>
                 
-                <!-- ===== УПРАВЛЕНИЕ ИГРОКАМИ ===== -->
                 <div id="adminPlayersList"></div>
             </div>
             
@@ -1754,24 +1641,110 @@
     let gameTime = 'день';
 
     // =========================================================
-    // БАЗОВЫЕ ФУНКЦИИ
+    // МАТРИЧНЫЙ ДОЖДЬ
+    // =========================================================
+    (function() {
+        const canvas = document.getElementById('matrixRainCanvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const digits = '0123456789';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const symbols = katakana + digits + latin;
+        
+        let fontSize = 16;
+        let drops = [];
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const columnCount = Math.floor(canvas.width / fontSize);
+            drops = [];
+            for (let i = 0; i < columnCount; i++) {
+                drops[i] = Math.random() * -100;
+            }
+        }
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(10, 6, 24, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.font = fontSize + 'px "8bitWonder", monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const char = symbols[Math.floor(Math.random() * symbols.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+                const brightness = Math.random();
+                
+                if (brightness > 0.95) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.shadowColor = '#a885ff';
+                    ctx.shadowBlur = 15;
+                } else if (brightness > 0.7) {
+                    ctx.fillStyle = 'rgba(168, 133, 255, 0.7)';
+                    ctx.shadowColor = '#a885ff';
+                    ctx.shadowBlur = 8;
+                } else {
+                    ctx.fillStyle = 'rgba(106, 90, 205, 0.35)';
+                    ctx.shadowBlur = 0;
+                }
+                
+                ctx.fillText(char, x, y);
+                ctx.shadowBlur = 0;
+                
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        resize();
+        window.addEventListener('resize', resize);
+        setInterval(draw, 50);
+        console.log('🟣 Матричный дождь запущен');
+    })();
+
+    // =========================================================
+    // НАВИГАЦИЯ
     // =========================================================
     function openTab(tabName) {
-        document.getElementById('mainMenu').style.display = 'none';
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        console.log('🔓 Открываем вкладку:', tabName);
+        const mainMenu = document.getElementById('mainMenu');
+        if (mainMenu) mainMenu.style.display = 'none';
+        
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+            tab.style.display = 'none';
+        });
+        
         const target = document.getElementById('tab-' + tabName);
-        if (target) target.classList.add('active');
-        if (tabName === 'chat') loadMessages();
+        if (target) {
+            target.classList.add('active');
+            target.style.display = 'block';
+            
+            if (tabName === 'chat') loadMessages();
+            if (tabName === 'students') renderStudentList();
+        } else {
+            console.log('❌ Вкладка не найдена:', tabName);
+            closeTab();
+        }
     }
 
     function closeTab() {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('mainMenu').style.display = 'block';
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+            tab.style.display = 'none';
+        });
+        const mainMenu = document.getElementById('mainMenu');
+        if (mainMenu) mainMenu.style.display = 'block';
     }
 
     function goHome() {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('mainMenu').style.display = 'block';
+        closeTab();
     }
 
     function playClick() {
@@ -1784,7 +1757,7 @@
     }
 
     // =========================================================
-    // ОБНОВЛЕНИЕ ВРЕМЕНИ В ШАПКЕ
+    // ВРЕМЯ
     // =========================================================
     function updateGameTimeDisplay() {
         const display = document.getElementById('gameTime');
@@ -1795,7 +1768,7 @@
             'вечер': '🌆 Вечер',
             'ночь': '🌙 Ночь'
         };
-        display.textContent = timeMap[gameTime] || '☀️ День';
+        if (display) display.textContent = timeMap[gameTime] || '☀️ День';
         if (currentDisplay) {
             currentDisplay.textContent = 'Текущее: ' + (timeMap[gameTime] || '☀️ День');
             const select = document.getElementById('timeSelect');
@@ -1804,7 +1777,7 @@
     }
 
     // =========================================================
-    // ЗАГРУЗКА ДАННЫХ ИЗ JSONBin
+    // ЗАГРУЗКА ДАННЫХ
     // =========================================================
     async function loadCharacters() {
         try {
@@ -1815,10 +1788,10 @@
                     characters = data.characters || {};
                     chatMessages = data.chat || [];
                     gameTime = data.gameTime || 'день';
-                    console.log('✅ Данные загружены из кэша', characters);
+                    wallMessages = data.wall || [];
                     applyLoadedData();
                 } catch(e) {
-                    console.warn('Кэш повреждён, загружаем из сети');
+                    console.warn('Кэш повреждён');
                 }
             }
 
@@ -1831,12 +1804,13 @@
                 characters = data.record.characters || {};
                 chatMessages = data.record.chat || [];
                 gameTime = data.record.gameTime || 'день';
+                wallMessages = data.record.wall || [];
                 localStorage.setItem('danganronpa_data', JSON.stringify({
                     characters: characters,
                     chat: chatMessages,
-                    gameTime: gameTime
+                    gameTime: gameTime,
+                    wall: wallMessages
                 }));
-                console.log('✅ Данные загружены из JSONBin', characters);
                 applyLoadedData();
             }
         } catch (error) {
@@ -1856,14 +1830,13 @@
         renderStudentList();
         
         if (!loadAuth()) {
-            document.getElementById('loginBlock').style.display = 'block';
-            document.getElementById('profileBlock').style.display = 'none';
+            const loginBlock = document.getElementById('loginBlock');
+            const profileBlock = document.getElementById('profileBlock');
+            if (loginBlock) loginBlock.style.display = 'block';
+            if (profileBlock) profileBlock.style.display = 'none';
         }
     }
 
-    // =========================================================
-    // СОХРАНЕНИЕ ДАННЫХ В JSONBin
-    // =========================================================
     async function saveToJSONBin() {
         try {
             const data = {
@@ -1882,35 +1855,25 @@
                 body: JSON.stringify(data)
             });
             
-            if (!response.ok) {
-                throw new Error('Ошибка сохранения: ' + response.status);
-            }
+            if (!response.ok) throw new Error('Ошибка сохранения: ' + response.status);
             
             localStorage.setItem('danganronpa_data', JSON.stringify(data));
-            console.log('✅ Данные сохранены в JSONBin и кэш');
             return true;
         } catch (error) {
-            console.error('❌ Ошибка сохранения в JSONBin:', error);
+            console.error('❌ Ошибка сохранения:', error);
             alert('❌ Ошибка сохранения: ' + error.message);
             return false;
         }
     }
 
-    // =========================================================
-    // СОХРАНЕНИЕ ВРЕМЕНИ
-    // =========================================================
     async function saveGameTime() {
         const select = document.getElementById('timeSelect');
-        const newTime = select.value;
-        gameTime = newTime;
+        gameTime = select.value;
         await saveToJSONBin();
         updateGameTimeDisplay();
         alert('✅ Время суток сохранено: ' + gameTime);
     }
 
-    // =========================================================
-    // ЗАПАСНОЙ ВАРИАНТ
-    // =========================================================
     function useFallbackData() {
         characters = {
             "Кио Нагахара": {
@@ -1919,7 +1882,7 @@
                 status: "Жив",
                 coins: 0,
                 password: "12345",
-                diary: "Первый день в академии...",
+                diary: "",
                 avatar: "",
                 admin: false
             }
@@ -1930,7 +1893,7 @@
     }
 
     // =========================================================
-    // АВТОРИЗАЦИЯ (localStorage)
+    // АВТОРИЗАЦИЯ
     // =========================================================
     function loadAuth() {
         const saved = localStorage.getItem('danganronpa_user');
@@ -1956,20 +1919,19 @@
     function clearAuth() {
         localStorage.removeItem('danganronpa_user');
         currentCharacter = null;
-        document.getElementById('loginBlock').style.display = 'block';
-        document.getElementById('profileBlock').style.display = 'none';
-        document.getElementById('chatCharacterSelect').value = 'Аноним';
-        document.getElementById('chatCharacterSelect').disabled = true;
-        document.getElementById('chatMessageInput').disabled = true;
-        document.getElementById('chatSendBtn').disabled = true;
-        document.getElementById('chatUserInfo').textContent = '❌ Вы не авторизованы. Войдите в профиль.';
+        const loginBlock = document.getElementById('loginBlock');
+        const profileBlock = document.getElementById('profileBlock');
+        if (loginBlock) loginBlock.style.display = 'block';
+        if (profileBlock) profileBlock.style.display = 'none';
+        updateChatCharacterSelect();
     }
 
     // =========================================================
-    // ОБНОВЛЕНИЕ СПИСКОВ
+    // СПИСКИ
     // =========================================================
     function updateCharacterSelect() {
         const select = document.getElementById('characterSelect');
+        if (!select) return;
         select.innerHTML = '';
         Object.keys(characters).forEach(name => {
             const option = document.createElement('option');
@@ -1981,6 +1943,7 @@
 
     function updateChatCharacterSelect() {
         const select = document.getElementById('chatCharacterSelect');
+        if (!select) return;
         select.innerHTML = '';
         if (currentCharacter && characters[currentCharacter]) {
             const option = document.createElement('option');
@@ -1992,18 +1955,24 @@
             anonOption.textContent = 'Аноним';
             select.appendChild(anonOption);
             select.disabled = false;
-            document.getElementById('chatMessageInput').disabled = false;
-            document.getElementById('chatSendBtn').disabled = false;
-            document.getElementById('chatUserInfo').textContent = '✅ Вы вошли как ' + currentCharacter;
+            const msgInput = document.getElementById('chatMessageInput');
+            const sendBtn = document.getElementById('chatSendBtn');
+            if (msgInput) msgInput.disabled = false;
+            if (sendBtn) sendBtn.disabled = false;
+            const userInfo = document.getElementById('chatUserInfo');
+            if (userInfo) userInfo.textContent = '✅ Вы вошли как ' + currentCharacter;
         } else {
             const anonOption = document.createElement('option');
             anonOption.value = 'Аноним';
             anonOption.textContent = 'Аноним (только чтение)';
             select.appendChild(anonOption);
             select.disabled = true;
-            document.getElementById('chatMessageInput').disabled = true;
-            document.getElementById('chatSendBtn').disabled = true;
-            document.getElementById('chatUserInfo').textContent = '❌ Войдите в профиль, чтобы писать в чат';
+            const msgInput = document.getElementById('chatMessageInput');
+            const sendBtn = document.getElementById('chatSendBtn');
+            if (msgInput) msgInput.disabled = true;
+            if (sendBtn) sendBtn.disabled = true;
+            const userInfo = document.getElementById('chatUserInfo');
+            if (userInfo) userInfo.textContent = '❌ Войдите в профиль, чтобы писать в чат';
         }
     }
 
@@ -2014,10 +1983,13 @@
             if (char.status === 'Жив') alive++;
             else if (char.status === 'Мертв') dead++;
         });
-        document.getElementById('survivors').textContent = alive;
-        document.getElementById('deaths').textContent = dead;
+        const survivorsEl = document.getElementById('survivors');
+        const deathsEl = document.getElementById('deaths');
+        const progressEl = document.getElementById('survivorProgress');
+        if (survivorsEl) survivorsEl.textContent = alive;
+        if (deathsEl) deathsEl.textContent = dead;
         const progress = total > 0 ? (alive / total) * 100 : 0;
-        document.getElementById('survivorProgress').style.width = Math.min(progress, 100) + '%';
+        if (progressEl) progressEl.style.width = Math.min(progress, 100) + '%';
     }
 
     // =========================================================
@@ -2027,15 +1999,19 @@
         if (!currentCharacter) return;
         const character = characters[currentCharacter];
         if (!character) return;
-        document.getElementById('loginBlock').style.display = 'none';
-        document.getElementById('profileBlock').style.display = 'block';
+        const loginBlock = document.getElementById('loginBlock');
+        const profileBlock = document.getElementById('profileBlock');
+        if (loginBlock) loginBlock.style.display = 'none';
+        if (profileBlock) profileBlock.style.display = 'block';
+        
         document.getElementById('profileName').textContent = currentCharacter;
-        document.getElementById('profileAge').textContent = character.age;
-        document.getElementById('profileTalent').textContent = character.talent;
-        document.getElementById('profileCoins').textContent = character.coins;
-        document.getElementById('profileFiles').textContent = character.files;
+        document.getElementById('profileAge').textContent = character.age || '—';
+        document.getElementById('profileTalent').textContent = character.talent || '—';
+        document.getElementById('profileCoins').textContent = character.coins || 0;
+        document.getElementById('profileFiles').textContent = character.files || 'Закрыто';
+        
         const statusEl = document.getElementById('profileStatus');
-        statusEl.textContent = character.status;
+        statusEl.textContent = character.status || 'Жив';
         statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
         
         const nameEl = document.getElementById('profileName');
@@ -2048,17 +2024,19 @@
             nameEl.appendChild(adminBadge);
         }
         
-        const avatar = characters[currentCharacter].avatar || '';
+        const avatar = character.avatar || '';
+        const avatarPreview = document.getElementById('avatarPreview');
+        const avatarPlaceholder = document.getElementById('avatarPlaceholder');
         if (avatar) {
-            document.getElementById('avatarPreview').src = avatar;
-            document.getElementById('avatarPreview').style.display = 'block';
-            document.getElementById('avatarPlaceholder').style.display = 'none';
+            avatarPreview.src = avatar;
+            avatarPreview.style.display = 'block';
+            avatarPlaceholder.style.display = 'none';
         } else {
-            document.getElementById('avatarPreview').style.display = 'none';
-            document.getElementById('avatarPlaceholder').style.display = 'block';
+            avatarPreview.style.display = 'none';
+            avatarPlaceholder.style.display = 'block';
         }
+        
         document.getElementById('diaryInput').value = character.diary || '';
-        document.getElementById('diaryStatus').textContent = 'Заметки сохранены в твоём профиле';
         updateChatCharacterSelect();
         saveAuth(currentCharacter);
     }
@@ -2075,17 +2053,12 @@
         message.style.color = '#00ff88';
         currentCharacter = name;
         showProfile();
-        console.log('✅ Авторизован как ' + name);
     }
 
     function logout() {
         clearAuth();
         document.getElementById('loginMessage').textContent = '';
         document.getElementById('passwordInput').value = '';
-        document.getElementById('avatarPreview').style.display = 'none';
-        document.getElementById('avatarPlaceholder').style.display = 'block';
-        updateChatCharacterSelect();
-        console.log('👋 Выход из профиля');
     }
 
     // =========================================================
@@ -2093,22 +2066,17 @@
     // =========================================================
     function saveDiary() {
         if (!currentCharacter) {
-            document.getElementById('diaryStatus').textContent = 'Войди в профиль, чтобы сохранить заметки';
+            document.getElementById('diaryStatus').textContent = 'Войди в профиль';
             return;
         }
-        const text = document.getElementById('diaryInput').value;
-        characters[currentCharacter].diary = text;
+        characters[currentCharacter].diary = document.getElementById('diaryInput').value;
         saveToJSONBin();
         document.getElementById('diaryStatus').textContent = '✅ Заметки сохранены!';
     }
 
     function loadDiary() {
-        if (!currentCharacter) {
-            document.getElementById('diaryStatus').textContent = 'Войди в профиль, чтобы загрузить заметки';
-            return;
-        }
-        const text = characters[currentCharacter].diary || '';
-        document.getElementById('diaryInput').value = text;
+        if (!currentCharacter) return;
+        document.getElementById('diaryInput').value = characters[currentCharacter].diary || '';
         document.getElementById('diaryStatus').textContent = '🔄 Заметки загружены';
     }
 
@@ -2146,7 +2114,7 @@
     }
 
     // =========================================================
-    // СЖАТИЕ КАРТИНКИ
+    // СЖАТИЕ И ЗАГРУЗКА АВАТАРКИ
     // =========================================================
     function compressImage(file, quality) {
         quality = quality || 0.6;
@@ -2182,9 +2150,6 @@
         });
     }
 
-    // =========================================================
-    // ЗАГРУЗКА АВАТАРКИ (BASE64 + СЖАТИЕ)
-    // =========================================================
     async function uploadAvatarBase64(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -2211,7 +2176,7 @@
     }
 
     // =========================================================
-    // КАРТОЧКИ ПЕРСОНАЖЕЙ
+    // КАРТОЧКИ
     // =========================================================
     function openCard(imagePath, title) {
         document.getElementById('cardImage').src = imagePath;
@@ -2223,15 +2188,12 @@
         document.getElementById('cardModal').style.display = 'none';
     }
 
-    document.getElementById('cardModal').addEventListener('click', function(e) {
-        if (e.target === this) closeCardModal();
-    });
-
     // =========================================================
     // ЧАТ
     // =========================================================
     function renderChatMessages() {
         const container = document.getElementById('chatMessages');
+        if (!container) return;
         if (!chatMessages || chatMessages.length === 0) {
             container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:20px;">В чате пока пусто. Напиши первое сообщение!</div>';
             return;
@@ -2264,60 +2226,44 @@
 
     async function loadMessages() {
         try {
-            const cached = localStorage.getItem('danganronpa_data');
-            if (cached) {
-                try {
-                    const data = JSON.parse(cached);
-                    if (data.chat) {
-                        chatMessages = data.chat;
-                        renderChatMessages();
-                    }
-                } catch(e) {}
-            }
-            
             const response = await fetch(JSONBIN_URL, {
                 headers: { 'X-Master-Key': JSONBIN_KEY }
             });
             const data = await response.json();
             if (data.record && data.record.chat) {
                 chatMessages = data.record.chat;
-                const cachedData = JSON.parse(localStorage.getItem('danganronpa_data') || '{}');
-                cachedData.chat = chatMessages;
-                localStorage.setItem('danganronpa_data', JSON.stringify(cachedData));
                 renderChatMessages();
             }
-            document.getElementById('chatStatus').textContent = '✅ Загружено сообщений: ' + chatMessages.length;
+            const statusEl = document.getElementById('chatStatus');
+            if (statusEl) statusEl.textContent = '✅ Загружено сообщений: ' + chatMessages.length;
         } catch (error) {
             console.error('Ошибка загрузки чата:', error);
-            document.getElementById('chatStatus').textContent = '❌ Ошибка подключения';
+            const statusEl = document.getElementById('chatStatus');
+            if (statusEl) statusEl.textContent = '❌ Ошибка подключения';
         }
     }
 
     async function sendMessage() {
         if (!currentCharacter) {
-            document.getElementById('chatStatus').textContent = '❌ Войди в профиль, чтобы писать в чат';
+            document.getElementById('chatStatus').textContent = '❌ Войди в профиль';
             return;
         }
-        const characterSelect = document.getElementById('chatCharacterSelect');
-        const messageInput = document.getElementById('chatMessageInput');
-        const statusEl = document.getElementById('chatStatus');
-        const character = characterSelect.value;
-        const message = messageInput.value.trim();
-        if (!message) { statusEl.textContent = '✏️ Напиши сообщение!'; return; }
+        const character = document.getElementById('chatCharacterSelect').value;
+        const message = document.getElementById('chatMessageInput').value.trim();
+        if (!message) { document.getElementById('chatStatus').textContent = '✏️ Напиши сообщение!'; return; }
         if (character !== 'Аноним' && character !== currentCharacter) {
-            statusEl.textContent = '❌ Ты можешь писать только от своего лица или как Аноним';
+            document.getElementById('chatStatus').textContent = '❌ Только от своего лица или Аноним';
             return;
         }
         try {
-            statusEl.textContent = 'Отправка...';
+            document.getElementById('chatStatus').textContent = 'Отправка...';
             chatMessages.push({ time: new Date().toISOString(), character: character, message: message });
             await saveToJSONBin();
-            statusEl.textContent = '✅ Сообщение отправлено!';
-            messageInput.value = '';
+            document.getElementById('chatStatus').textContent = '✅ Сообщение отправлено!';
+            document.getElementById('chatMessageInput').value = '';
             renderChatMessages();
         } catch (error) {
-            console.error('Ошибка отправки:', error);
-            statusEl.textContent = '❌ Ошибка отправки: ' + error.message;
+            document.getElementById('chatStatus').textContent = '❌ Ошибка отправки';
         }
     }
 
@@ -2348,7 +2294,6 @@
             error.textContent = 'Доступ разрешён';
             error.style.color = '#00ff88';
             document.getElementById('adminControls').style.display = 'block';
-            // Обновляем время при открытии админки
             updateGameTimeDisplay();
             renderAdminPanel();
         } else {
@@ -2359,6 +2304,7 @@
 
     function renderAdminPanel() {
         const container = document.getElementById('adminPlayersList');
+        if (!container) return;
         container.innerHTML = '<h4 style="color:#ffffff; text-align:center; font-family:\'8bitWonder\',monospace;">Управление игроками</h4>';
         Object.keys(characters).forEach(name => {
             const char = characters[name];
@@ -2408,13 +2354,6 @@
     }
 
     // =========================================================
-    // ОТКРЫТИЕ ЭТАЖА
-    // =========================================================
-    function openFloor(floor) {
-        document.getElementById('floorMessage').textContent = '📍 Этаж ' + floor + ' (ожидает описания)';
-    }
-
-    // =========================================================
     // ГЛЮКИ
     // =========================================================
     const glitchPhrases = [
@@ -2425,200 +2364,181 @@
     ];
 
     function updateGlitchTexts() {
-        document.getElementById('glitchTopLeft').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
-        document.getElementById('glitchBottomRight').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+        const tl = document.getElementById('glitchTopLeft');
+        const br = document.getElementById('glitchBottomRight');
+        if (tl) tl.textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+        if (br) br.textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
     }
     setInterval(updateGlitchTexts, 8000);
     setTimeout(updateGlitchTexts, 2000);
 
     // =========================================================
-// ВСЕ УЧЕНИКИ (СПИСОК + СТЕНА)
-// =========================================================
-let currentStudentProfile = null;
+    // ВСЕ УЧЕНИКИ
+    // =========================================================
+    let currentStudentProfile = null;
 
-// Загрузка стены из JSONBin
-async function loadWall() {
-    try {
-        const response = await fetch(JSONBIN_URL, {
-            headers: { 'X-Master-Key': JSONBIN_KEY }
-        });
-        const data = await response.json();
-        if (data.record && data.record.wall) {
-            wallMessages = data.record.wall;
+    async function loadWall() {
+        try {
+            const response = await fetch(JSONBIN_URL, {
+                headers: { 'X-Master-Key': JSONBIN_KEY }
+            });
+            const data = await response.json();
+            if (data.record && data.record.wall) {
+                wallMessages = data.record.wall;
+            }
+            return wallMessages;
+        } catch (error) {
+            console.error('Ошибка загрузки стены:', error);
+            return [];
         }
-        return wallMessages;
-    } catch (error) {
-        console.error('Ошибка загрузки стены:', error);
-        return [];
     }
-}
 
-// Сохранение стены в JSONBin
-async function saveWall() {
-    try {
-        const data = {
-            characters: characters,
-            chat: chatMessages,
-            gameTime: gameTime,
-            wall: wallMessages
-        };
-        const response = await fetch(JSONBIN_URL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Master-Key': JSONBIN_KEY
-            },
-            body: JSON.stringify(data)
-        });
-        if (!response.ok) {
-            throw new Error('Ошибка сохранения стены: ' + response.status);
+    async function saveWall() {
+        try {
+            const data = {
+                characters: characters,
+                chat: chatMessages,
+                gameTime: gameTime,
+                wall: wallMessages
+            };
+            const response = await fetch(JSONBIN_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_KEY
+                },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) throw new Error('Ошибка сохранения стены: ' + response.status);
+            return true;
+        } catch (error) {
+            console.error('❌ Ошибка сохранения стены:', error);
+            return false;
         }
-        console.log('✅ Стена сохранена в JSONBin');
-        return true;
-    } catch (error) {
-        console.error('❌ Ошибка сохранения стены:', error);
-        return false;
     }
-}
 
-// Отображение списка учеников
-function renderStudentList() {
-    const container = document.getElementById('studentList');
-    container.innerHTML = '';
-    
-    const studentNames = Object.keys(characters);
-    if (studentNames.length === 0) {
-        container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:20px;">Персонажей пока нет...</div>';
-        return;
-    }
-    
-    // Создаём карточки учеников
-    studentNames.forEach(name => {
-        const card = document.createElement('div');
-        card.style.cssText = 'background:rgba(26,16,56,0.8); border:2px dotted #ffffff; padding:15px; text-align:center; cursor:pointer; transition:0.3s; box-shadow:4px 4px 0px #0a0618;';
-        card.onmouseover = () => { card.style.borderColor = '#a885ff'; card.style.transform = 'scale(1.03)'; };
-        card.onmouseout = () => { card.style.borderColor = '#ffffff'; card.style.transform = 'scale(1)'; };
-        card.onclick = () => { openStudentProfile(name); };
+    function renderStudentList() {
+        const container = document.getElementById('studentList');
+        if (!container) return;
+        container.innerHTML = '';
         
-        const avatar = characters[name].avatar || '';
-        const avatarHtml = avatar ? `<img src="${avatar}" alt="${name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #ffffff; margin-bottom:8px;">` : `<div style="width:60px; height:60px; border-radius:50%; background:#0a0618; border:2px solid #ffffff; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; color:#4a2b7a;"><i class="fas fa-user-circle" style="font-size:30px; color:#ffffff;"></i></div>`;
+        const studentNames = Object.keys(characters);
+        if (studentNames.length === 0) {
+            container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:20px;">Персонажей пока нет...</div>';
+            return;
+        }
         
-        card.innerHTML = `
-            ${avatarHtml}
-            <div style="color:#ffffff; font-size:16px; font-family:'8bitWonder',monospace;">${name}</div>
-            <div style="color:#8a7aaa; font-size:12px; margin-top:4px;">${characters[name].talent || ''}</div>
-        `;
-        container.appendChild(card);
-    });
-}
-
-// Открытие профиля персонажа (стена)
-async function openStudentProfile(name) {
-    const character = characters[name];
-    if (!character) return;
-    
-    currentStudentProfile = name;
-    document.getElementById('studentProfileName').textContent = name;
-    document.getElementById('studentTalent').textContent = character.talent || '—';
-    document.getElementById('studentAge').textContent = character.age || '—';
-    document.getElementById('studentStatus').textContent = character.status || '—';
-    
-    // Загружаем стену
-    await loadWall();
-    renderStudentWall(name);
-    
-    // Показываем форму, если авторизован
-    const form = document.getElementById('wallForm');
-    const notAuth = document.getElementById('wallNotAuthorized');
-    if (currentCharacter) {
-        form.style.display = 'block';
-        notAuth.style.display = 'none';
-        document.getElementById('wallFromName').textContent = currentCharacter;
-        document.getElementById('wallMessageInput').value = '';
-        document.getElementById('wallMessageStatus').textContent = '';
-    } else {
-        form.style.display = 'none';
-        notAuth.style.display = 'block';
+        studentNames.forEach(name => {
+            const card = document.createElement('div');
+            card.style.cssText = 'background:rgba(26,16,56,0.8); border:2px dotted #ffffff; padding:15px; text-align:center; cursor:pointer; transition:0.3s; box-shadow:4px 4px 0px #0a0618;';
+            card.onmouseover = () => { card.style.borderColor = '#a885ff'; card.style.transform = 'scale(1.03)'; };
+            card.onmouseout = () => { card.style.borderColor = '#ffffff'; card.style.transform = 'scale(1)'; };
+            card.onclick = () => { openStudentProfile(name); };
+            
+            const avatar = characters[name].avatar || '';
+            const avatarHtml = avatar ? `<img src="${avatar}" alt="${name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #ffffff; margin-bottom:8px;">` : `<div style="width:60px; height:60px; border-radius:50%; background:#0a0618; border:2px solid #ffffff; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; color:#4a2b7a;"><i class="fas fa-user-circle" style="font-size:30px; color:#ffffff;"></i></div>`;
+            
+            card.innerHTML = `
+                ${avatarHtml}
+                <div style="color:#ffffff; font-size:16px; font-family:'8bitWonder',monospace;">${name}</div>
+                <div style="color:#8a7aaa; font-size:12px; margin-top:4px;">${characters[name].talent || ''}</div>
+            `;
+            container.appendChild(card);
+        });
     }
-    
-    document.getElementById('studentProfileModal').style.display = 'flex';
-}
 
-// Закрытие профиля
-function closeStudentProfile() {
-    document.getElementById('studentProfileModal').style.display = 'none';
-    currentStudentProfile = null;
-}
+    async function openStudentProfile(name) {
+        const character = characters[name];
+        if (!character) return;
+        
+        currentStudentProfile = name;
+        document.getElementById('studentProfileName').textContent = name;
+        document.getElementById('studentTalent').textContent = character.talent || '—';
+        document.getElementById('studentAge').textContent = character.age || '—';
+        document.getElementById('studentStatus').textContent = character.status || '—';
+        
+        await loadWall();
+        renderStudentWall(name);
+        
+        const form = document.getElementById('wallForm');
+        const notAuth = document.getElementById('wallNotAuthorized');
+        if (currentCharacter) {
+            form.style.display = 'block';
+            notAuth.style.display = 'none';
+            document.getElementById('wallFromName').textContent = currentCharacter;
+            document.getElementById('wallMessageInput').value = '';
+            document.getElementById('wallMessageStatus').textContent = '';
+        } else {
+            form.style.display = 'none';
+            notAuth.style.display = 'block';
+        }
+        
+        document.getElementById('studentProfileModal').style.display = 'flex';
+    }
 
-// Отображение стены
-function renderStudentWall(name) {
-    const container = document.getElementById('studentWallMessages');
-    const messages = wallMessages.filter(msg => msg.to === name);
-    
-    if (messages.length === 0) {
-        container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>';
-        return;
+    function closeStudentProfile() {
+        document.getElementById('studentProfileModal').style.display = 'none';
+        currentStudentProfile = null;
     }
-    
-    container.innerHTML = '';
-    messages.slice().reverse().forEach(msg => {
-        const div = document.createElement('div');
-        div.style.cssText = 'padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);';
-        const time = msg.time ? formatTime(msg.time) : '';
-        div.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#a885ff; font-size:14px;">${msg.from}</span>
-                <span style="color:#6b5596; font-size:11px;">${time}</span>
-            </div>
-            <div style="color:#d4c8ff; font-size:14px; margin-top:2px;">${msg.text}</div>
-        `;
-        container.appendChild(div);
-    });
-}
 
-// Отправка записи на стену
-async function sendWallMessage() {
-    if (!currentCharacter) {
-        document.getElementById('wallMessageStatus').textContent = '❌ Войди в профиль, чтобы писать на стене';
-        return;
+    function renderStudentWall(name) {
+        const container = document.getElementById('studentWallMessages');
+        const messages = wallMessages.filter(msg => msg.to === name);
+        
+        if (messages.length === 0) {
+            container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        messages.slice().reverse().forEach(msg => {
+            const div = document.createElement('div');
+            div.style.cssText = 'padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);';
+            const time = msg.time ? formatTime(msg.time) : '';
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:#a885ff; font-size:14px;">${msg.from}</span>
+                    <span style="color:#6b5596; font-size:11px;">${time}</span>
+                </div>
+                <div style="color:#d4c8ff; font-size:14px; margin-top:2px;">${msg.text}</div>
+            `;
+            container.appendChild(div);
+        });
     }
-    if (!currentStudentProfile) {
-        document.getElementById('wallMessageStatus').textContent = '❌ Ошибка: выбери профиль';
-        return;
-    }
-    
-    const input = document.getElementById('wallMessageInput');
-    const text = input.value.trim();
-    if (!text) {
-        document.getElementById('wallMessageStatus').textContent = '✏️ Напиши что-нибудь!';
-        return;
-    }
-    
-    // Добавляем запись
-    wallMessages.push({
-        from: currentCharacter,
-        to: currentStudentProfile,
-        text: text,
-        time: new Date().toISOString()
-    });
-    
-    const saved = await saveWall();
-    if (saved) {
-        document.getElementById('wallMessageStatus').textContent = '✅ Запись добавлена!';
-        input.value = '';
-        renderStudentWall(currentStudentProfile);
-    } else {
-        document.getElementById('wallMessageStatus').textContent = '❌ Ошибка сохранения';
-    }
-}
 
-// Закрытие модалки по клику вне окна
-document.getElementById('studentProfileModal').addEventListener('click', function(e) {
-    if (e.target === this) closeStudentProfile();
-});
-
-// Обновляем renderAdminPanel, чтобы не затиралась стена
-// (оставляем как есть)
+    async function sendWallMessage() {
+        if (!currentCharacter) {
+            document.getElementById('wallMessageStatus').textContent = '❌ Войди в профиль';
+            return;
+        }
+        if (!currentStudentProfile) {
+            document.getElementById('wallMessageStatus').textContent = '❌ Ошибка';
+            return;
+        }
+        
+        const input = document.getElementById('wallMessageInput');
+        const text = input.value.trim();
+        if (!text) {
+            document.getElementById('wallMessageStatus').textContent = '✏️ Напиши что-нибудь!';
+            return;
+        }
+        
+        wallMessages.push({
+            from: currentCharacter,
+            to: currentStudentProfile,
+            text: text,
+            time: new Date().toISOString()
+        });
+        
+        const saved = await saveWall();
+        if (saved) {
+            document.getElementById('wallMessageStatus').textContent = '✅ Запись добавлена!';
+            input.value = '';
+            renderStudentWall(currentStudentProfile);
+        } else {
+            document.getElementById('wallMessageStatus').textContent = '❌ Ошибка сохранения';
+        }
+    }
 
     // =========================================================
     // ЗАГРУЗКА
@@ -2632,6 +2552,20 @@ document.getElementById('studentProfileModal').addEventListener('click', functio
                     e.preventDefault();
                     sendMessage();
                 }
+            });
+        }
+        
+        const cardModal = document.getElementById('cardModal');
+        if (cardModal) {
+            cardModal.addEventListener('click', function(e) {
+                if (e.target === this) closeCardModal();
+            });
+        }
+        
+        const studentModal = document.getElementById('studentProfileModal');
+        if (studentModal) {
+            studentModal.addEventListener('click', function(e) {
+                if (e.target === this) closeStudentProfile();
             });
         }
     });
