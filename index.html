@@ -1573,7 +1573,7 @@
 
         <div style="max-width:1000px; margin:0 auto 40px;">
             <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
-                🎭 МОНОИВЕНТЫ
+                 МОНОИВЕНТЫ
             </h3>
             <p style="color:#b09fd4; font-size:14px; text-align:center; margin-bottom:20px;">
                 События, что ты можешь заказать у Монокумы. Выключить свет? Пожалуйста! Раскидать всех по академии? Сорви их чертово свидание, давай!
@@ -1624,7 +1624,7 @@
 
         <div style="max-width:1000px; margin:0 auto 40px;">
             <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
-                🎁 МОНОАЙТЕМЫ
+                МОНОАЙТЕМЫ
             </h3>
             <p style="color:#b09fd4; font-size:14px; text-align:center; margin-bottom:20px;">
                 Вещи, что могут приобрести ваши персонажи, используя в личных целях или.. Просто как коллекционная часть.
@@ -1799,11 +1799,11 @@
                     <h4>Моно-монеты</h4>
                     <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
                         <div style="text-align:center; flex:1; min-width:150px;">
-                            <div style="color:#a885ff; font-size:14px; margin-bottom:5px;">🎭 МоноИвенты</div>
+                            <div style="color:#a885ff; font-size:14px; margin-bottom:5px;"> МоноИвенты</div>
                             <div class="passport-coins" id="profileCoinsEvents" style="font-size:32px;">0</div>
                         </div>
                         <div style="text-align:center; flex:1; min-width:150px;">
-                            <div style="color:#ff6b8a; font-size:14px; margin-bottom:5px;">🎁 МоноАйтемы</div>
+                            <div style="color:#ff6b8a; font-size:14px; margin-bottom:5px;"> МоноАйтемы</div>
                             <div class="passport-coins" id="profileCoinsItems" style="font-size:32px;">0</div>
                         </div>
                     </div>
@@ -2362,7 +2362,7 @@
         inventory.forEach(item => {
             const div = document.createElement('div');
             div.className = 'inventory-item';
-            const catIcon = item.category === 'items' ? '🎁' : '🎭';
+            const catIcon = item.category === 'items' ? '★' : '★';
             div.innerHTML = `<div class="item-name">${catIcon} ${item.name}</div><div class="item-price">${item.price} 🪙</div>`;
             container.appendChild(div);
         });
@@ -2728,7 +2728,7 @@
             coinsRow.style.cssText = 'display:flex; gap:8px; flex-wrap:wrap; align-items:center;';
             const eventsWrapper = document.createElement('div');
             eventsWrapper.style.cssText = 'display:flex; align-items:center; gap:6px; flex:1; min-width:140px;';
-            eventsWrapper.innerHTML = `<span style="color:#a885ff; font-size:12px;">🎭 Ивенты:</span>`;
+            eventsWrapper.innerHTML = `<span style="color:#a885ff; font-size:12px;"> Ивенты:</span>`;
             const eventsInput = document.createElement('input');
             eventsInput.type = 'number';
             eventsInput.value = char.coinsEvents || 0;
@@ -2737,7 +2737,7 @@
             eventsWrapper.appendChild(eventsInput);
             const itemsWrapper = document.createElement('div');
             itemsWrapper.style.cssText = 'display:flex; align-items:center; gap:6px; flex:1; min-width:140px;';
-            itemsWrapper.innerHTML = `<span style="color:#ff6b8a; font-size:12px;">🎁 Айтемы:</span>`;
+            itemsWrapper.innerHTML = `<span style="color:#ff6b8a; font-size:12px;"> Айтемы:</span>`;
             const itemsInput = document.createElement('input');
             itemsInput.type = 'number';
             itemsInput.value = char.coinsItems || 0;
