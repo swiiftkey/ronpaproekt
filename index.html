@@ -2007,7 +2007,7 @@
     <!-- Форма создания -->
     <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px; background:rgba(10,6,24,0.5); padding:12px; border:1px solid #4d2e8a;">
         <p style="color:#a885ff; font-size:13px; margin:0 0 5px 0;">➕ Создать достижение:</p>
-        <input type="text" id="newAchIcon" placeholder="Иконка (эмодзи, напр. 🎉)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+        <input type="text" id="newAchIcon" placeholder="Иконка (символ, напр. ★)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
         <input type="text" id="newAchName" placeholder="Название" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
         <input type="text" id="newAchDesc" placeholder="Описание" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
         <button onclick="addAchievement()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Добавить достижение</button>
@@ -2271,15 +2271,15 @@
         }
     }
 
-    function getDefaultAchievements() {
-        return [
-            { id: 'first_login', icon: '🎉', name: 'Первый вход', desc: 'Войти в академию', unlocked: false },
-            { id: 'first_message', icon: '💬', name: 'Первое слово', desc: 'Написать в чат', unlocked: false },
-            { id: 'first_purchase', icon: '🛒', name: 'Первая покупка', desc: 'Купить что-то в Моношопе', unlocked: false },
-            { id: 'rich', icon: '💰', name: 'Богач', desc: 'Накопить 1000 монет', unlocked: false },
-            { id: 'survivor', icon: '🏆', name: 'Выживший', desc: 'Пережить первый суд', unlocked: false }
-        ];
-    }
+function getDefaultAchievements() {
+    return [
+        { id: 'first_login', icon: 'I', name: 'Первый вход', desc: 'Войти в академию', unlocked: false },
+        { id: 'first_message', icon: 'II', name: 'Первое слово', desc: 'Написать в чат', unlocked: false },
+        { id: 'first_purchase', icon: 'III', name: 'Первая покупка', desc: 'Купить что-то в Моношопе', unlocked: false },
+        { id: 'rich', icon: '★', name: 'Богач', desc: 'Накопить 1000 монет', unlocked: false },
+        { id: 'survivor', icon: '★★★', name: 'Выживший', desc: 'Пережить первый суд', unlocked: false }
+    ];
+}
 
     function applyLoadedData() {
         updateGameTimeDisplay();
@@ -2592,11 +2592,11 @@
             const div = document.createElement('div');
             div.className = 'achievement-item ' + (isUnlocked ? 'unlocked' : 'locked');
             div.innerHTML = `
-                <span class="ach-icon">${isUnlocked ? ach.icon : '🔒'}</span>
-                <div class="ach-name">${ach.name}</div>
-                <div class="ach-desc">${ach.desc}</div>
-                <div class="ach-status">${isUnlocked ? '✅ Получено' : '🔒 Закрыто'}</div>
-            `;
+    <span class="ach-icon" style="color:${isUnlocked ? '#a885ff' : '#6b5596'}; font-size:28px; display:block; margin-bottom:8px;">${isUnlocked ? (ach.icon || '★') : '✕'}</span>
+    <div class="ach-name">${ach.name}</div>
+    <div class="ach-desc">${ach.desc}</div>
+    <div class="ach-status">${isUnlocked ? '✓ Получено' : '✕ Закрыто'}</div>
+`;
             container.appendChild(div);
         });
     }
@@ -2618,14 +2618,14 @@ function addAchievement() {
         return;
     }
     
-    const id = 'ach_' + Date.now();
-    achievements.push({
-        id: id,
-        icon: icon || '🏆',
-        name: name,
-        desc: desc || 'Без описания',
-        unlocked: false
-    });
+const id = 'ach_' + Date.now();
+achievements.push({
+    id: id,
+    icon: icon || '★',
+    name: name,
+    desc: desc || 'Без описания',
+    unlocked: false
+});
     
     saveToJSONBin();
     renderAdminAchievements();
@@ -2689,7 +2689,7 @@ function renderAdminAchievements() {
         div.innerHTML = `
             <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
                 <span style="color:#ffffff; font-size:14px; flex:1;">
-                    ${ach.icon} <b>${ach.name}</b>
+                    <span style="color:#a885ff; font-size:16px; margin-right:6px;">${ach.icon || '★'}</span><b>${ach.name}</b>
                 </span>
                 <button onclick="deleteAchievement('${ach.id}')" 
                         style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px; box-shadow:2px 2px 0px #0a0618;"
