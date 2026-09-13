@@ -528,9 +528,6 @@
             padding: 5px 0;
         }
 
-        /* ======================================== */
-        /* ИНВЕНТАРЬ */
-        /* ======================================== */
         .inventory-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -566,9 +563,6 @@
             padding: 15px;
         }
 
-        /* ======================================== */
-        /* ДОСТИЖЕНИЯ */
-        /* ======================================== */
         .achievements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -615,9 +609,6 @@
             color: #a885ff;
         }
 
-        /* ======================================== */
-        /* УВЕДОМЛЕНИЯ */
-        /* ======================================== */
         .notif-bell {
             position: fixed;
             top: 20px;
@@ -697,9 +688,6 @@
             padding: 15px;
         }
 
-        /* ======================================== */
-        /* ЭМОЦИИ В ЧАТЕ */
-        /* ======================================== */
         .chat-emotions {
             display: flex;
             gap: 5px;
@@ -721,14 +709,7 @@
             background: rgba(38, 26, 74, 0.9);
             transform: scale(1.15);
         }
-        .chat-message .chat-emotion {
-            font-size: 18px;
-            margin-left: 5px;
-        }
 
-        /* ======================================== */
-        /* МОНОШОП */
-        /* ======================================== */
         .shop-item {
             background: rgba(26, 16, 56, 0.85);
             border: 2px dotted #ffffff;
@@ -979,7 +960,6 @@
             margin: 0 auto;
             min-height: 300px;
         }
-
         .gossip-monokuma {
             flex-shrink: 0;
             width: 200px;
@@ -995,7 +975,6 @@
             image-rendering: pixelated;
             filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
         }
-
         .gossip-text-block {
             flex: 1;
             display: flex;
@@ -1003,7 +982,6 @@
             justify-content: center;
             min-height: 200px;
         }
-
         .gossip-text-block .gossip-line {
             font-size: 22px;
             color: #d4c8ff;
@@ -1014,7 +992,6 @@
             display: flex;
             align-items: center;
         }
-
         .gossip-text-block .gossip-author {
             font-size: 14px;
             color: #6b5596;
@@ -1022,7 +999,6 @@
             text-align: right;
             letter-spacing: 2px;
         }
-
         .gossip-buttons {
             display: flex;
             gap: 15px;
@@ -1054,7 +1030,6 @@
             max-width: 900px;
             margin: 0 auto;
         }
-
         .chat-messages {
             max-height: 400px;
             overflow-y: auto;
@@ -1066,18 +1041,9 @@
             flex-direction: column;
             gap: 8px;
         }
-
-        .chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-messages::-webkit-scrollbar-track {
-            background: rgba(10, 6, 24, 0.3);
-        }
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #4d2e8a;
-            border-radius: 3px;
-        }
-
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-track { background: rgba(10, 6, 24, 0.3); }
+        .chat-messages::-webkit-scrollbar-thumb { background: #4d2e8a; border-radius: 3px; }
         .chat-message {
             display: flex;
             gap: 12px;
@@ -1123,13 +1089,8 @@
             flex: 1;
             min-width: 120px;
         }
-        .chat-input-area input {
-            flex: 3;
-        }
-        .chat-input-area select:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .chat-input-area input { flex: 3; }
+        .chat-input-area select:disabled { opacity: 0.6; cursor: not-allowed; }
         .chat-input-area button {
             padding: 10px 25px;
             background: #ffffff;
@@ -1147,10 +1108,7 @@
             box-shadow: 6px 6px 0px #0a0618;
             background: #ddd;
         }
-        .chat-input-area button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .chat-input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .chat-status {
             font-size: 12px;
@@ -1168,9 +1126,7 @@
             text-decoration: underline;
             text-underline-offset: 2px;
         }
-        .chat-status .refresh-btn:hover {
-            color: #ffffff;
-        }
+        .chat-status .refresh-btn:hover { color: #ffffff; }
 
         .admin-badge {
             display: inline-block;
@@ -1194,14 +1150,8 @@
             max-width: 1000px;
             margin: 0 auto;
         }
-        .character-card {
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-        .character-card:hover {
-            transform: scale(1.03);
-            filter: brightness(1.1);
-        }
+        .character-card { cursor: pointer; transition: 0.3s ease; }
+        .character-card:hover { transform: scale(1.03); filter: brightness(1.1); }
         .character-card img {
             width: 100%;
             height: auto;
@@ -1294,7 +1244,8 @@
             .catalog-item:nth-child(6),
             .catalog-item:nth-child(7),
             .catalog-item:nth-child(8),
-            .catalog-item:nth-child(9) { transform: rotate(0deg); --rotation: 0deg; }
+            .catalog-item:nth-child(9),
+            .catalog-item:nth-child(10) { transform: rotate(0deg); --rotation: 0deg; }
             .cards-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
             .character-card p { font-size: 12px; }
             .card-modal-content { padding: 15px; max-width: 95%; }
@@ -1377,7 +1328,6 @@
 
     <canvas id="matrixRainCanvas"></canvas>
 
-    <!-- УВЕДОМЛЕНИЯ -->
     <div class="notif-bell" onclick="toggleNotifPanel()">
         🔔<span class="notif-count" id="notifCount">0</span>
     </div>
@@ -1636,7 +1586,7 @@
                         <span class="shop-item-price">100 🪙</span>
                     </div>
                     <p class="shop-item-desc">Если вдруг тебе стало скучно, то потрать 200 монеток и получи самую бесполезную вещь — сплетню про кого-то из учеников! Уверяю, я точно придумаю что-нибудь стоящее, пху-ху-ху!</p>
-                    <button class="shop-buy-btn" onclick="buyItem('Сплетня', 100)">Купить</button>
+                    <button class="shop-buy-btn" onclick="buyItem('Сплетня', 100, 'events')">Купить</button>
                 </div>
 
                 <div class="shop-item" data-price="250">
@@ -1645,7 +1595,7 @@
                         <span class="shop-item-price">250 🪙</span>
                     </div>
                     <p class="shop-item-desc">Ой, не хочешь, чтобы сплетня вдруг оказалась про тебя? Так выбери жертву сам и я опозорю её в ваших монопадах!</p>
-                    <button class="shop-buy-btn" onclick="buyItem('Определённая сплетня', 250)">Купить</button>
+                    <button class="shop-buy-btn" onclick="buyItem('Определённая сплетня', 250, 'events')">Купить</button>
                 </div>
 
                 <div class="shop-item" data-price="500">
@@ -1654,7 +1604,7 @@
                         <span class="shop-item-price">500 🪙</span>
                     </div>
                     <p class="shop-item-desc">«Скучно! Слишком темно, слишком безопасно! Пора добавить щепотку ужаса… Гасим свет!» — сказал бы я, будь я самым скучным монокумой! Кстати, свет будет отключён всего на час РЕАЛЬНОГО времени, поэтому-у-у-у.. Не знаю, как вы реализуете это.</p>
-                    <button class="shop-buy-btn" onclick="buyItem('Темнота', 500)">Купить</button>
+                    <button class="shop-buy-btn" onclick="buyItem('Темнота', 500, 'events')">Купить</button>
                 </div>
 
                 <div class="shop-item" data-price="2500">
@@ -1663,7 +1613,7 @@
                         <span class="shop-item-price">2500 🪙</span>
                     </div>
                     <p class="shop-item-desc">Пу-пу-пу, все на самом деле очень просто. Две жертвы, один стрелок, каждый участвует в игре по очереди, принимая одну из ролей. Револьвер заряжен случайным образом. Ты можешь выстрелить в своего друга или, например, в себя, но сделать что-то придётся в ЛЮБОМ случае, иначе за бездействие стрелок поплатится жизнью!</p>
-                    <button class="shop-buy-btn" onclick="buyItem('Русская рулетка', 2500)">Купить</button>
+                    <button class="shop-buy-btn" onclick="buyItem('Русская рулетка', 2500, 'events')">Купить</button>
                 </div>
             </div>
 
@@ -1717,7 +1667,7 @@
                         <span class="shop-item-price">325 🪙</span>
                     </div>
                     <p class="shop-item-desc">Выглядит как безвкусные сумки от популярных брендов, только лучше! Пху-ху-ху, а мне такое пойдёт?</p>
-                    <button class="shop-buy-btn" onclick="buyItem('Декоративная сумка', 325)">Купить</button>
+                    <button class="shop-buy-btn" onclick="buyItem('Декоративная сумка', 325, 'items')">Купить</button>
                 </div>
             </div>
 
@@ -1730,41 +1680,6 @@
             <h3 style="color:#ffffff; font-size:24px; text-align:center; border-bottom:2px solid #4d2e8a; padding-bottom:10px; margin-bottom:20px;">
                 📋 ЗАДАНИЯ
             </h3>
-
-            <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618; margin-bottom:20px;">
-                <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">🌟 ПРОХОДКА НОВИЧКА</h4>
-                <p style="color:#ff6b8a; font-size:14px; font-style:italic; margin-bottom:15px;">«Да здравствует восхождение отчаяния!»</p>
-
-                <div style="display:flex; flex-direction:column; gap:12px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(10,6,24,0.5); border-left:3px solid #a885ff;">
-                        <div>
-                            <p style="color:#d4c8ff; font-size:15px; margin:0;">1. Отписать 5 постов любой длины в этапе «Пролог»</p>
-                            <p style="color:#6b5596; font-size:12px; margin:4px 0 0 0;">Награда: 100 🪙 + 200 🪙</p>
-                        </div>
-                    </div>
-
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(10,6,24,0.5); border-left:3px solid #a885ff;">
-                        <div>
-                            <p style="color:#d4c8ff; font-size:15px; margin:0;">2. Задать вопрос Монокуме, содержащий в себе что-то помимо «Какого хрена?!»</p>
-                            <p style="color:#6b5596; font-size:12px; margin:4px 0 0 0;">Награда: 300 🪙 + 200 🪙</p>
-                        </div>
-                    </div>
-
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(10,6,24,0.5); border-left:3px solid #a885ff;">
-                        <div>
-                            <p style="color:#d4c8ff; font-size:15px; margin:0;">3. Купить что-нибудь в Моношопе</p>
-                            <p style="color:#6b5596; font-size:12px; margin:4px 0 0 0;">Награда: 100 🪙 + 100 🪙</p>
-                        </div>
-                    </div>
-                </div>
-
-                <p style="color:#6b5596; font-size:12px; margin-top:15px; font-style:italic;">
-                    * Данный «Бандл» не подлежит обновлению или изменению. После выполнения задания, выполнить его повторно не предоставляется возможным, в рамках этого бандла.
-                </p>
-                <p style="color:#6b5596; font-size:12px; margin-top:8px; font-style:italic;">
-                    * При выполнении любого условия или его части, просьба отмечать @onetnahyi и/или @swiftkwit, дабы мы могли вести честный подсчёт.
-                </p>
-            </div>
 
             <div style="background:rgba(18,11,42,0.7); border:2px dotted #ffffff; padding:20px; box-shadow:8px 8px 0px #0a0618; margin-bottom:20px;">
                 <h4 style="color:#a885ff; font-size:20px; margin-bottom:15px;">💥 ЗАДАНИЯ НЕДЕЛИ</h4>
@@ -1799,7 +1714,7 @@
 
         <div class="achievements-grid" id="achievementsList">
             <div class="achievement-item locked">
-                <span class="ach-icon">🔒</span>
+                <span class="ach-icon">✕</span>
                 <div class="ach-name">Загрузка...</div>
                 <div class="ach-desc">Подожди немного</div>
             </div>
@@ -1879,10 +1794,23 @@
                         <div class="passport-field"><span class="label">Статус</span><span class="value" id="profileStatus">—</span></div>
                     </div>
                 </div>
-                <div class="passport-section"><h4>Моно-монеты</h4><div class="passport-coins" id="profileCoins">0</div></div>
+
+                <div class="passport-section">
+                    <h4>Моно-монеты</h4>
+                    <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+                        <div style="text-align:center; flex:1; min-width:150px;">
+                            <div style="color:#a885ff; font-size:14px; margin-bottom:5px;">🎭 МоноИвенты</div>
+                            <div class="passport-coins" id="profileCoinsEvents" style="font-size:32px;">0</div>
+                        </div>
+                        <div style="text-align:center; flex:1; min-width:150px;">
+                            <div style="color:#ff6b8a; font-size:14px; margin-bottom:5px;">🎁 МоноАйтемы</div>
+                            <div class="passport-coins" id="profileCoinsItems" style="font-size:32px;">0</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="passport-section"><h4>Файлы Монокумы</h4><div class="files-status" id="profileFiles">Закрыто</div></div>
 
-                <!-- ИНВЕНТАРЬ -->
                 <div class="passport-section">
                     <h4>🎒 Инвентарь</h4>
                     <div class="inventory-grid" id="inventoryList">
@@ -1890,12 +1818,11 @@
                     </div>
                 </div>
 
-                <!-- ДОСТИЖЕНИЯ В ПРОФИЛЕ -->
                 <div class="passport-section">
                     <h4>🏆 Достижения</h4>
                     <div class="achievements-grid" id="profileAchievements">
                         <div class="achievement-item locked">
-                            <span class="ach-icon">🔒</span>
+                            <span class="ach-icon">✕</span>
                             <div class="ach-name">Загрузка...</div>
                             <div class="ach-desc">Подожди немного</div>
                         </div>
@@ -1999,28 +1926,28 @@
                 
                 <div id="adminPlayersList"></div>
 
+                <div style="margin-top:25px; padding-top:20px; border-top:2px solid #4d2e8a;">
+                    <h4 style="color:#ffffff; text-align:center; font-size:18px; margin-bottom:15px;">🏆 Управление достижениями</h4>
 
-<!-- УПРАВЛЕНИЕ ДОСТИЖЕНИЯМИ -->
-<div style="margin-top:25px; padding-top:20px; border-top:2px solid #4d2e8a;">
-    <h4 style="color:#ffffff; text-align:center; font-size:18px; margin-bottom:15px;">🏆 Управление достижениями</h4>
+                    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px; background:rgba(10,6,24,0.5); padding:12px; border:1px solid #4d2e8a;">
+                        <p style="color:#a885ff; font-size:13px; margin:0 0 5px 0;">➕ Создать достижение:</p>
+                        <input type="text" id="newAchIcon" placeholder="Иконка (символ, напр. ★)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+                        <input type="text" id="newAchName" placeholder="Название" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+                        <input type="text" id="newAchDesc" placeholder="Описание" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
+                        <button onclick="addAchievement()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Добавить достижение</button>
+                    </div>
 
-    <!-- Форма создания -->
-    <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px; background:rgba(10,6,24,0.5); padding:12px; border:1px solid #4d2e8a;">
-        <p style="color:#a885ff; font-size:13px; margin:0 0 5px 0;">➕ Создать достижение:</p>
-        <input type="text" id="newAchIcon" placeholder="Иконка (символ, напр. ★)" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
-        <input type="text" id="newAchName" placeholder="Название" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
-        <input type="text" id="newAchDesc" placeholder="Описание" style="padding:8px 12px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:14px;">
-        <button onclick="addAchievement()" style="padding:10px; background:#ffffff; color:#0a0618; border:none; font-family:'8bitWonder',monospace; font-size:14px; cursor:pointer; box-shadow:4px 4px 0px #0a0618;">Добавить достижение</button>
+                    <p style="color:#a885ff; font-size:13px; margin:0 0 8px 0;">📋 Список достижений:</p>
+                    <div id="adminAchievementsList" style="display:flex; flex-direction:column; gap:10px;"></div>
+                </div>
+            </div>
+            
+            <button class="admin-close" onclick="closeAdmin()">Закрыть панель</button>
+        </div>
     </div>
-
-    <!-- Список достижений с выдачей -->
-    <p style="color:#a885ff; font-size:13px; margin:0 0 8px 0;">📋 Список достижений:</p>
-    <div id="adminAchievementsList" style="display:flex; flex-direction:column; gap:10px;"></div>
 </div>
+
 <script>
-    // =========================================================
-    // ПОДКЛЮЧЕНИЕ К JSONBin
-    // =========================================================
     const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/6a88520bda38895dfeffc439';
     const JSONBIN_KEY = '$2a$10$tsqlxcFg9kXHu4maHVFwYOZx5mNQHYzpmCR89bDJrPRsEdd3UpSue';
 
@@ -2032,99 +1959,68 @@
     let currentCharacter = null;
     let gameTime = 'день';
 
-    // =========================================================
     // МАТРИЧНЫЙ ДОЖДЬ
-    // =========================================================
     (function() {
         const canvas = document.getElementById('matrixRainCanvas');
         if (!canvas) return;
-        
         const ctx = canvas.getContext('2d');
-        
         const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
         const digits = '0123456789';
         const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const symbols = katakana + digits + latin;
-        
         let fontSize = 16;
         let drops = [];
-        
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             const columnCount = Math.floor(canvas.width / fontSize);
             drops = [];
-            for (let i = 0; i < columnCount; i++) {
-                drops[i] = Math.random() * -100;
-            }
+            for (let i = 0; i < columnCount; i++) drops[i] = Math.random() * -100;
         }
-        
         function draw() {
             ctx.fillStyle = 'rgba(10, 6, 24, 0.08)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
             ctx.font = fontSize + 'px "8bitWonder", monospace';
-            
             for (let i = 0; i < drops.length; i++) {
                 const char = symbols[Math.floor(Math.random() * symbols.length)];
                 const x = i * fontSize;
                 const y = drops[i] * fontSize;
                 const brightness = Math.random();
-                
                 if (brightness > 0.95) {
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                    ctx.shadowColor = '#a885ff';
-                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = '#a885ff'; ctx.shadowBlur = 15;
                 } else if (brightness > 0.7) {
                     ctx.fillStyle = 'rgba(168, 133, 255, 0.7)';
-                    ctx.shadowColor = '#a885ff';
-                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#a885ff'; ctx.shadowBlur = 8;
                 } else {
-                    ctx.fillStyle = 'rgba(106, 90, 205, 0.35)';
-                    ctx.shadowBlur = 0;
+                    ctx.fillStyle = 'rgba(106, 90, 205, 0.35)'; ctx.shadowBlur = 0;
                 }
-                
                 ctx.fillText(char, x, y);
                 ctx.shadowBlur = 0;
-                
-                if (y > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-        
         resize();
         window.addEventListener('resize', resize);
         setInterval(draw, 50);
-        console.log('🟣 Матричный дождь запущен');
     })();
 
-    // =========================================================
     // НАВИГАЦИЯ
-    // =========================================================
     function openTab(tabName) {
-        console.log('🔓 Открываем вкладку:', tabName);
-        const mainMenu = document.getElementById('mainMenu');
-        if (mainMenu) mainMenu.style.display = 'none';
-        
+        document.getElementById('mainMenu').style.display = 'none';
         document.querySelectorAll('.tab-content').forEach(tab => {
             tab.classList.remove('active');
             tab.style.display = 'none';
         });
-        
         const target = document.getElementById('tab-' + tabName);
         if (target) {
             target.classList.add('active');
             target.style.display = 'block';
-            
             if (tabName === 'chat') loadMessages();
             if (tabName === 'students') renderStudentList();
             if (tabName === 'achievements') renderAchievements('achievementsList');
-        } else {
-            console.log('❌ Вкладка не найдена:', tabName);
-            closeTab();
-        }
+        } else closeTab();
     }
 
     function closeTab() {
@@ -2132,13 +2028,10 @@
             tab.classList.remove('active');
             tab.style.display = 'none';
         });
-        const mainMenu = document.getElementById('mainMenu');
-        if (mainMenu) mainMenu.style.display = 'block';
+        document.getElementById('mainMenu').style.display = 'block';
     }
 
-    function goHome() {
-        closeTab();
-    }
+    function goHome() { closeTab(); }
 
     function playClick() {
         try {
@@ -2149,15 +2042,9 @@
         } catch(e) {}
     }
 
-    // =========================================================
     // УВЕДОМЛЕНИЯ
-    // =========================================================
     function addNotification(text) {
-        notifications.unshift({
-            text: text,
-            time: new Date().toISOString(),
-            read: false
-        });
+        notifications.unshift({ text: text, time: new Date().toISOString(), read: false });
         if (notifications.length > 50) notifications.pop();
         updateNotifUI();
         saveToJSONBin();
@@ -2167,20 +2054,15 @@
         const countEl = document.getElementById('notifCount');
         const listEl = document.getElementById('notifList');
         if (!countEl || !listEl) return;
-        
         const unread = notifications.filter(n => !n.read).length;
         if (unread > 0) {
             countEl.textContent = unread > 99 ? '99+' : unread;
             countEl.classList.add('show');
-        } else {
-            countEl.classList.remove('show');
-        }
-        
+        } else countEl.classList.remove('show');
         if (notifications.length === 0) {
             listEl.innerHTML = '<div class="notif-empty">Нет уведомлений</div>';
             return;
         }
-        
         let html = '';
         notifications.slice(0, 20).forEach(n => {
             const time = n.time ? formatTime(n.time) : '';
@@ -2200,18 +2082,11 @@
         }
     }
 
-    // =========================================================
     // ВРЕМЯ
-    // =========================================================
     function updateGameTimeDisplay() {
         const display = document.getElementById('gameTime');
         const currentDisplay = document.getElementById('currentTimeDisplay');
-        const timeMap = {
-            'утро': '🌅 Утро',
-            'день': '☀️ День',
-            'вечер': '🌆 Вечер',
-            'ночь': '🌙 Ночь'
-        };
+        const timeMap = { 'утро': '🌅 Утро', 'день': '☀️ День', 'вечер': '🌆 Вечер', 'ночь': '🌙 Ночь' };
         if (display) display.textContent = timeMap[gameTime] || '☀️ День';
         if (currentDisplay) {
             currentDisplay.textContent = 'Текущее: ' + (timeMap[gameTime] || '☀️ День');
@@ -2220,9 +2095,7 @@
         }
     }
 
-    // =========================================================
-    // ЗАГРУЗКА ДАННЫХ
-    // =========================================================
+    // ЗАГРУЗКА
     async function loadCharacters() {
         try {
             const cached = localStorage.getItem('danganronpa_data');
@@ -2235,17 +2108,12 @@
                     wallMessages = data.wall || [];
                     achievements = data.achievements || getDefaultAchievements();
                     notifications = data.notifications || [];
+                    migrateCoins();
                     applyLoadedData();
-                } catch(e) {
-                    console.warn('Кэш повреждён');
-                }
+                } catch(e) {}
             }
-
-            const response = await fetch(JSONBIN_URL, {
-                headers: { 'X-Master-Key': JSONBIN_KEY }
-            });
+            const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
             const data = await response.json();
-            
             if (data.record) {
                 characters = data.record.characters || {};
                 chatMessages = data.record.chat || [];
@@ -2253,33 +2121,39 @@
                 wallMessages = data.record.wall || [];
                 achievements = data.record.achievements || getDefaultAchievements();
                 notifications = data.record.notifications || [];
+                migrateCoins();
                 localStorage.setItem('danganronpa_data', JSON.stringify({
-                    characters: characters,
-                    chat: chatMessages,
-                    gameTime: gameTime,
-                    wall: wallMessages,
-                    achievements: achievements,
-                    notifications: notifications
+                    characters, chat: chatMessages, gameTime, wall: wallMessages, achievements, notifications
                 }));
                 applyLoadedData();
             }
         } catch (error) {
-            console.error('❌ Ошибка загрузки:', error);
-            if (!localStorage.getItem('danganronpa_data')) {
-                useFallbackData();
-            }
+            if (!localStorage.getItem('danganronpa_data')) useFallbackData();
         }
     }
 
-function getDefaultAchievements() {
-    return [
-        { id: 'first_login', icon: 'I', name: 'Первый вход', desc: 'Войти в академию', unlocked: false },
-        { id: 'first_message', icon: 'II', name: 'Первое слово', desc: 'Написать в чат', unlocked: false },
-        { id: 'first_purchase', icon: 'III', name: 'Первая покупка', desc: 'Купить что-то в Моношопе', unlocked: false },
-        { id: 'rich', icon: '★', name: 'Богач', desc: 'Накопить 1000 монет', unlocked: false },
-        { id: 'survivor', icon: '★★★', name: 'Выживший', desc: 'Пережить первый суд', unlocked: false }
-    ];
-}
+    function migrateCoins() {
+        Object.keys(characters).forEach(name => {
+            const char = characters[name];
+            if (char.coinsEvents === undefined) char.coinsEvents = 0;
+            if (char.coinsItems === undefined) char.coinsItems = 0;
+            if (char.coins !== undefined && char.coinsEvents === 0 && char.coinsItems === 0) {
+                char.coinsEvents = char.coins;
+            }
+            if (!char.inventory) char.inventory = [];
+            if (!char.achievements) char.achievements = [];
+        });
+    }
+
+    function getDefaultAchievements() {
+        return [
+            { id: 'first_login', icon: 'I', name: 'Первый вход', desc: 'Войти в академию', unlocked: false },
+            { id: 'first_message', icon: 'II', name: 'Первое слово', desc: 'Написать в чат', unlocked: false },
+            { id: 'first_purchase', icon: 'III', name: 'Первая покупка', desc: 'Купить что-то в Моношопе', unlocked: false },
+            { id: 'rich', icon: '★', name: 'Богач', desc: 'Накопить 1000 монет', unlocked: false },
+            { id: 'survivor', icon: '★★★', name: 'Выживший', desc: 'Пережить первый суд', unlocked: false }
+        ];
+    }
 
     function applyLoadedData() {
         updateGameTimeDisplay();
@@ -2292,78 +2166,40 @@ function getDefaultAchievements() {
         renderAchievements('achievementsList');
         renderProfileAchievements();
         renderInventory();
-        
         if (!loadAuth()) {
-            const loginBlock = document.getElementById('loginBlock');
-            const profileBlock = document.getElementById('profileBlock');
-            if (loginBlock) loginBlock.style.display = 'block';
-            if (profileBlock) profileBlock.style.display = 'none';
+            document.getElementById('loginBlock').style.display = 'block';
+            document.getElementById('profileBlock').style.display = 'none';
         }
     }
 
     async function saveToJSONBin() {
         try {
-            const data = {
-                characters: characters,
-                chat: chatMessages,
-                gameTime: gameTime,
-                wall: wallMessages,
-                achievements: achievements,
-                notifications: notifications
-            };
-            
+            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, achievements, notifications };
             const response = await fetch(JSONBIN_URL, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_KEY
-                },
+                headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
                 body: JSON.stringify(data)
             });
-            
             if (!response.ok) throw new Error('Ошибка сохранения: ' + response.status);
-            
             localStorage.setItem('danganronpa_data', JSON.stringify(data));
             return true;
-        } catch (error) {
-            console.error('❌ Ошибка сохранения:', error);
-            return false;
-        }
+        } catch (error) { return false; }
     }
 
     async function saveGameTime() {
-        const select = document.getElementById('timeSelect');
-        gameTime = select.value;
+        gameTime = document.getElementById('timeSelect').value;
         await saveToJSONBin();
         updateGameTimeDisplay();
         alert('✅ Время суток сохранено: ' + gameTime);
     }
 
     function useFallbackData() {
-        characters = {
-            "Кио Нагахара": {
-                age: 17,
-                talent: "Абсолютный Гипнотизер",
-                status: "Жив",
-                coins: 0,
-                password: "12345",
-                diary: "",
-                avatar: "",
-                admin: false,
-                inventory: []
-            }
-        };
-        chatMessages = [];
-        wallMessages = [];
-        achievements = getDefaultAchievements();
-        notifications = [];
-        gameTime = 'день';
+        characters = { "Кио Нагахара": { age: 17, talent: "Абсолютный Гипнотизер", status: "Жив", coinsEvents: 0, coinsItems: 0, password: "12345", diary: "", avatar: "", admin: false, inventory: [], achievements: [] } };
+        chatMessages = []; wallMessages = []; achievements = getDefaultAchievements(); notifications = []; gameTime = 'день';
         applyLoadedData();
     }
 
-    // =========================================================
     // АВТОРИЗАЦИЯ
-    // =========================================================
     function loadAuth() {
         const saved = localStorage.getItem('danganronpa_user');
         if (saved) {
@@ -2374,38 +2210,29 @@ function getDefaultAchievements() {
                     showProfile();
                     return true;
                 }
-            } catch(e) {
-                localStorage.removeItem('danganronpa_user');
-            }
+            } catch(e) { localStorage.removeItem('danganronpa_user'); }
         }
         return false;
     }
 
-    function saveAuth(name) {
-        localStorage.setItem('danganronpa_user', JSON.stringify({ character: name }));
-    }
+    function saveAuth(name) { localStorage.setItem('danganronpa_user', JSON.stringify({ character: name })); }
 
     function clearAuth() {
         localStorage.removeItem('danganronpa_user');
         currentCharacter = null;
-        const loginBlock = document.getElementById('loginBlock');
-        const profileBlock = document.getElementById('profileBlock');
-        if (loginBlock) loginBlock.style.display = 'block';
-        if (profileBlock) profileBlock.style.display = 'none';
+        document.getElementById('loginBlock').style.display = 'block';
+        document.getElementById('profileBlock').style.display = 'none';
         updateChatCharacterSelect();
     }
 
-    // =========================================================
     // СПИСКИ
-    // =========================================================
     function updateCharacterSelect() {
         const select = document.getElementById('characterSelect');
         if (!select) return;
         select.innerHTML = '';
         Object.keys(characters).forEach(name => {
             const option = document.createElement('option');
-            option.value = name;
-            option.textContent = name;
+            option.value = name; option.textContent = name;
             select.appendChild(option);
         });
     }
@@ -2420,28 +2247,20 @@ function getDefaultAchievements() {
             option.textContent = currentCharacter + ' (вы)';
             select.appendChild(option);
             const anonOption = document.createElement('option');
-            anonOption.value = 'Аноним';
-            anonOption.textContent = 'Аноним';
+            anonOption.value = 'Аноним'; anonOption.textContent = 'Аноним';
             select.appendChild(anonOption);
             select.disabled = false;
-            const msgInput = document.getElementById('chatMessageInput');
-            const sendBtn = document.getElementById('chatSendBtn');
-            if (msgInput) msgInput.disabled = false;
-            if (sendBtn) sendBtn.disabled = false;
-            const userInfo = document.getElementById('chatUserInfo');
-            if (userInfo) userInfo.textContent = '✅ Вы вошли как ' + currentCharacter;
+            document.getElementById('chatMessageInput').disabled = false;
+            document.getElementById('chatSendBtn').disabled = false;
+            document.getElementById('chatUserInfo').textContent = '✅ Вы вошли как ' + currentCharacter;
         } else {
             const anonOption = document.createElement('option');
-            anonOption.value = 'Аноним';
-            anonOption.textContent = 'Аноним (только чтение)';
+            anonOption.value = 'Аноним'; anonOption.textContent = 'Аноним (только чтение)';
             select.appendChild(anonOption);
             select.disabled = true;
-            const msgInput = document.getElementById('chatMessageInput');
-            const sendBtn = document.getElementById('chatSendBtn');
-            if (msgInput) msgInput.disabled = true;
-            if (sendBtn) sendBtn.disabled = true;
-            const userInfo = document.getElementById('chatUserInfo');
-            if (userInfo) userInfo.textContent = '❌ Войдите в профиль, чтобы писать в чат';
+            document.getElementById('chatMessageInput').disabled = true;
+            document.getElementById('chatSendBtn').disabled = true;
+            document.getElementById('chatUserInfo').textContent = '❌ Войдите в профиль, чтобы писать в чат';
         }
     }
 
@@ -2452,37 +2271,28 @@ function getDefaultAchievements() {
             if (char.status === 'Жив') alive++;
             else if (char.status === 'Мертв') dead++;
         });
-        const survivorsEl = document.getElementById('survivors');
-        const deathsEl = document.getElementById('deaths');
-        const progressEl = document.getElementById('survivorProgress');
-        if (survivorsEl) survivorsEl.textContent = alive;
-        if (deathsEl) deathsEl.textContent = dead;
+        document.getElementById('survivors').textContent = alive;
+        document.getElementById('deaths').textContent = dead;
         const progress = total > 0 ? (alive / total) * 100 : 0;
-        if (progressEl) progressEl.style.width = Math.min(progress, 100) + '%';
+        document.getElementById('survivorProgress').style.width = Math.min(progress, 100) + '%';
     }
 
-    // =========================================================
     // ПРОФИЛЬ
-    // =========================================================
     function showProfile() {
         if (!currentCharacter) return;
         const character = characters[currentCharacter];
         if (!character) return;
-        const loginBlock = document.getElementById('loginBlock');
-        const profileBlock = document.getElementById('profileBlock');
-        if (loginBlock) loginBlock.style.display = 'none';
-        if (profileBlock) profileBlock.style.display = 'block';
-        
+        document.getElementById('loginBlock').style.display = 'none';
+        document.getElementById('profileBlock').style.display = 'block';
         document.getElementById('profileName').textContent = currentCharacter;
         document.getElementById('profileAge').textContent = character.age || '—';
         document.getElementById('profileTalent').textContent = character.talent || '—';
-        document.getElementById('profileCoins').textContent = character.coins || 0;
+        document.getElementById('profileCoinsEvents').textContent = character.coinsEvents || 0;
+        document.getElementById('profileCoinsItems').textContent = character.coinsItems || 0;
         document.getElementById('profileFiles').textContent = character.files || 'Закрыто';
-        
         const statusEl = document.getElementById('profileStatus');
         statusEl.textContent = character.status || 'Жив';
         statusEl.style.color = character.status === 'Жив' ? '#00ff88' : '#ff6b8a';
-        
         const nameEl = document.getElementById('profileName');
         const oldBadge = nameEl.querySelector('.admin-badge');
         if (oldBadge) oldBadge.remove();
@@ -2492,19 +2302,15 @@ function getDefaultAchievements() {
             adminBadge.textContent = 'АДМИН';
             nameEl.appendChild(adminBadge);
         }
-        
         const avatar = character.avatar || '';
-        const avatarPreview = document.getElementById('avatarPreview');
-        const avatarPlaceholder = document.getElementById('avatarPlaceholder');
         if (avatar) {
-            avatarPreview.src = avatar;
-            avatarPreview.style.display = 'block';
-            avatarPlaceholder.style.display = 'none';
+            document.getElementById('avatarPreview').src = avatar;
+            document.getElementById('avatarPreview').style.display = 'block';
+            document.getElementById('avatarPlaceholder').style.display = 'none';
         } else {
-            avatarPreview.style.display = 'none';
-            avatarPlaceholder.style.display = 'block';
+            document.getElementById('avatarPreview').style.display = 'none';
+            document.getElementById('avatarPlaceholder').style.display = 'block';
         }
-        
         document.getElementById('diaryInput').value = character.diary || '';
         updateChatCharacterSelect();
         renderInventory();
@@ -2524,12 +2330,10 @@ function getDefaultAchievements() {
         message.style.color = '#00ff88';
         currentCharacter = name;
         showProfile();
-        
-        // Достижение за первый вход
         if (!character.achievements) character.achievements = [];
         if (!character.achievements.includes('first_login')) {
             character.achievements.push('first_login');
-            addNotification('🏆 Получено достижение: Первый вход!');
+            addNotification('★ Получено достижение: Первый вход!');
             saveToJSONBin();
         }
     }
@@ -2540,272 +2344,167 @@ function getDefaultAchievements() {
         document.getElementById('passwordInput').value = '';
     }
 
-    // =========================================================
     // ИНВЕНТАРЬ
-    // =========================================================
     function renderInventory() {
         const container = document.getElementById('inventoryList');
         if (!container) return;
-        
         if (!currentCharacter || !characters[currentCharacter]) {
             container.innerHTML = '<div class="inventory-empty">Войди в профиль</div>';
             return;
         }
-        
         const character = characters[currentCharacter];
         const inventory = character.inventory || [];
-        
         if (inventory.length === 0) {
             container.innerHTML = '<div class="inventory-empty">Инвентарь пуст</div>';
             return;
         }
-        
         container.innerHTML = '';
         inventory.forEach(item => {
             const div = document.createElement('div');
             div.className = 'inventory-item';
-            div.innerHTML = `
-                <div class="item-name">${item.name}</div>
-                <div class="item-price">${item.price} 🪙</div>
-            `;
+            const catIcon = item.category === 'items' ? '🎁' : '🎭';
+            div.innerHTML = `<div class="item-name">${catIcon} ${item.name}</div><div class="item-price">${item.price} 🪙</div>`;
             container.appendChild(div);
         });
     }
 
-    // =========================================================
     // ДОСТИЖЕНИЯ
-    // =========================================================
     function renderAchievements(containerId) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        
         if (achievements.length === 0) {
-            container.innerHTML = '<div class="achievement-item locked"><span class="ach-icon">🔒</span><div class="ach-name">Нет достижений</div></div>';
+            container.innerHTML = '<div class="achievement-item locked"><span class="ach-icon">✕</span><div class="ach-name">Нет достижений</div></div>';
             return;
         }
-        
         const unlocked = (currentCharacter && characters[currentCharacter]) ? (characters[currentCharacter].achievements || []) : [];
-        
         container.innerHTML = '';
         achievements.forEach(ach => {
             const isUnlocked = unlocked.includes(ach.id);
             const div = document.createElement('div');
             div.className = 'achievement-item ' + (isUnlocked ? 'unlocked' : 'locked');
             div.innerHTML = `
-    <span class="ach-icon" style="color:${isUnlocked ? '#a885ff' : '#6b5596'}; font-size:28px; display:block; margin-bottom:8px;">${isUnlocked ? (ach.icon || '★') : '✕'}</span>
-    <div class="ach-name">${ach.name}</div>
-    <div class="ach-desc">${ach.desc}</div>
-    <div class="ach-status">${isUnlocked ? '✓ Получено' : '✕ Закрыто'}</div>
-`;
+                <span class="ach-icon" style="color:${isUnlocked ? '#a885ff' : '#6b5596'}; font-size:28px; display:block; margin-bottom:8px;">${isUnlocked ? (ach.icon || '★') : '✕'}</span>
+                <div class="ach-name">${ach.name}</div>
+                <div class="ach-desc">${ach.desc}</div>
+                <div class="ach-status">${isUnlocked ? '✓ Получено' : '✕ Закрыто'}</div>
+            `;
             container.appendChild(div);
         });
     }
 
-    function renderProfileAchievements() {
-        renderAchievements('profileAchievements');
+    function renderProfileAchievements() { renderAchievements('profileAchievements'); }
+
+    function addAchievement() {
+        const icon = document.getElementById('newAchIcon').value.trim();
+        const name = document.getElementById('newAchName').value.trim();
+        const desc = document.getElementById('newAchDesc').value.trim();
+        if (!name) { alert('❌ Введи название достижения!'); return; }
+        const id = 'ach_' + Date.now();
+        achievements.push({ id, icon: icon || '★', name, desc: desc || 'Без описания', unlocked: false });
+        saveToJSONBin();
+        renderAdminAchievements();
+        renderAchievements('achievementsList');
+        renderProfileAchievements();
+        document.getElementById('newAchIcon').value = '';
+        document.getElementById('newAchName').value = '';
+        document.getElementById('newAchDesc').value = '';
+        alert('✅ Достижение "' + name + '" добавлено!');
     }
 
-// =========================================================
-// ДОСТИЖЕНИЯ — АДМИНКА
-// =========================================================
-function addAchievement() {
-    const icon = document.getElementById('newAchIcon').value.trim();
-    const name = document.getElementById('newAchName').value.trim();
-    const desc = document.getElementById('newAchDesc').value.trim();
-    
-    if (!name) {
-        alert('❌ Введи название достижения!');
-        return;
-    }
-    
-const id = 'ach_' + Date.now();
-achievements.push({
-    id: id,
-    icon: icon || '★',
-    name: name,
-    desc: desc || 'Без описания',
-    unlocked: false
-});
-    
-    saveToJSONBin();
-    renderAdminAchievements();
-    renderAchievements('achievementsList');
-    renderProfileAchievements();
-    
-    document.getElementById('newAchIcon').value = '';
-    document.getElementById('newAchName').value = '';
-    document.getElementById('newAchDesc').value = '';
-    
-    alert('✅ Достижение "' + name + '" добавлено!');
-}
-
-function deleteAchievement(id) {
-    if (!confirm('Удалить это достижение у ВСЕХ игроков?')) return;
-    
-    // Удаляем из общего списка
-    achievements = achievements.filter(a => a.id !== id);
-    
-    // Удаляем у всех персонажей
-    Object.keys(characters).forEach(name => {
-        if (characters[name].achievements) {
-            characters[name].achievements = characters[name].achievements.filter(a => a !== id);
-        }
-    });
-    
-    saveToJSONBin();
-    renderAdminAchievements();
-    renderAchievements('achievementsList');
-    renderProfileAchievements();
-    
-    alert('🗑️ Достижение удалено');
-}
-
-function renderAdminAchievements() {
-    const container = document.getElementById('adminAchievementsList');
-    if (!container) return;
-    
-    if (achievements.length === 0) {
-        container.innerHTML = '<p style="color:#6b5596; font-size:12px; text-align:center; padding:10px;">Нет достижений. Создай первое!</p>';
-        return;
-    }
-    
-    container.innerHTML = '';
-    
-    achievements.forEach(ach => {
-        // Кто уже получил это достижение
-        const owners = Object.keys(characters).filter(name => {
-            return characters[name].achievements && characters[name].achievements.includes(ach.id);
+    function deleteAchievement(id) {
+        if (!confirm('Удалить это достижение у ВСЕХ игроков?')) return;
+        achievements = achievements.filter(a => a.id !== id);
+        Object.keys(characters).forEach(name => {
+            if (characters[name].achievements) {
+                characters[name].achievements = characters[name].achievements.filter(a => a !== id);
+            }
         });
-        
-        const ownersText = owners.length > 0 
-            ? '✅ У: ' + owners.join(', ') 
-            : '🔒 Ни у кого';
-        
-        const ownersColor = owners.length > 0 ? '#00ff88' : '#6b5596';
-        
-        const div = document.createElement('div');
-        div.style.cssText = 'background:rgba(10,6,24,0.6); border:1px solid #4d2e8a; padding:12px; display:flex; flex-direction:column; gap:8px;';
-        
-        div.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-                <span style="color:#ffffff; font-size:14px; flex:1;">
-                    <span style="color:#a885ff; font-size:16px; margin-right:6px;">${ach.icon || '★'}</span><b>${ach.name}</b>
-                </span>
-                <button onclick="deleteAchievement('${ach.id}')" 
-                        style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px; box-shadow:2px 2px 0px #0a0618;"
-                        title="Удалить достижение">✕</button>
-            </div>
-            
-            <div style="color:#b09fd4; font-size:11px; font-style:italic;">${ach.desc}</div>
-            
-            <div style="color:${ownersColor}; font-size:11px;">${ownersText}</div>
-            
-            <div style="display:flex; gap:6px; margin-top:4px;">
-                <select id="ach-char-${ach.id}" 
-                        style="flex:1; padding:6px 8px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:12px;">
-                    <option value="">— Выбери персонажа —</option>
-                    ${Object.keys(characters).map(name => {
-                        const has = characters[name].achievements && characters[name].achievements.includes(ach.id);
-                        return `<option value="${name}" ${has ? 'disabled' : ''}>${name}${has ? ' ✓' : ''}</option>`;
-                    }).join('')}
-                </select>
-                <button onclick="giveAchievement('${ach.id}')" 
-                        style="padding:6px 14px; background:#a885ff; color:#ffffff; border:none; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer; box-shadow:2px 2px 0px #0a0618;">
-                    Выдать
-                </button>
-                <button onclick="revokeAchievement('${ach.id}')" 
-                        style="padding:6px 14px; background:#1a1038; color:#ff6b8a; border:1px solid #ff6b8a; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer;"
-                        title="Забрать у выбранного">
-                    Забрать
-                </button>
-            </div>
-        `;
-        
-        container.appendChild(div);
-    });
-}
-
-// ВЫДАТЬ достижение выбранному персонажу
-async function giveAchievement(achId) {
-    const select = document.getElementById('ach-char-' + achId);
-    if (!select) return;
-    
-    const charName = select.value;
-    if (!charName) {
-        alert('Выбрать персонажа');
-        return;
-    }
-    
-    const ach = achievements.find(a => a.id === achId);
-    if (!ach) return;
-    
-    if (!characters[charName].achievements) characters[charName].achievements = [];
-    
-    if (characters[charName].achievements.includes(achId)) {
-        alert(' У ' + charName + ' уже есть это достижение!');
-        return;
-    }
-    
-    characters[charName].achievements.push(achId);
-    await saveToJSONBin();
-    
-    // Уведомление
-    addNotification('🏆 ' + charName + ' получил достижение: ' + ach.name);
-    
-    // Если это текущий игрок — обновить профиль
-    if (currentCharacter === charName) {
+        saveToJSONBin();
+        renderAdminAchievements();
+        renderAchievements('achievementsList');
         renderProfileAchievements();
+        alert('🗑️ Достижение удалено');
     }
-    
-    renderAdminAchievements();
-    renderAchievements('achievementsList');
-    
-    alert(' Достижение "' + ach.name + '" выдано ' + charName + '!');
-}
 
-// ЗАБРАТЬ достижение у выбранного персонажа
-async function revokeAchievement(achId) {
-    const select = document.getElementById('ach-char-' + achId);
-    if (!select) return;
-    
-    const charName = select.value;
-    if (!charName) {
-        alert('Выбрать персонажа');
-        return;
-    }
-    
-    const ach = achievements.find(a => a.id === achId);
-    if (!ach) return;
-    
-    if (!characters[charName].achievements || !characters[charName].achievements.includes(achId)) {
-        alert(' У ' + charName + ' нет этого достижения!');
-        return;
-    }
-    
-    if (!confirm('Забрать достижение "' + ach.name + '" у ' + charName + '?')) return;
-    
-    characters[charName].achievements = characters[charName].achievements.filter(a => a !== achId);
-    await saveToJSONBin();
-    
-    // Если это текущий игрок — обновить профиль
-    if (currentCharacter === charName) {
-        renderProfileAchievements();
-    }
-    
-    renderAdminAchievements();
-    renderAchievements('achievementsList');
-    
-    alert('Достижение "' + ach.name + '" забрано у ' + charName);
-}
-
-    // =========================================================
-    // ДНЕВНИК
-    // =========================================================
-    function saveDiary() {
-        if (!currentCharacter) {
-            document.getElementById('diaryStatus').textContent = 'Войди в профиль';
+    function renderAdminAchievements() {
+        const container = document.getElementById('adminAchievementsList');
+        if (!container) return;
+        if (achievements.length === 0) {
+            container.innerHTML = '<p style="color:#6b5596; font-size:12px; text-align:center; padding:10px;">Нет достижений. Создай первое!</p>';
             return;
         }
+        container.innerHTML = '';
+        achievements.forEach(ach => {
+            const owners = Object.keys(characters).filter(name => characters[name].achievements && characters[name].achievements.includes(ach.id));
+            const ownersText = owners.length > 0 ? '✅ У: ' + owners.join(', ') : '🔒 Ни у кого';
+            const ownersColor = owners.length > 0 ? '#00ff88' : '#6b5596';
+            const div = document.createElement('div');
+            div.style.cssText = 'background:rgba(10,6,24,0.6); border:1px solid #4d2e8a; padding:12px; display:flex; flex-direction:column; gap:8px;';
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+                    <span style="color:#ffffff; font-size:14px; flex:1;">
+                        <span style="color:#a885ff; font-size:16px; margin-right:6px;">${ach.icon || '★'}</span><b>${ach.name}</b>
+                    </span>
+                    <button onclick="deleteAchievement('${ach.id}')" style="background:#ff6b8a; color:#fff; border:none; padding:4px 10px; cursor:pointer; font-family:'8bitWonder',monospace; font-size:12px; box-shadow:2px 2px 0px #0a0618;">✕</button>
+                </div>
+                <div style="color:#b09fd4; font-size:11px; font-style:italic;">${ach.desc}</div>
+                <div style="color:${ownersColor}; font-size:11px;">${ownersText}</div>
+                <div style="display:flex; gap:6px; margin-top:4px;">
+                    <select id="ach-char-${ach.id}" style="flex:1; padding:6px 8px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:'8bitWonder',monospace; font-size:12px;">
+                        <option value="">— Выбери персонажа —</option>
+                        ${Object.keys(characters).map(name => {
+                            const has = characters[name].achievements && characters[name].achievements.includes(ach.id);
+                            return `<option value="${name}" ${has ? 'disabled' : ''}>${name}${has ? ' ✓' : ''}</option>`;
+                        }).join('')}
+                    </select>
+                    <button onclick="giveAchievement('${ach.id}')" style="padding:6px 14px; background:#a885ff; color:#ffffff; border:none; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer; box-shadow:2px 2px 0px #0a0618;">Выдать</button>
+                    <button onclick="revokeAchievement('${ach.id}')" style="padding:6px 14px; background:#1a1038; color:#ff6b8a; border:1px solid #ff6b8a; font-family:'8bitWonder',monospace; font-size:12px; cursor:pointer;">Забрать</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    async function giveAchievement(achId) {
+        const select = document.getElementById('ach-char-' + achId);
+        if (!select) return;
+        const charName = select.value;
+        if (!charName) { alert('Выбери персонажа'); return; }
+        const ach = achievements.find(a => a.id === achId);
+        if (!ach) return;
+        if (!characters[charName].achievements) characters[charName].achievements = [];
+        if (characters[charName].achievements.includes(achId)) { alert('У ' + charName + ' уже есть это достижение!'); return; }
+        characters[charName].achievements.push(achId);
+        await saveToJSONBin();
+        addNotification('★ ' + charName + ' получил достижение: ' + ach.name);
+        if (currentCharacter === charName) renderProfileAchievements();
+        renderAdminAchievements();
+        renderAchievements('achievementsList');
+        alert('Достижение "' + ach.name + '" выдано ' + charName + '!');
+    }
+
+    async function revokeAchievement(achId) {
+        const select = document.getElementById('ach-char-' + achId);
+        if (!select) return;
+        const charName = select.value;
+        if (!charName) { alert('Выбери персонажа'); return; }
+        const ach = achievements.find(a => a.id === achId);
+        if (!ach) return;
+        if (!characters[charName].achievements || !characters[charName].achievements.includes(achId)) {
+            alert('У ' + charName + ' нет этого достижения!'); return;
+        }
+        if (!confirm('Забрать достижение "' + ach.name + '" у ' + charName + '?')) return;
+        characters[charName].achievements = characters[charName].achievements.filter(a => a !== achId);
+        await saveToJSONBin();
+        if (currentCharacter === charName) renderProfileAchievements();
+        renderAdminAchievements();
+        renderAchievements('achievementsList');
+        alert('Достижение "' + ach.name + '" забрано у ' + charName);
+    }
+
+    // ДНЕВНИК
+    function saveDiary() {
+        if (!currentCharacter) { document.getElementById('diaryStatus').textContent = 'Войди в профиль'; return; }
         characters[currentCharacter].diary = document.getElementById('diaryInput').value;
         saveToJSONBin();
         document.getElementById('diaryStatus').textContent = '✅ Заметки сохранены!';
@@ -2817,9 +2516,7 @@ async function revokeAchievement(achId) {
         document.getElementById('diaryStatus').textContent = '🔄 Заметки загружены';
     }
 
-    // =========================================================
     // СПЛЕТНИ
-    // =========================================================
     const gossipData = [
         "Пу-пу-пу... Похоже, кто-то хочет посплетничать?",
         "Если вы соберете 10000 монет, то я вам расскажу, как выбраться из этой Академии! Ну, или же нет...",
@@ -2850,9 +2547,7 @@ async function revokeAchievement(achId) {
         document.getElementById('gossipAuthor').textContent = '— Монокума';
     }
 
-    // =========================================================
-    // СЖАТИЕ И ЗАГРУЗКА АВАТАРКИ
-    // =========================================================
+    // АВАТАРКА
     function compressImage(file, quality) {
         quality = quality || 0.6;
         return new Promise(function(resolve) {
@@ -2862,21 +2557,10 @@ async function revokeAchievement(achId) {
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const maxSize = 300;
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > height) {
-                        if (width > maxSize) {
-                            height = Math.round(height * (maxSize / width));
-                            width = maxSize;
-                        }
-                    } else {
-                        if (height > maxSize) {
-                            width = Math.round(width * (maxSize / height));
-                            height = maxSize;
-                        }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
+                    let width = img.width, height = img.height;
+                    if (width > height) { if (width > maxSize) { height = Math.round(height * (maxSize / width)); width = maxSize; } }
+                    else { if (height > maxSize) { width = Math.round(width * (maxSize / height)); height = maxSize; } }
+                    canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
                     resolve(canvas.toDataURL('image/jpeg', quality));
@@ -2890,10 +2574,7 @@ async function revokeAchievement(achId) {
     async function uploadAvatarBase64(event) {
         const file = event.target.files[0];
         if (!file) return;
-        if (file.size > 5 * 1024 * 1024) {
-            alert('❌ Картинка слишком большая! Максимум 5 МБ.');
-            return;
-        }
+        if (file.size > 5 * 1024 * 1024) { alert('❌ Картинка слишком большая! Максимум 5 МБ.'); return; }
         const previewReader = new FileReader();
         previewReader.onload = function(e) {
             document.getElementById('avatarPreview').src = e.target.result;
@@ -2907,27 +2588,19 @@ async function revokeAchievement(achId) {
             await saveToJSONBin();
             document.getElementById('avatarPreview').src = compressedBase64;
             alert('✅ Аватарка сохранена!');
-        } catch (error) {
-            alert('❌ Ошибка: ' + error.message);
-        }
+        } catch (error) { alert('❌ Ошибка: ' + error.message); }
     }
 
-    // =========================================================
     // КАРТОЧКИ
-    // =========================================================
     function openCard(imagePath, title) {
         document.getElementById('cardImage').src = imagePath;
         document.getElementById('cardTitle').textContent = title;
         document.getElementById('cardModal').style.display = 'flex';
     }
 
-    function closeCardModal() {
-        document.getElementById('cardModal').style.display = 'none';
-    }
+    function closeCardModal() { document.getElementById('cardModal').style.display = 'none'; }
 
-    // =========================================================
     // ЧАТ
-    // =========================================================
     function insertEmotion(emotion) {
         const input = document.getElementById('chatMessageInput');
         if (!input || input.disabled) return;
@@ -2963,16 +2636,12 @@ async function revokeAchievement(achId) {
             const day = String(date.getDate()).padStart(2, '0');
             const month = String(date.getMonth() + 1).padStart(2, '0');
             return day + '.' + month + ' ' + hours + ':' + minutes;
-        } catch(e) {
-            return timeStr || '--:--';
-        }
+        } catch(e) { return timeStr || '--:--'; }
     }
 
     async function loadMessages() {
         try {
-            const response = await fetch(JSONBIN_URL, {
-                headers: { 'X-Master-Key': JSONBIN_KEY }
-            });
+            const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
             const data = await response.json();
             if (data.record && data.record.chat) {
                 chatMessages = data.record.chat;
@@ -2981,17 +2650,13 @@ async function revokeAchievement(achId) {
             const statusEl = document.getElementById('chatStatus');
             if (statusEl) statusEl.textContent = '✅ Загружено сообщений: ' + chatMessages.length;
         } catch (error) {
-            console.error('Ошибка загрузки чата:', error);
             const statusEl = document.getElementById('chatStatus');
             if (statusEl) statusEl.textContent = '❌ Ошибка подключения';
         }
     }
 
     async function sendMessage() {
-        if (!currentCharacter) {
-            document.getElementById('chatStatus').textContent = '❌ Войди в профиль';
-            return;
-        }
+        if (!currentCharacter) { document.getElementById('chatStatus').textContent = '❌ Войди в профиль'; return; }
         const character = document.getElementById('chatCharacterSelect').value;
         const message = document.getElementById('chatMessageInput').value.trim();
         if (!message) { document.getElementById('chatStatus').textContent = '✏️ Напиши сообщение!'; return; }
@@ -3001,36 +2666,27 @@ async function revokeAchievement(achId) {
         }
         try {
             document.getElementById('chatStatus').textContent = 'Отправка...';
-            chatMessages.push({ time: new Date().toISOString(), character: character, message: message });
+            chatMessages.push({ time: new Date().toISOString(), character, message });
             await saveToJSONBin();
             document.getElementById('chatStatus').textContent = '✅ Сообщение отправлено!';
             document.getElementById('chatMessageInput').value = '';
             renderChatMessages();
-            
-            // Достижение за первое сообщение
             if (!characters[currentCharacter].achievements) characters[currentCharacter].achievements = [];
             if (!characters[currentCharacter].achievements.includes('first_message')) {
                 characters[currentCharacter].achievements.push('first_message');
-                addNotification('🏆 Получено достижение: Первое слово!');
+                addNotification('★ Получено достижение: Первое слово!');
                 saveToJSONBin();
             }
-        } catch (error) {
-            document.getElementById('chatStatus').textContent = '❌ Ошибка отправки';
-        }
+        } catch (error) { document.getElementById('chatStatus').textContent = '❌ Ошибка отправки'; }
     }
 
-    // =========================================================
     // АДМИНКА
-    // =========================================================
     const ADMIN_PASSWORD = 'sexwithgrandpa2001_COOL';
 
     function toggleAdmin() {
         const panel = document.getElementById('adminPanel');
-        if (panel.style.display === 'none' || panel.style.display === '') {
-            panel.style.display = 'block';
-        } else {
-            panel.style.display = 'none';
-        }
+        if (panel.style.display === 'none' || panel.style.display === '') panel.style.display = 'block';
+        else panel.style.display = 'none';
     }
 
     function closeAdmin() {
@@ -3063,34 +2719,58 @@ async function revokeAchievement(achId) {
             const char = characters[name];
             const div = document.createElement('div');
             div.className = 'admin-field';
+            div.style.cssText = 'display:flex; flex-direction:column; gap:8px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1);';
             const label = document.createElement('label');
             label.textContent = name;
-            const coinsInput = document.createElement('input');
-            coinsInput.type = 'number';
-            coinsInput.value = char.coins;
-            coinsInput.id = 'admin-coins-' + name;
+            label.style.cssText = 'color:#ffffff; font-size:15px; font-family:\'8bitWonder\',monospace;';
+            div.appendChild(label);
+            const coinsRow = document.createElement('div');
+            coinsRow.style.cssText = 'display:flex; gap:8px; flex-wrap:wrap; align-items:center;';
+            const eventsWrapper = document.createElement('div');
+            eventsWrapper.style.cssText = 'display:flex; align-items:center; gap:6px; flex:1; min-width:140px;';
+            eventsWrapper.innerHTML = `<span style="color:#a885ff; font-size:12px;">🎭 Ивенты:</span>`;
+            const eventsInput = document.createElement('input');
+            eventsInput.type = 'number';
+            eventsInput.value = char.coinsEvents || 0;
+            eventsInput.id = 'admin-coinsEvents-' + name;
+            eventsInput.style.cssText = 'flex:1; padding:6px 8px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:\'8bitWonder\',monospace; font-size:13px;';
+            eventsWrapper.appendChild(eventsInput);
+            const itemsWrapper = document.createElement('div');
+            itemsWrapper.style.cssText = 'display:flex; align-items:center; gap:6px; flex:1; min-width:140px;';
+            itemsWrapper.innerHTML = `<span style="color:#ff6b8a; font-size:12px;">🎁 Айтемы:</span>`;
+            const itemsInput = document.createElement('input');
+            itemsInput.type = 'number';
+            itemsInput.value = char.coinsItems || 0;
+            itemsInput.id = 'admin-coinsItems-' + name;
+            itemsInput.style.cssText = 'flex:1; padding:6px 8px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:\'8bitWonder\',monospace; font-size:13px;';
+            itemsWrapper.appendChild(itemsInput);
+            coinsRow.appendChild(eventsWrapper);
+            coinsRow.appendChild(itemsWrapper);
             const statusSelect = document.createElement('select');
             statusSelect.id = 'admin-status-' + name;
+            statusSelect.style.cssText = 'padding:6px 8px; background:#1a1038; color:#ffffff; border:1px solid #4d2e8a; font-family:\'8bitWonder\',monospace; font-size:13px;';
             const optionAlive = document.createElement('option');
-            optionAlive.value = 'Жив';
-            optionAlive.textContent = 'Жив';
+            optionAlive.value = 'Жив'; optionAlive.textContent = 'Жив';
             const optionDead = document.createElement('option');
-            optionDead.value = 'Мертв';
-            optionDead.textContent = 'Мертв';
+            optionDead.value = 'Мертв'; optionDead.textContent = 'Мертв';
             statusSelect.appendChild(optionAlive);
             statusSelect.appendChild(optionDead);
             statusSelect.value = char.status;
             const applyBtn = document.createElement('button');
-            applyBtn.textContent = '✅';
+            applyBtn.textContent = '✅ Сохранить';
+            applyBtn.style.cssText = 'padding:8px; background:#ffffff; color:#0a0618; border:none; font-family:\'8bitWonder\',monospace; font-size:12px; cursor:pointer; box-shadow:3px 3px 0px #0a0618;';
             applyBtn.onclick = async function() {
-                const coins = parseInt(document.getElementById('admin-coins-' + name).value) || 0;
+                const coinsEvents = parseInt(document.getElementById('admin-coinsEvents-' + name).value) || 0;
+                const coinsItems = parseInt(document.getElementById('admin-coinsItems-' + name).value) || 0;
                 const status = document.getElementById('admin-status-' + name).value;
-                characters[name].coins = coins;
+                characters[name].coinsEvents = coinsEvents;
+                characters[name].coinsItems = coinsItems;
                 characters[name].status = status;
                 await saveToJSONBin();
                 updateGlobalStats();
                 if (currentCharacter === name) {
-                    document.getElementById('profileCoins').textContent = coins;
+                    document.getElementById('profileCoinsEvents').textContent = coinsEvents;
+                    document.getElementById('profileCoinsItems').textContent = coinsItems;
                     const statusEl = document.getElementById('profileStatus');
                     statusEl.textContent = status;
                     statusEl.style.color = status === 'Жив' ? '#00ff88' : '#ff6b8a';
@@ -3098,106 +2778,65 @@ async function revokeAchievement(achId) {
                 renderAdminPanel();
                 alert('✅ Данные для "' + name + '" обновлены!');
             };
-            div.appendChild(label);
-            div.appendChild(coinsInput);
+            div.appendChild(coinsRow);
             div.appendChild(statusSelect);
             div.appendChild(applyBtn);
             container.appendChild(div);
         });
     }
 
-    // =========================================================
     // ГЛЮКИ
-    // =========================================================
-    const glitchPhrases = [
-        '[СИСТЕМА: ОШИБКА]', '[НЕТ СИГНАЛА]', '[ЗАГРУЗКА...]',
-        '[ДАННЫЕ ПОВРЕЖДЕНЫ]', '[ВНИМАНИЕ: СБОЙ]', '[ПЕРЕЗАГРУЗКА...]',
-        '[НЕДОСТУПНО]', '[КРИТИЧЕСКАЯ ОШИБКА]', '[ПАМЯТЬ ПЕРЕПОЛНЕНА]',
-        '[СИСТЕМА: СТАБИЛЬНА]'
-    ];
-
+    const glitchPhrases = ['[СИСТЕМА: ОШИБКА]', '[НЕТ СИГНАЛА]', '[ЗАГРУЗКА...]', '[ДАННЫЕ ПОВРЕЖДЕНЫ]', '[ВНИМАНИЕ: СБОЙ]', '[ПЕРЕЗАГРУЗКА...]', '[НЕДОСТУПНО]', '[КРИТИЧЕСКАЯ ОШИБКА]', '[ПАМЯТЬ ПЕРЕПОЛНЕНА]', '[СИСТЕМА: СТАБИЛЬНА]'];
     function updateGlitchTexts() {
-        const tl = document.getElementById('glitchTopLeft');
-        const br = document.getElementById('glitchBottomRight');
-        if (tl) tl.textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
-        if (br) br.textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+        document.getElementById('glitchTopLeft').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
+        document.getElementById('glitchBottomRight').textContent = glitchPhrases[Math.floor(Math.random() * glitchPhrases.length)];
     }
     setInterval(updateGlitchTexts, 8000);
     setTimeout(updateGlitchTexts, 2000);
 
-    // =========================================================
     // ВСЕ УЧЕНИКИ
-    // =========================================================
     let currentStudentProfile = null;
 
     async function loadWall() {
         try {
-            const response = await fetch(JSONBIN_URL, {
-                headers: { 'X-Master-Key': JSONBIN_KEY }
-            });
+            const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
             const data = await response.json();
-            if (data.record && data.record.wall) {
-                wallMessages = data.record.wall;
-            }
+            if (data.record && data.record.wall) wallMessages = data.record.wall;
             return wallMessages;
-        } catch (error) {
-            console.error('Ошибка загрузки стены:', error);
-            return [];
-        }
+        } catch (error) { return []; }
     }
 
     async function saveWall() {
         try {
-            const data = {
-                characters: characters,
-                chat: chatMessages,
-                gameTime: gameTime,
-                wall: wallMessages,
-                achievements: achievements,
-                notifications: notifications
-            };
+            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, achievements, notifications };
             const response = await fetch(JSONBIN_URL, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_KEY
-                },
+                headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
                 body: JSON.stringify(data)
             });
-            if (!response.ok) throw new Error('Ошибка сохранения стены: ' + response.status);
+            if (!response.ok) throw new Error('Ошибка: ' + response.status);
             return true;
-        } catch (error) {
-            console.error('❌ Ошибка сохранения стены:', error);
-            return false;
-        }
+        } catch (error) { return false; }
     }
 
     function renderStudentList() {
         const container = document.getElementById('studentList');
         if (!container) return;
         container.innerHTML = '';
-        
         const studentNames = Object.keys(characters);
         if (studentNames.length === 0) {
             container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:20px;">Персонажей пока нет...</div>';
             return;
         }
-        
         studentNames.forEach(name => {
             const card = document.createElement('div');
             card.style.cssText = 'background:rgba(26,16,56,0.8); border:2px dotted #ffffff; padding:15px; text-align:center; cursor:pointer; transition:0.3s; box-shadow:4px 4px 0px #0a0618;';
             card.onmouseover = () => { card.style.borderColor = '#a885ff'; card.style.transform = 'scale(1.03)'; };
             card.onmouseout = () => { card.style.borderColor = '#ffffff'; card.style.transform = 'scale(1)'; };
             card.onclick = () => { openStudentProfile(name); };
-            
             const avatar = characters[name].avatar || '';
             const avatarHtml = avatar ? `<img src="${avatar}" alt="${name}" style="width:60px; height:60px; border-radius:50%; object-fit:cover; border:2px solid #ffffff; margin-bottom:8px;">` : `<div style="width:60px; height:60px; border-radius:50%; background:#0a0618; border:2px solid #ffffff; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; color:#4a2b7a;"><i class="fas fa-user-circle" style="font-size:30px; color:#ffffff;"></i></div>`;
-            
-            card.innerHTML = `
-                ${avatarHtml}
-                <div style="color:#ffffff; font-size:16px; font-family:'8bitWonder',monospace;">${name}</div>
-                <div style="color:#8a7aaa; font-size:12px; margin-top:4px;">${characters[name].talent || ''}</div>
-            `;
+            card.innerHTML = `${avatarHtml}<div style="color:#ffffff; font-size:16px; font-family:'8bitWonder',monospace;">${name}</div><div style="color:#8a7aaa; font-size:12px; margin-top:4px;">${characters[name].talent || ''}</div>`;
             container.appendChild(card);
         });
     }
@@ -3205,16 +2844,13 @@ async function revokeAchievement(achId) {
     async function openStudentProfile(name) {
         const character = characters[name];
         if (!character) return;
-        
         currentStudentProfile = name;
         document.getElementById('studentProfileName').textContent = name;
         document.getElementById('studentTalent').textContent = character.talent || '—';
         document.getElementById('studentAge').textContent = character.age || '—';
         document.getElementById('studentStatus').textContent = character.status || '—';
-        
         await loadWall();
         renderStudentWall(name);
-        
         const form = document.getElementById('wallForm');
         const notAuth = document.getElementById('wallNotAuthorized');
         if (currentCharacter) {
@@ -3227,7 +2863,6 @@ async function revokeAchievement(achId) {
             form.style.display = 'none';
             notAuth.style.display = 'block';
         }
-        
         document.getElementById('studentProfileModal').style.display = 'flex';
     }
 
@@ -3239,52 +2874,27 @@ async function revokeAchievement(achId) {
     function renderStudentWall(name) {
         const container = document.getElementById('studentWallMessages');
         const messages = wallMessages.filter(msg => msg.to === name);
-        
         if (messages.length === 0) {
             container.innerHTML = '<div style="text-align:center; color:#6b5596; padding:15px;">Записей пока нет...</div>';
             return;
         }
-        
         container.innerHTML = '';
         messages.slice().reverse().forEach(msg => {
             const div = document.createElement('div');
             div.style.cssText = 'padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05);';
             const time = msg.time ? formatTime(msg.time) : '';
-            div.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="color:#a885ff; font-size:14px;">${msg.from}</span>
-                    <span style="color:#6b5596; font-size:11px;">${time}</span>
-                </div>
-                <div style="color:#d4c8ff; font-size:14px; margin-top:2px;">${msg.text}</div>
-            `;
+            div.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center;"><span style="color:#a885ff; font-size:14px;">${msg.from}</span><span style="color:#6b5596; font-size:11px;">${time}</span></div><div style="color:#d4c8ff; font-size:14px; margin-top:2px;">${msg.text}</div>`;
             container.appendChild(div);
         });
     }
 
     async function sendWallMessage() {
-        if (!currentCharacter) {
-            document.getElementById('wallMessageStatus').textContent = '❌ Войди в профиль';
-            return;
-        }
-        if (!currentStudentProfile) {
-            document.getElementById('wallMessageStatus').textContent = '❌ Ошибка';
-            return;
-        }
-        
+        if (!currentCharacter) { document.getElementById('wallMessageStatus').textContent = '❌ Войди в профиль'; return; }
+        if (!currentStudentProfile) { document.getElementById('wallMessageStatus').textContent = '❌ Ошибка'; return; }
         const input = document.getElementById('wallMessageInput');
         const text = input.value.trim();
-        if (!text) {
-            document.getElementById('wallMessageStatus').textContent = '✏️ Напиши что-нибудь!';
-            return;
-        }
-        
-        wallMessages.push({
-            from: currentCharacter,
-            to: currentStudentProfile,
-            text: text,
-            time: new Date().toISOString()
-        });
-        
+        if (!text) { document.getElementById('wallMessageStatus').textContent = '✏️ Напиши что-нибудь!'; return; }
+        wallMessages.push({ from: currentCharacter, to: currentStudentProfile, text, time: new Date().toISOString() });
         const saved = await saveWall();
         if (saved) {
             document.getElementById('wallMessageStatus').textContent = '✅ Запись добавлена!';
@@ -3296,102 +2906,63 @@ async function revokeAchievement(achId) {
         }
     }
 
-    // =========================================================
     // МОНОШОП — ПОКУПКА
-    // =========================================================
-    function buyItem(itemName, price) {
-        if (!currentCharacter) {
-            alert('❌ Войди в профиль, чтобы покупать в Моношопе!');
-            openTab('profile');
-            return;
-        }
-        
+    function buyItem(itemName, price, category) {
+        if (!currentCharacter) { alert('❌ Войди в профиль, чтобы покупать в Моношопе!'); openTab('profile'); return; }
         const character = characters[currentCharacter];
-        const currentCoins = character.coins || 0;
-        
+        const coinField = category === 'items' ? 'coinsItems' : 'coinsEvents';
+        const currentCoins = character[coinField] || 0;
+        const categoryName = category === 'items' ? 'МоноАйтемы' : 'МоноИвенты';
         if (currentCoins < price) {
-            alert('❌ Недостаточно монет!\n\nУ тебя: ' + currentCoins + ' 🪙\nНужно: ' + price + ' 🪙');
+            alert('❌ Недостаточно монет для ' + categoryName + '!\n\nУ тебя: ' + currentCoins + ' 🪙\nНужно: ' + price + ' 🪙');
             return;
         }
-        
-        if (!confirm('Купить "' + itemName + '" за ' + price + ' 🪙?\n\nУ тебя останется: ' + (currentCoins - price) + ' 🪙')) {
-            return;
-        }
-        
-        character.coins = currentCoins - price;
-        
+        if (!confirm('Купить "' + itemName + '" за ' + price + ' 🪙?\n\nКатегория: ' + categoryName + '\nУ тебя останется: ' + (currentCoins - price) + ' 🪙')) return;
+        character[coinField] = currentCoins - price;
         if (!character.inventory) character.inventory = [];
-        character.inventory.push({
-            name: itemName,
-            price: price,
-            date: new Date().toISOString()
-        });
-        
+        character.inventory.push({ name: itemName, price, category, date: new Date().toISOString() });
         saveToJSONBin().then(function() {
-            alert('✅ Покупка успешна!\n\n"' + itemName + '" добавлен в твой инвентарь.\n\nОсталось монет: ' + character.coins + ' 🪙');
-            if (document.getElementById('profileCoins')) {
-                document.getElementById('profileCoins').textContent = character.coins;
-            }
+            alert('✅ Покупка успешна!\n\n"' + itemName + '" добавлен в твой инвентарь.\n\nОсталось ' + categoryName + ': ' + character[coinField] + ' 🪙');
+            document.getElementById('profileCoinsEvents').textContent = character.coinsEvents || 0;
+            document.getElementById('profileCoinsItems').textContent = character.coinsItems || 0;
             renderInventory();
             addNotification('🛒 ' + currentCharacter + ' купил "' + itemName + '"');
-            
-            // Достижение за первую покупку
             if (!character.achievements) character.achievements = [];
             if (!character.achievements.includes('first_purchase')) {
                 character.achievements.push('first_purchase');
-                addNotification('🏆 Получено достижение: Первая покупка!');
+                addNotification('★ Получено достижение: Первая покупка!');
                 saveToJSONBin();
             }
         });
     }
 
-    // =========================================================
-    // ТАЙМЕР ДО ОБНОВЛЕНИЯ МОНОШОПА
-    // =========================================================
+    // ТАЙМЕР
     function updateShopTimer() {
         const timerEl = document.getElementById('shopUpdateTimer');
         if (!timerEl) return;
-        
         const updateDate = new Date();
         updateDate.setDate(updateDate.getDate() + 13);
-        
         const now = new Date();
         const diff = updateDate - now;
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        
         timerEl.textContent = days + ' дней';
     }
     setInterval(updateShopTimer, 60000);
     setTimeout(updateShopTimer, 1000);
 
-    // =========================================================
     // ЗАГРУЗКА
-    // =========================================================
     document.addEventListener('DOMContentLoaded', function() {
         loadCharacters();
         const chatInput = document.getElementById('chatMessageInput');
         if (chatInput) {
             chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !this.disabled) {
-                    e.preventDefault();
-                    sendMessage();
-                }
+                if (e.key === 'Enter' && !this.disabled) { e.preventDefault(); sendMessage(); }
             });
         }
-        
         const cardModal = document.getElementById('cardModal');
-        if (cardModal) {
-            cardModal.addEventListener('click', function(e) {
-                if (e.target === this) closeCardModal();
-            });
-        }
-        
+        if (cardModal) cardModal.addEventListener('click', function(e) { if (e.target === this) closeCardModal(); });
         const studentModal = document.getElementById('studentProfileModal');
-        if (studentModal) {
-            studentModal.addEventListener('click', function(e) {
-                if (e.target === this) closeStudentProfile();
-            });
-        }
+        if (studentModal) studentModal.addEventListener('click', function(e) { if (e.target === this) closeStudentProfile(); });
     });
 </script>
 
