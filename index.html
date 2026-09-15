@@ -34,9 +34,6 @@
             position: relative;
         }
 
-        /* ============================== */
-        /* ЗАГРУЗОЧНЫЙ ЭКРАН */
-        /* ============================== */
         #loadingScreen {
             position: fixed;
             top: 0;
@@ -728,9 +725,6 @@
             padding: 15px;
         }
 
-        /* ============================================ */
-        /* ЧАТ В СТИЛЕ МЕССЕНДЖЕРА */
-        /* ============================================ */
         .chat-container {
             background: rgba(18, 11, 42, 0.7);
             border: 2px solid #ffffff;
@@ -996,9 +990,6 @@
             background: #ddd;
         }
 
-        /* ============================================ */
-        /* ЛИЧНЫЕ СООБЩЕНИЯ */
-        /* ============================================ */
         .pm-layout {
             display: grid;
             grid-template-columns: 240px 1fr;
@@ -2246,9 +2237,25 @@
     </div>
 </div>
 
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <script>
-    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/6a88520bda38895dfeffc439';
-    const JSONBIN_KEY = '$2a$10$tsqlxcFg9kXHu4maHVFwYOZx5mNQHYzpmCR89bDJrPRsEdd3UpSue';
+    // Твой конфиг Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyDwmeSd8SB1RzwMvGm93GGDLEcDF0a7C_w",
+        authDomain: "danganronpa-academy.firebaseapp.com",
+        databaseURL: "https://danganronpa-academy-default-rtdb.firebaseio.com",
+        projectId: "danganronpa-academy",
+        storageBucket: "danganronpa-academy.firebasestorage.app",
+        messagingSenderId: "273200615977",
+        appId: "1:273200615977:web:1134cfdd422a9930698238"
+    };
+
+    // Инициализация Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     let characters = {};
     let chatMessages = [];
@@ -2394,7 +2401,7 @@
         notifications.unshift({ text: text, time: new Date().toISOString(), read: false });
         if (notifications.length > 50) notifications.pop();
         updateNotifUI();
-        saveToJSONBin();
+        saveToFirebase();
     }
 
     function updateNotifUI() {
@@ -2425,7 +2432,7 @@
         if (panel.classList.contains('show')) {
             notifications.forEach(n => n.read = true);
             updateNotifUI();
-            saveToJSONBin();
+            saveToFirebase();
         }
     }
 
@@ -2441,43 +2448,44 @@
         }
     }
 
-    async function loadCharacters() {
-        try {
-            const cached = localStorage.getItem('danganronpa_data');
-            if (cached) {
-                try {
-                    const data = JSON.parse(cached);
-                    characters = data.characters || {};
-                    chatMessages = data.chat || [];
-                    gameTime = data.gameTime || 'день';
-                    wallMessages = data.wall || [];
-                    privateMessages = data.privateMessages || [];
-                    achievements = data.achievements || getDefaultAchievements();
-                    notifications = data.notifications || [];
-                    migrateCoins();
-                    applyLoadedData();
-                } catch(e) {}
-            }
-            const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
-            const data = await response.json();
-            if (data.record) {
-                characters = data.record.characters || {};
-                chatMessages = data.record.chat || [];
-                gameTime = data.record.gameTime || 'день';
-                wallMessages = data.record.wall || [];
-                privateMessages = data.record.privateMessages || [];
-                achievements = data.record.achievements || getDefaultAchievements();
-                notifications = data.record.notifications || [];
+    // =============================================
+    // ЗАГРУЗКА ИЗ FIREBASE
+    // =============================================
+    function loadFromFirebase() {
+        const cached = localStorage.getItem('danganronpa_data');
+        if (cached) {
+            try {
+                const data = JSON.parse(cached);
+                characters = data.characters || {};
+                chatMessages = data.chat || [];
+                gameTime = data.gameTime || 'день';
+                wallMessages = data.wall || [];
+                privateMessages = data.privateMessages || [];
+                achievements = data.achievements || getDefaultAchievements();
+                notifications = data.notifications || [];
                 migrateCoins();
-                localStorage.setItem('danganronpa_data', JSON.stringify({
-                    characters, chat: chatMessages, gameTime, wall: wallMessages,
-                    privateMessages, achievements, notifications
-                }));
                 applyLoadedData();
-            }
-        } catch (error) {
-            if (!localStorage.getItem('danganronpa_data')) useFallbackData();
+            } catch(e) {}
         }
+
+        db.ref('/').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                characters = data.characters || {};
+                chatMessages = data.chat || [];
+                gameTime = data.gameTime || 'день';
+                wallMessages = data.wall || [];
+                privateMessages = data.privateMessages || [];
+                achievements = data.achievements || getDefaultAchievements();
+                notifications = data.notifications || [];
+                migrateCoins();
+                applyLoadedData();
+                localStorage.setItem('danganronpa_data', JSON.stringify(data));
+            }
+        }, (error) => {
+            console.error('Ошибка загрузки из Firebase:', error);
+            if (!cached) useFallbackData();
+        });
     }
 
     function migrateCoins() {
@@ -2521,32 +2529,33 @@
         }
     }
 
-    async function saveToJSONBin() {
-    try {
-        const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, privateMessages, achievements, notifications };
-        const response = await fetch(JSONBIN_URL, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-            body: JSON.stringify(data)
-        });
-        if (!response.ok) {
-            const errText = await response.text();
-            console.error('Ошибка сохранения:', response.status, errText);
-            alert('Ошибка сохранения: ' + response.status + '\n' + errText);
-            return false;
-        }
-        localStorage.setItem('danganronpa_data', JSON.stringify(data));
-        return true;
-    } catch (error) {
-        console.error('Ошибка:', error);
-        alert('Ошибка сети: ' + error.message);
-        return false;
+    // =============================================
+    // СОХРАНЕНИЕ В FIREBASE
+    // =============================================
+    function saveToFirebase() {
+        const data = {
+            characters,
+            chat: chatMessages,
+            gameTime,
+            wall: wallMessages,
+            privateMessages,
+            achievements,
+            notifications
+        };
+        return db.ref('/').set(data)
+            .then(() => {
+                localStorage.setItem('danganronpa_data', JSON.stringify(data));
+                return true;
+            })
+            .catch((error) => {
+                console.error('Ошибка Firebase:', error);
+                return false;
+            });
     }
-}
 
     async function saveGameTime() {
         gameTime = document.getElementById('timeSelect').value;
-        await saveToJSONBin();
+        await saveToFirebase();
         updateGameTimeDisplay();
         alert('Время суток сохранено: ' + gameTime);
     }
@@ -2690,7 +2699,7 @@
         if (!character.achievements.includes('first_login')) {
             character.achievements.push('first_login');
             addNotification('Получено достижение: Первый вход!');
-            saveToJSONBin();
+            saveToFirebase();
         }
     }
 
@@ -2755,7 +2764,7 @@
         if (!name) { alert('Введи название достижения!'); return; }
         const id = 'ach_' + Date.now();
         achievements.push({ id, icon: icon || '*', name, desc: desc || 'Без описания', unlocked: false });
-        saveToJSONBin();
+        saveToFirebase();
         renderAdminAchievements();
         renderAchievements('achievementsList');
         renderProfileAchievements();
@@ -2773,7 +2782,7 @@
                 characters[name].achievements = characters[name].achievements.filter(a => a !== id);
             }
         });
-        saveToJSONBin();
+        saveToFirebase();
         renderAdminAchievements();
         renderAchievements('achievementsList');
         renderProfileAchievements();
@@ -2829,7 +2838,7 @@
         if (!characters[charName].achievements) characters[charName].achievements = [];
         if (characters[charName].achievements.includes(achId)) { alert('У ' + charName + ' уже есть это достижение!'); return; }
         characters[charName].achievements.push(achId);
-        await saveToJSONBin();
+        await saveToFirebase();
         addNotification(charName + ' получил достижение: ' + ach.name);
         if (currentCharacter === charName) renderProfileAchievements();
         renderAdminAchievements();
@@ -2849,7 +2858,7 @@
         }
         if (!confirm('Забрать достижение "' + ach.name + '" у ' + charName + '?')) return;
         characters[charName].achievements = characters[charName].achievements.filter(a => a !== achId);
-        await saveToJSONBin();
+        await saveToFirebase();
         if (currentCharacter === charName) renderProfileAchievements();
         renderAdminAchievements();
         renderAchievements('achievementsList');
@@ -2859,7 +2868,7 @@
     function saveDiary() {
         if (!currentCharacter) { document.getElementById('diaryStatus').textContent = 'Войди в профиль'; return; }
         characters[currentCharacter].diary = document.getElementById('diaryInput').value;
-        saveToJSONBin();
+        saveToFirebase();
         document.getElementById('diaryStatus').textContent = 'Заметки сохранены!';
     }
 
@@ -2941,7 +2950,7 @@
         try {
             const compressedBase64 = await compressImage(file, 0.5);
             characters[currentCharacter].avatar = compressedBase64;
-            await saveToJSONBin();
+            await saveToFirebase();
             document.getElementById('avatarPreview').src = compressedBase64;
             alert('Аватарка сохранена!');
         } catch (error) { alert('Ошибка: ' + error.message); }
@@ -2962,7 +2971,6 @@
         input.focus();
     }
 
-    // ЧАТ — рендер в стиле мессенджера
     function renderChatMessages() {
         const container = document.getElementById('chatMessages');
         if (!container) return;
@@ -3010,23 +3018,9 @@
         } catch(e) { return timeStr || '--:--'; }
     }
 
-    async function loadMessages() {
-        try {
-            const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
-            const data = await response.json();
-            if (data.record && data.record.chat) {
-                chatMessages = data.record.chat;
-                renderChatMessages();
-            }
-            if (data.record && data.record.privateMessages) {
-                privateMessages = data.record.privateMessages;
-            }
-            const statusEl = document.getElementById('chatStatus');
-            if (statusEl) statusEl.textContent = 'Загружено сообщений: ' + chatMessages.length;
-        } catch (error) {
-            const statusEl = document.getElementById('chatStatus');
-            if (statusEl) statusEl.textContent = 'Ошибка подключения';
-        }
+    function loadMessages() {
+        const statusEl = document.getElementById('chatStatus');
+        if (statusEl) statusEl.textContent = 'Загружено сообщений: ' + chatMessages.length;
     }
 
     async function sendMessage() {
@@ -3041,7 +3035,7 @@
         try {
             document.getElementById('chatStatus').textContent = 'Отправка...';
             chatMessages.push({ time: new Date().toISOString(), character, message });
-            await saveToJSONBin();
+            await saveToFirebase();
             document.getElementById('chatStatus').textContent = 'Сообщение отправлено!';
             document.getElementById('chatMessageInput').value = '';
             renderChatMessages();
@@ -3049,12 +3043,11 @@
             if (!characters[currentCharacter].achievements.includes('first_message')) {
                 characters[currentCharacter].achievements.push('first_message');
                 addNotification('Получено достижение: Первое слово!');
-                saveToJSONBin();
+                saveToFirebase();
             }
         } catch (error) { document.getElementById('chatStatus').textContent = 'Ошибка отправки'; }
     }
 
-    // ЛИЧНЫЕ СООБЩЕНИЯ
     function renderPMContacts() {
         const container = document.getElementById('pmContactList');
         if (!container) return;
@@ -3098,7 +3091,7 @@
                 changed = true;
             }
         });
-        if (changed) saveToJSONBin();
+        if (changed) saveToFirebase();
     }
 
     function renderPMMessages() {
@@ -3141,7 +3134,7 @@
             time: new Date().toISOString(),
             read: false
         });
-        await saveToJSONBin();
+        await saveToFirebase();
         input.value = '';
         document.getElementById('pmStatus').textContent = 'Отправлено!';
         renderPMMessages();
@@ -3151,11 +3144,10 @@
         if (!characters[currentCharacter].achievements.includes('first_pm')) {
             characters[currentCharacter].achievements.push('first_pm');
             addNotification('Получено достижение: Шёпот!');
-            saveToJSONBin();
+            saveToFirebase();
         }
     }
 
-    // АДМИНКА
     const ADMIN_PASSWORD = 'sexwithgrandpa2001_COOL';
 
     function toggleAdmin() {
@@ -3241,7 +3233,7 @@
                 characters[name].coinsEvents = coinsEvents;
                 characters[name].coinsItems = coinsItems;
                 characters[name].status = status;
-                await saveToJSONBin();
+                await saveToFirebase();
                 updateGlobalStats();
                 if (currentCharacter === name) {
                     document.getElementById('profileCoinsEvents').textContent = coinsEvents;
@@ -3270,27 +3262,12 @@
 
     let currentStudentProfile = null;
 
-    async function loadWall() {
-        try {
-            const response = await fetch(JSONBIN_URL, { headers: { 'X-Master-Key': JSONBIN_KEY } });
-            const data = await response.json();
-            if (data.record && data.record.wall) wallMessages = data.record.wall;
-            if (data.record && data.record.privateMessages) privateMessages = data.record.privateMessages;
-            return wallMessages;
-        } catch (error) { return []; }
+    function loadWall() {
+        return wallMessages;
     }
 
-    async function saveWall() {
-        try {
-            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, privateMessages, achievements, notifications };
-            const response = await fetch(JSONBIN_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-                body: JSON.stringify(data)
-            });
-            if (!response.ok) throw new Error('Ошибка: ' + response.status);
-            return true;
-        } catch (error) { return false; }
+    function saveWall() {
+        return saveToFirebase();
     }
 
     function renderStudentList() {
@@ -3315,7 +3292,7 @@
         });
     }
 
-    async function openStudentProfile(name) {
+    function openStudentProfile(name) {
         const character = characters[name];
         if (!character) return;
         currentStudentProfile = name;
@@ -3323,7 +3300,6 @@
         document.getElementById('studentTalent').textContent = character.talent || '—';
         document.getElementById('studentAge').textContent = character.age || '—';
         document.getElementById('studentStatus').textContent = character.status || '—';
-        await loadWall();
         renderStudentWall(name);
         const form = document.getElementById('wallForm');
         const notAuth = document.getElementById('wallNotAuthorized');
@@ -3394,7 +3370,7 @@
         character[coinField] = currentCoins - price;
         if (!character.inventory) character.inventory = [];
         character.inventory.push({ name: itemName, price, category, date: new Date().toISOString() });
-        saveToJSONBin().then(function() {
+        saveToFirebase().then(function() {
             alert('Покупка успешна!\n\n"' + itemName + '" добавлен в твой инвентарь.\n\nОсталось ' + categoryName + ': ' + character[coinField]);
             document.getElementById('profileCoinsEvents').textContent = character.coinsEvents || 0;
             document.getElementById('profileCoinsItems').textContent = character.coinsItems || 0;
@@ -3404,7 +3380,7 @@
             if (!character.achievements.includes('first_purchase')) {
                 character.achievements.push('first_purchase');
                 addNotification('Получено достижение: Первая покупка!');
-                saveToJSONBin();
+                saveToFirebase();
             }
         });
     }
@@ -3423,7 +3399,7 @@
     setTimeout(updateShopTimer, 1000);
 
     document.addEventListener('DOMContentLoaded', function() {
-        loadCharacters();
+        loadFromFirebase();
         const chatInput = document.getElementById('chatMessageInput');
         if (chatInput) {
             chatInput.addEventListener('keypress', function(e) {
