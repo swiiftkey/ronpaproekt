@@ -2522,18 +2522,27 @@
     }
 
     async function saveToJSONBin() {
-        try {
-            const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, privateMessages, achievements, notifications };
-            const response = await fetch(JSONBIN_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-                body: JSON.stringify(data)
-            });
-            if (!response.ok) throw new Error('Ошибка сохранения: ' + response.status);
-            localStorage.setItem('danganronpa_data', JSON.stringify(data));
-            return true;
-        } catch (error) { return false; }
+    try {
+        const data = { characters, chat: chatMessages, gameTime, wall: wallMessages, privateMessages, achievements, notifications };
+        const response = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+            body: JSON.stringify(data)
+        });
+        if (!response.ok) {
+            const errText = await response.text();
+            console.error('Ошибка сохранения:', response.status, errText);
+            alert('Ошибка сохранения: ' + response.status + '\n' + errText);
+            return false;
+        }
+        localStorage.setItem('danganronpa_data', JSON.stringify(data));
+        return true;
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Ошибка сети: ' + error.message);
+        return false;
     }
+}
 
     async function saveGameTime() {
         gameTime = document.getElementById('timeSelect').value;
