@@ -2262,7 +2262,7 @@
     let wallMessages = [];
     let privateMessages = [];
     let achievements = [];
-    let notifications = [];
+    let notifications = {};
     let currentCharacter = null;
     let currentPMWith = null;
     let gameTime = 'день';
@@ -2397,9 +2397,24 @@
         } catch(e) {}
     }
 
-    function addNotification(text) {
-        notifications.unshift({ text: text, time: new Date().toISOString(), read: false });
-        if (notifications.length > 50) notifications.pop();
+    // =============================================
+    // УВЕДОМЛЕНИЯ — ТЕПЕРЬ ЛИЧНЫЕ ДЛЯ КАЖДОГО
+    // =============================================
+    function addNotification(text, targetCharacter) {
+        const target = targetCharacter || currentCharacter;
+        if (!target) return;
+
+        // Мигрируем старый формат (массив) в новый (объект)
+        if (Array.isArray(notifications)) notifications = {};
+        if (!notifications[target]) notifications[target] = [];
+
+        notifications[target].unshift({
+            text: text,
+            time: new Date().toISOString(),
+            read: false
+        });
+        if (notifications[target].length > 50) notifications[target].pop();
+
         updateNotifUI();
         saveToFirebase();
     }
@@ -2408,17 +2423,29 @@
         const countEl = document.getElementById('notifCount');
         const listEl = document.getElementById('notifList');
         if (!countEl || !listEl) return;
-        const unread = notifications.filter(n => !n.read).length;
+
+        // Мигрируем старый формат
+        if (Array.isArray(notifications)) notifications = {};
+
+        const myNotifs = (currentCharacter && notifications[currentCharacter])
+            ? notifications[currentCharacter]
+            : [];
+
+        const unread = myNotifs.filter(n => !n.read).length;
         if (unread > 0) {
             countEl.textContent = unread > 99 ? '99+' : unread;
             countEl.classList.add('show');
-        } else countEl.classList.remove('show');
-        if (notifications.length === 0) {
+        } else {
+            countEl.classList.remove('show');
+        }
+
+        if (myNotifs.length === 0) {
             listEl.innerHTML = '<div class="notif-empty">Нет уведомлений</div>';
             return;
         }
+
         let html = '';
-        notifications.slice(0, 20).forEach(n => {
+        myNotifs.slice(0, 20).forEach(n => {
             const time = n.time ? formatTime(n.time) : '';
             html += `<div class="notif-item">${n.text}<span class="notif-time">${time}</span></div>`;
         });
@@ -2429,8 +2456,11 @@
         const panel = document.getElementById('notifPanel');
         if (!panel) return;
         panel.classList.toggle('show');
-        if (panel.classList.contains('show')) {
-            notifications.forEach(n => n.read = true);
+        if (panel.classList.contains('show') && currentCharacter) {
+            if (Array.isArray(notifications)) notifications = {};
+            if (notifications[currentCharacter]) {
+                notifications[currentCharacter].forEach(n => n.read = true);
+            }
             updateNotifUI();
             saveToFirebase();
         }
@@ -2462,7 +2492,7 @@
                 wallMessages = data.wall || [];
                 privateMessages = data.privateMessages || [];
                 achievements = data.achievements || getDefaultAchievements();
-                notifications = data.notifications || [];
+                notifications = data.notifications || {};
                 migrateCoins();
                 applyLoadedData();
             } catch(e) {}
@@ -2477,7 +2507,7 @@
                 wallMessages = data.wall || [];
                 privateMessages = data.privateMessages || [];
                 achievements = data.achievements || getDefaultAchievements();
-                notifications = data.notifications || [];
+                notifications = data.notifications || {};
                 migrateCoins();
                 applyLoadedData();
                 localStorage.setItem('danganronpa_data', JSON.stringify(data));
@@ -2562,7 +2592,7 @@
 
     function useFallbackData() {
         characters = { "Кио Нагахара": { age: 17, talent: "Абсолютный Гипнотизер", status: "Жив", coinsEvents: 0, coinsItems: 0, password: "12345", diary: "", avatar: "", admin: false, inventory: [], achievements: [] } };
-        chatMessages = []; wallMessages = []; privateMessages = []; achievements = getDefaultAchievements(); notifications = []; gameTime = 'день';
+        chatMessages = []; wallMessages = []; privateMessages = []; achievements = getDefaultAchievements(); notifications = {}; gameTime = 'день';
         applyLoadedData();
     }
 
@@ -2589,6 +2619,7 @@
         currentPMWith = null;
         document.getElementById('loginBlock').style.display = 'block';
         document.getElementById('profileBlock').style.display = 'none';
+        updateNotifUI();
         updateChatCharacterSelect();
     }
 
@@ -2677,6 +2708,7 @@
             document.getElementById('avatarPlaceholder').style.display = 'block';
         }
         document.getElementById('diaryInput').value = character.diary || '';
+        updateNotifUI();
         updateChatCharacterSelect();
         renderInventory();
         renderProfileAchievements();
@@ -2698,7 +2730,7 @@
         if (!character.achievements) character.achievements = [];
         if (!character.achievements.includes('first_login')) {
             character.achievements.push('first_login');
-            addNotification('Получено достижение: Первый вход!');
+            addNotification('Получено достижение: Первый вход!', name);
             saveToFirebase();
         }
     }
@@ -2839,7 +2871,7 @@
         if (characters[charName].achievements.includes(achId)) { alert('У ' + charName + ' уже есть это достижение!'); return; }
         characters[charName].achievements.push(achId);
         await saveToFirebase();
-        addNotification(charName + ' получил достижение: ' + ach.name);
+        addNotification('Получено достижение: ' + ach.name, charName);
         if (currentCharacter === charName) renderProfileAchievements();
         renderAdminAchievements();
         renderAchievements('achievementsList');
@@ -3042,7 +3074,7 @@
             if (!characters[currentCharacter].achievements) characters[currentCharacter].achievements = [];
             if (!characters[currentCharacter].achievements.includes('first_message')) {
                 characters[currentCharacter].achievements.push('first_message');
-                addNotification('Получено достижение: Первое слово!');
+                addNotification('Получено достижение: Первое слово!', currentCharacter);
                 saveToFirebase();
             }
         } catch (error) { document.getElementById('chatStatus').textContent = 'Ошибка отправки'; }
@@ -3138,12 +3170,13 @@
         input.value = '';
         document.getElementById('pmStatus').textContent = 'Отправлено!';
         renderPMMessages();
-        addNotification('ЛС для ' + currentPMWith + ' отправлено');
+        // Уведомление получателю
+        addNotification('Новое сообщение от ' + currentCharacter, currentPMWith);
 
         if (!characters[currentCharacter].achievements) characters[currentCharacter].achievements = [];
         if (!characters[currentCharacter].achievements.includes('first_pm')) {
             characters[currentCharacter].achievements.push('first_pm');
-            addNotification('Получено достижение: Шёпот!');
+            addNotification('Получено достижение: Шёпот!', currentCharacter);
             saveToFirebase();
         }
     }
@@ -3350,7 +3383,7 @@
             document.getElementById('wallMessageStatus').textContent = 'Запись добавлена!';
             input.value = '';
             renderStudentWall(currentStudentProfile);
-            addNotification(currentCharacter + ' оставил запись на стене ' + currentStudentProfile);
+            addNotification(currentCharacter + ' оставил запись на твоей стене', currentStudentProfile);
         } else {
             document.getElementById('wallMessageStatus').textContent = 'Ошибка сохранения';
         }
@@ -3375,11 +3408,11 @@
             document.getElementById('profileCoinsEvents').textContent = character.coinsEvents || 0;
             document.getElementById('profileCoinsItems').textContent = character.coinsItems || 0;
             renderInventory();
-            addNotification(currentCharacter + ' купил "' + itemName + '"');
+            addNotification('Ты купил "' + itemName + '"', currentCharacter);
             if (!character.achievements) character.achievements = [];
             if (!character.achievements.includes('first_purchase')) {
                 character.achievements.push('first_purchase');
-                addNotification('Получено достижение: Первая покупка!');
+                addNotification('Получено достижение: Первая покупка!', currentCharacter);
                 saveToFirebase();
             }
         });
